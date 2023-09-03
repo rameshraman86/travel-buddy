@@ -1,14 +1,24 @@
 // load .env data into process.env
 require('dotenv').config();
+const PORT = process.env.PORT || 8080;
 
 // Web server config
 const sassMiddleware = require('./lib/sass-middleware');
-const express = require('express');
 const morgan = require('morgan');
-
-const PORT = process.env.PORT || 8080;
+const express = require('express');
+const http = require('http');
+const { Server } = require("socket.io");
 const app = express();
+const server = http.createServer(app);
 
+const io = new Server(server,
+  { cors: { origin: 'http://localhost:5173' } }
+);
+
+
+io.on('connection', socket => {
+  console.log('a user connected');
+});
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -47,6 +57,6 @@ app.get('/', (req, res) => {
   res.send('HELLO WORLD');
 });
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });

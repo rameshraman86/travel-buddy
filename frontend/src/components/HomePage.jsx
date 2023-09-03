@@ -8,6 +8,11 @@ export default function Homepage() {
   async function handleSubmit(event) {
     event.preventDefault();
     console.log('logging in...');
+    
+    const response = await fetch("http://localhost:8080/api/trips");
+    const trips = await response.json();
+    console.log(trips);
+    
   };
 
   const handleSetEmail = (event) => {
