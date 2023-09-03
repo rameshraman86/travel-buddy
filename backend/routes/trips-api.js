@@ -4,7 +4,6 @@ const trips = require("../db/queries/trips");
 
 
 router.get("/", (req, res) => {
-  console.log('api-reached');
   trips
     .getTrips()
     .then((trips) => {
