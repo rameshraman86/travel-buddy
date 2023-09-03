@@ -7,12 +7,14 @@ export default function Homepage() {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    console.log('logging in...');
-    
-    const response = await fetch("http://localhost:8080/api/trips");
-    const trips = await response.json();
-    console.log(trips);
-    
+    const response = await fetch(`http://localhost:8080/api/users/${email}`);
+    const user = await response.json();
+
+    if (user.user) {
+      alert(`Welcome back ${user.user.email}.. you'll be taken to your trip_url`);
+    } else {
+      alert(`Welcome new user ${email}. Create your new trip.`);
+    }
   };
 
   const handleSetEmail = (event) => {

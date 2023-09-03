@@ -6,7 +6,7 @@
  */
 
 const express = require('express');
-const router  = express.Router();
+const router = express.Router();
 const userQueries = require('../db/queries/users');
 
 router.get('/', (req, res) => {
@@ -20,5 +20,21 @@ router.get('/', (req, res) => {
         .json({ error: err.message });
     });
 });
+
+
+router.get('/:email', (req, res) => {
+  const email = req.params.email;
+  userQueries.getUserByEmail(email)
+    .then(user => {
+      console.log(user);
+      res.json({ user });
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json({ error: err.message });
+    });
+});
+
 
 module.exports = router;
