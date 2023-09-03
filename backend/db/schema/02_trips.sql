@@ -9,10 +9,3 @@ CREATE TABLE TRIPS (
   end_date TIMESTAMP NOT NULL,
   is_editable BOOLEAN NOT NULL DEFAULT TRUE
 );
-
--- id
--- trip_url (must be unique)
--- trip_name
--- start_date
--- end_date
--- is_editable = yes
