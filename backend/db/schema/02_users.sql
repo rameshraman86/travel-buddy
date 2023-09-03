@@ -1,0 +1,8 @@
+-- Drop and recreate Users table 
+DROP TABLE IF EXISTS users CASCADE;
+
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  trip_id INTEGER REFERENCES trips(id) ON DELETE CASCADE
+);
