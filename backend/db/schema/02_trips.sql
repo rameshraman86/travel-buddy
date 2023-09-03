@@ -1,16 +1,14 @@
+DROP TABLE IF EXISTS TRIPS;
 
-DROP TABLE IF EXISTS trips;
-
-CREATE TABLE trips (
-  id SERIAL PRIMARY KEY,
+-- check syntax unique
+CREATE TABLE TRIPS (
+  id SERIAL PRIMARY KEY NOT NULL,
   trip_url VARCHAR(255) UNIQUE NOT NULL,
   trip_name VARCHAR(255) NOT NULL,
   start_date TIMESTAMP NOT NULL,
   end_date TIMESTAMP NOT NULL,
   is_editable BOOLEAN NOT NULL DEFAULT TRUE
 );
-
-
 
 -- id
 -- trip_url (must be unique)

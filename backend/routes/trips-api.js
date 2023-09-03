@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const tripsDB = require("../db/queries/tripsDB");
+const trips = require("../db/queries/trips");
 
 
 router.get("/", (req, res) => {
   console.log('api-reached');
-  tripsDB
+  trips
     .getTrips()
     .then((trips) => {
       res.send(trips);

@@ -5,7 +5,7 @@ const getTrips = () => {
   const queryString = "SELECT * FROM trips;";
   return db
     .query(queryString)
-    .then((data) => console.log(data))
+    .then((data) => data.rows)
     .catch((error) => console.error(`Errors running q: `, error));
 };
 
