@@ -7,10 +7,8 @@ import { Link, Navigate, useNavigate, useLocation } from "react-router-dom";
 
 export default function Homepage() {
   const [email, setEmail] = useState('');
-  // const history = useHistory();
   const navigate = useNavigate();
-  const location = useLocation();
-  // console.log(location);
+  const location = useLocation(); //to store and pass a state variable through navigate
 
   async function handleSubmit(event) {
     event.preventDefault();

@@ -6,6 +6,7 @@ export default function NewTripPage(props) {
   const [tripName, setTripName] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
+
   const navigate = useNavigate();
   const { state } = useLocation();
 
@@ -21,10 +22,20 @@ export default function NewTripPage(props) {
     setEndDate(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+
+
+  async function handleSubmit(event) {
     event.preventDefault();
-    console.log(event);
+
+    //LOGIC TO GENERATE A NEW TRIP URL
+    const response = await fetch(`http://localhost:8080/api/trips/recent`);
+    const recentTrip = await response.json();
+    const new_url_id = recentTrip[0].id + 1;
+    const new_trip_url = `http://localhost:5173/${new_url_id}`;
+    console.log(new_trip_url);
   };
+
+
 
   const handleCancel = (event) => {
     event.preventDefault();
