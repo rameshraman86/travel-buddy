@@ -30,7 +30,20 @@ router.get("/recent", (req, res) => {
 
 // ***********CREATE***********
 //create a new trip record in the trips db. 
+router.post('/newTrip', (req, res) => {
+  const trip = req.body;
 
+  // console.log(trip);
+
+  trips.createNewTrip(trip)
+    .then((trip) => {
+      res.send(trip);
+    })
+    .catch(error => {
+      res.status(500).json({ error_create_trip: error.message });
+    });
+
+});
 //Then, create a new record in the users db with this trip_url
 
 

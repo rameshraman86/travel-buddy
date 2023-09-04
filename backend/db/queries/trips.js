@@ -19,7 +19,21 @@ const getRecentTrip = () => {
 };
 
 
+// ***********CREATE***********
+const createNewTrip = (trip) => {
+  const queryString = `INSERT INTO trips(trip_url, trip_name, start_date, end_date, is_editable) VALUES ($1, $2, $3, $4, $5) RETURNING * ;`;
+  const queryParams = [trip.trip_url, trip.trip_name, trip.start_date, trip.end_date, "TRUE"];
+  return db
+    .query(queryString, queryParams)
+    .then((result) => {
+      return result.rows[0];
+    })
+    .catch((error) => console.log(`error adding a new trip: `, error));
+
+};
+
 module.exports = {
   getTrips,
-  getRecentTrip
+  getRecentTrip,
+  createNewTrip
 };

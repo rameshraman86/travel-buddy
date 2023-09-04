@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import axios from 'axios';
 
 
 export default function NewTripPage(props) {
@@ -28,13 +29,29 @@ export default function NewTripPage(props) {
     event.preventDefault();
 
     //LOGIC TO GENERATE A NEW TRIP URL
-    const response = await fetch(`http://localhost:8080/api/trips/recent`);
-    const recentTrip = await response.json();
+    const response_recent_trip = await fetch(`http://localhost:8080/api/trips/recent`);
+    const recentTrip = await response_recent_trip.json();
     const new_url_id = recentTrip[0].id + 1;
     const new_trip_url = `http://localhost:5173/${new_url_id}`;
-    console.log(new_trip_url);
-  };
 
+    //post request to create new record in trips db
+    const newTripBody = {
+      trip_url: new_trip_url,
+      trip_name: tripName,
+      start_date: startDate,
+      end_date: endDate,
+    };
+
+    try {
+      axios.post(`http://localhost:8080/api/trips/newTrip`, newTripBody)
+        .then(res => {
+          console.log(res);
+          console.log(res.data);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
 
   const handleCancel = (event) => {
@@ -51,6 +68,7 @@ export default function NewTripPage(props) {
         <input
           type="text"
           id="tripName"
+          required={true}
           value={tripName}
           onChange={handleTripNameChange}
         />
@@ -59,6 +77,7 @@ export default function NewTripPage(props) {
         <input
           type="date"
           id="startDate"
+          required={true}
           value={startDate}
           onChange={handleStartDateChange}
         />
@@ -67,6 +86,7 @@ export default function NewTripPage(props) {
         <input
           type="date"
           id="endDate"
+          required={true}
           value={endDate}
           onChange={handleEndDateChange}
         />
