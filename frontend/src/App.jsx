@@ -6,8 +6,6 @@ import Homepage from './components/HomePage';
 import NewTripPage from './components/NewtripPage';
 import Chat from './components/Chat';
 
-
-
 function App() {
 
   return (

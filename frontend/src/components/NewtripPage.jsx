@@ -43,10 +43,16 @@ export default function NewTripPage(props) {
     };
 
     try {
-      axios.post(`http://localhost:8080/api/trips/newTrip`, newTripBody)
+      axios.post(`http://localhost:8080/api/trips/new-trip`, newTripBody)
+        .then(res => {
+          console.log(`data back:`, res.data.id);
+          axios.post(`http://localhost:8080/api/users/new-user`, {
+            email: state,
+            trip_id: res.data.id,
+          });
+        })
         .then(res => {
           console.log(res);
-          console.log(res.data);
         });
     } catch (error) {
       console.log(error);
@@ -54,11 +60,14 @@ export default function NewTripPage(props) {
   }
 
 
+
   const handleCancel = (event) => {
     event.preventDefault();
     const cancel = confirm('Cancel Trip?');
     cancel ? navigate("/") : null;
   };
+
+
 
   return (
     <form onSubmit={handleSubmit}>

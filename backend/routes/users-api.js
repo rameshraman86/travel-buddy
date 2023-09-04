@@ -37,4 +37,19 @@ router.get('/:email', (req, res) => {
 });
 
 
+//***************CREATE ***************/
+router.post('/new-user', (req, res) => {
+  const user = req.body;
+  console.log(`user is : `, user);
+  userQueries.createNewUser(user)
+    .then((user) => {
+      res.send(user);
+    })
+    .catch(error => {
+      res.status(500).json({ error_create_user: error.message });
+    });
+
+});
+
+
 module.exports = router;
