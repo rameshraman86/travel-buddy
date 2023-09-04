@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
-export default function NewTripPage() {
+
+export default function NewTripPage(props) {
   const [tripName, setTripName] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
+  const navigate = useNavigate();
+  const { state } = useLocation();
 
   const handleTripNameChange = (event) => {
     setTripName(event.target.value);
@@ -18,14 +22,20 @@ export default function NewTripPage() {
   };
 
   const handleSubmit = (event) => {
-    event.preventDefault(); // Prevents the default form submission behavior
-    // Add code to handle form submission here
+    event.preventDefault();
+    console.log(event);
+  };
+
+  const handleCancel = (event) => {
+    event.preventDefault();
+    const cancel = confirm('Cancel Trip?');
+    cancel ? navigate("/") : null;
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <h1>Create a new trip</h1>
+        <h1>Welcome {state}! Create a new trip</h1>
         <label htmlFor="tripName">Trip Name:</label>
         <input
           type="text"
@@ -33,6 +43,7 @@ export default function NewTripPage() {
           value={tripName}
           onChange={handleTripNameChange}
         />
+        <br />
         <label htmlFor="startDate">Start Date:</label>
         <input
           type="date"
@@ -40,6 +51,7 @@ export default function NewTripPage() {
           value={startDate}
           onChange={handleStartDateChange}
         />
+        <br />
         <label htmlFor="endDate">End Date:</label>
         <input
           type="date"
@@ -47,8 +59,9 @@ export default function NewTripPage() {
           value={endDate}
           onChange={handleEndDateChange}
         />
+        <br />
         <button type="submit">Create Trip</button>
-        <button type="button">Cancel</button>
+        <button type="button" onClick={handleCancel}>Cancel</button>
       </div>
     </form>
   );

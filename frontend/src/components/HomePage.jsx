@@ -1,12 +1,16 @@
 //this is homepage component
 import React from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate, useLocation } from "react-router-dom";
+
 
 
 export default function Homepage() {
   const [email, setEmail] = useState('');
   // const history = useHistory();
+  const navigate = useNavigate();
+  const location = useLocation();
+  // console.log(location);
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -14,9 +18,9 @@ export default function Homepage() {
     const user = await response.json();
     if (user.user) {
       alert(`Welcome back ${user.user.email}.. you'll be taken to your trip_url`);
+
     } else {
-      alert(`Welcome new user ${email}. Create your new trip.`);
-      // history.push('/newtrip');
+      navigate("/new", { state: email });
     }
   };
 

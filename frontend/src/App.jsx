@@ -9,13 +9,13 @@ import Chat from './components/Chat';
 
 
 function App() {
-
+  
   return (
     <>
       <Routes>
         {/* <Chat /> */}
         <Route path='/' element={<Homepage />} />
-        <Route path='/newtrip' element={<NewTripPage />} />
+        <Route path='/new' element={<NewTripPage />} />
       </Routes>
     </>
   );
