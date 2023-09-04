@@ -17,7 +17,7 @@ export default function Homepage() {
     if (user.user) {
       const response = await fetch(`http://localhost:8080/api/trips/${user.user.email}`); //will return tripurl
       const tripURLObject = await response.json();
-      navigate(tripURLObject.trip_url.split('/').pop());
+      navigate(tripURLObject.trip_url.split('/').pop()); 
     } else {
       navigate("/new", { state: email });
     }
