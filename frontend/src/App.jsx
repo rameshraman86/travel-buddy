@@ -1,16 +1,22 @@
-import { useState } from 'react';
 import './App.css';
+import { useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
 
 import Homepage from './components/HomePage';
+import NewTripPage from './components/NewtripPage';
 import Chat from './components/Chat';
 
 
+
 function App() {
-  
+
   return (
     <>
-      <Homepage />
-      {/* <Chat /> */}
+      <Routes>
+        {/* <Chat /> */}
+        <Route path='/' element={<Homepage />} />
+        <Route path='/newtrip' element={<NewTripPage />} />
+      </Routes>
     </>
   );
 }
