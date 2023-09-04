@@ -1,7 +1,7 @@
 //this is homepage component
 import React from "react";
 import { useState } from "react";
-import { Link, Navigate, useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 
 
@@ -15,8 +15,9 @@ export default function Homepage() {
     const response = await fetch(`http://localhost:8080/api/users/${email}`);
     const user = await response.json();
     if (user.user) {
-      alert(`Welcome back ${user.user.email}.. you'll be taken to your trip_url`);
-
+      const response = await fetch(`http://localhost:8080/api/trips/${user.user.email}`); //will return tripurl
+      const tripURLObject = await response.json();
+      navigate(tripURLObject.trip_url.split('/').pop());
     } else {
       navigate("/new", { state: email });
     }
@@ -37,6 +38,7 @@ export default function Homepage() {
           type="email"
           name="email"
           className="email"
+          required={true}
           placeholder="Please enter email"
           value={email} onChange={handleSetEmail}
         ></input>

@@ -7,7 +7,6 @@ export default function NewTripPage(props) {
   const [tripName, setTripName] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
-
   const navigate = useNavigate();
   const { state } = useLocation();
 
@@ -27,35 +26,32 @@ export default function NewTripPage(props) {
 
   async function handleSubmit(event) {
     event.preventDefault();
-
     //LOGIC TO GENERATE A NEW TRIP URL
     const response_recent_trip = await fetch(`http://localhost:8080/api/trips/recent`);
     const recentTrip = await response_recent_trip.json();
     const new_url_id = recentTrip[0].id + 1;
     const new_trip_url = `http://localhost:5173/${new_url_id}`;
 
-    //post request to create new record in trips db
+    //post request to create new record in trips db and a new user for the trip
     const newTripBody = {
       trip_url: new_trip_url,
       trip_name: tripName,
       start_date: startDate,
       end_date: endDate,
     };
-
     try {
       axios.post(`http://localhost:8080/api/trips/new-trip`, newTripBody)
         .then(res => {
-          console.log(`data back:`, res.data.id);
           axios.post(`http://localhost:8080/api/users/new-user`, {
             email: state,
             trip_id: res.data.id,
           });
         })
-        .then(res => {
-          console.log(res);
+        .then(() => {
+          navigate(`/${new_url_id}`);
         });
     } catch (error) {
-      console.log(error);
+      console.log(`Error creating new trip and user: `, error);
     }
   }
 
