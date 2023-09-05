@@ -13,9 +13,9 @@ export default function Homepage() {
   async function handleSubmit(event) {
     event.preventDefault();
     const response = await fetch(`http://localhost:8080/api/users/${email}`);
-    const user = await response.json();
-    if (user.user) {
-      const response = await fetch(`http://localhost:8080/api/trips/${user.user.email}`); //will return tripurl
+    const userObject = await response.json();
+    if (userObject.user) {
+      const response = await fetch(`http://localhost:8080/api/trips/${userObject.user.email}`); //will return tripurl
       const tripURLObject = await response.json();
       navigate(tripURLObject.trip_url.split('/').pop()); 
     } else {
