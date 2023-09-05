@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const trips = require("../db/queries/trips");
 const tripData = require("../db/queries/tripsData");
+const itineraries = require("../db/queries/itineraries");
 
 // ***********READ***********
 //get all trips
@@ -28,7 +29,7 @@ router.get("/recent", (req, res) => {
     });
 });
 
-
+//get trip url of a user by email
 router.get("/:email", (req, res) => {
   const email = req.params.email;
   tripData.getTripURLByEmail(email)
@@ -41,8 +42,31 @@ router.get("/:email", (req, res) => {
 });
 
 
+//get all trip itineraries by trip id
+router.get("/itinerary-names/:tripid", (req, res) => {
+  const trip_id = req.params.tripid;
+  itineraries.getItinerariesByTripID(trip_id)
+    .then(itineraries => {
+      res.send(itineraries);
+    })
+    .catch(error => {
+      res.status(500).json({ error_itineraries: error.message });
+    });
+});
+//get all trip itinerary items by trip id
+router.get("/itinerary-items/:tripid", (req, res) => {
+  const trip_id = req.params.tripid;
+  itineraries.getItineraryItemsByTripID(trip_id)
+    .then(itineryItems => {
+      res.send(itineryItems);
+    })
+    .catch(error => {
+      res.status(500).json({ error_itineryItems: error.message });
+    });
+});
+
+
 // ***********CREATE***********
-//create a new trip record in the trips db. 
 router.post('/new-trip', (req, res) => {
   const trip = req.body;
   trips.createNewTrip(trip)
@@ -54,7 +78,7 @@ router.post('/new-trip', (req, res) => {
     });
 
 });
-//Then, create a new record in the users db with this trip_url
+
 
 
 

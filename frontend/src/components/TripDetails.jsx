@@ -10,7 +10,7 @@ export default function TripDetails() {
     <>
       <h1>Trip {id} details</h1>
 
-      <Itineraries tripId={id} />
+      <Itineraries tripID={id} />
       
       <h2>Messages </h2>
       <h2>Map</h2>

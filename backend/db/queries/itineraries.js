@@ -20,3 +20,9 @@ const getItineraryItemsByTripID = (trip_id) => {
     .then(data => data.rows)
     .catch(error => console.error(`Error fetching itinerary items for trip id ${trip_id}`, error));
 };
+
+
+module.exports = {
+  getItinerariesByTripID,
+  getItineraryItemsByTripID,
+};
