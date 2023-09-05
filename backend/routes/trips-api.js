@@ -3,6 +3,7 @@ const router = express.Router();
 const trips = require("../db/queries/trips");
 const tripData = require("../db/queries/tripsData");
 const itineraries = require("../db/queries/itineraries");
+const messages = require("../db/queries/messages");
 
 // ***********READ***********
 //get all trips
@@ -62,6 +63,19 @@ router.get("/itinerary-items/:tripid", (req, res) => {
     })
     .catch(error => {
       res.status(500).json({ error_itineryItems: error.message });
+    });
+});
+
+
+//get all messages of a trip
+router.get("/messages/:tripid", (req, res) => {
+  const trip_id = req.params.tripid;
+  messages.getMessagesByTripID(trip_id)
+    .then(messages => {
+      res.send(messages);
+    })
+    .catch(error => {
+      res.status(500).json({ error_trip_messages: error.message });
     });
 });
 

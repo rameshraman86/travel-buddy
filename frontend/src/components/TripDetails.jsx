@@ -1,18 +1,17 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import Itineraries from "./Itineraries";
+import Messages from "./Messages";
 
 
 export default function TripDetails() {
   const { id } = useParams();
+  
   return (
-
     <>
       <h1>Trip {id} details</h1>
-
       <Itineraries tripID={id} />
-      
-      <h2>Messages </h2>
+      <Messages tripID={id} />
       <h2>Map</h2>
     </>
   );

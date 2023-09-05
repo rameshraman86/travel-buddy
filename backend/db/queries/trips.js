@@ -6,7 +6,7 @@ const getTrips = () => {
   return db
     .query(queryString)
     .then((data) => data.rows)
-    .catch((error) => console.error(`Errors running all trips: `, error));
+    .catch((error) => console.error(`Errors returning all trips: `, error));
 };
 
 
