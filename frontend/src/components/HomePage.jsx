@@ -1,24 +1,24 @@
 //this is homepage component
 import React from "react";
 import { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 
 export default function Homepage() {
   const [email, setEmail] = useState('');
   const navigate = useNavigate();
-  const location = useLocation(); //to store and pass a state variable through navigate
 
   async function handleSubmit(event) {
     event.preventDefault();
     const response = await fetch(`http://localhost:8080/api/users/${email}`);
     const userObject = await response.json();
-    if (userObject.user) {
-      const response = await fetch(`http://localhost:8080/api/trips/${userObject.user.email}`); //will return tripurl
+    if (userObject.user) { //if user exists in the db, take them to their tripURL details
+      const response = await fetch(`http://localhost:8080/api/trips/${userObject.user.email}`); //will return full tripurl
       const tripURLObject = await response.json();
-      navigate(tripURLObject.trip_url.split('/').pop()); 
-    } else {
+      const tripDetailsRoute = tripURLObject.trip_url.split('/').pop() + "/details"; //strip the trip id from url and append /details route
+      navigate(tripDetailsRoute); 
+    } else { //if user is new, take them to create new trip page
       navigate("/new", { state: email });
     }
   };

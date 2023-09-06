@@ -48,14 +48,12 @@ export default function NewTripPage(props) {
           });
         })
         .then(() => {
-          navigate(`/${new_url_id}`);
+          navigate(`/${new_url_id}/details`);
         });
     } catch (error) {
       console.log(`Error creating new trip and user: `, error);
     }
   }
-
-
 
   const handleCancel = (event) => {
     event.preventDefault();
