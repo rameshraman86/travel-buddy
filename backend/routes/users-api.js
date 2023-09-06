@@ -38,10 +38,8 @@ router.get('/get-user-details/:email', (req, res) => {
 });
 
 
-
-
 //***************CREATE ***************/
-router.post('/new-user', (req, res) => {
+router.post('/create-new-user', (req, res) => {
   const user = req.body;
   userQueries.createNewUser(user)
     .then((user) => {
