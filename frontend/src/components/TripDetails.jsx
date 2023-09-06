@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React  from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Itineraries from "./Itineraries";
 import Messages from "./Messages";
-import AuthenticateReturningUser from "./AuthenticateReturningUser";
 
 export default function TripDetails() {
   const { id } = useParams();

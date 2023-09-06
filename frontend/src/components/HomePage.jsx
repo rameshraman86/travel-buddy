@@ -27,9 +27,7 @@ export default function Homepage() {
   const handleSetEmail = (event) => {
     setEmail(event.target.value);
   };
-
-
-
+  
   return (
     <>
       <h1>Travel Buddy!!!</h1>

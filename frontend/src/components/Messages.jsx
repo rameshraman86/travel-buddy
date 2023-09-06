@@ -13,7 +13,6 @@ export default function Messages(props) {
       try {
         const messagesResponse = await axios.get(`http://localhost:8080/api/trips/messages/${tripID}`);
         setMessages(messagesResponse.data);
-        console.log(messagesResponse.data);
       } catch (error) {
         console.log(`error fetching messages:`, error);
       }
