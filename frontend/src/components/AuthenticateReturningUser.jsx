@@ -50,12 +50,12 @@ export default function AuthenticateReturningUser() {
   async function handleSubmit(event) {
     event.preventDefault();
     const userObject = await axios.get(`http://localhost:8080/api/users/get-user-details/${email}`);
-    console.log(userObject.data);
-    if (userObject.data) { //if user exists in the db, take them to url details
+    console.log(userObject);
+    if (userObject.data.length > 0) { //if user exists in the db, take them to url details
       navigate(`details`);
     } else { //if user is new, create user record and take them to tripURL details
       try {
-        axios.post(`http://localhost:8080/api/users/new-user`, {
+        axios.post(`http://localhost:8080/api/users/create-new-user`, {
           email: email,
           trip_id: id,
         }).then(() => {

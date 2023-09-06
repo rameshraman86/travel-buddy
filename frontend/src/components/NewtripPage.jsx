@@ -42,7 +42,7 @@ export default function NewTripPage(props) {
     try {
       axios.post(`http://localhost:8080/api/trips/new-trip`, newTripBody)
         .then(res => {
-          axios.post(`http://localhost:8080/api/users/new-user`, {
+          axios.post(`http://localhost:8080/api/users/create-new-user`, {
             email: state,
             trip_id: res.data.id,
           });

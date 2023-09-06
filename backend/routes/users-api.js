@@ -27,7 +27,8 @@ router.get('/get-user-details/:email', (req, res) => {
   const email = req.params.email;
   userQueries.getUserByEmail(email)
     .then(user => {
-      res.json({ user });
+      // res.json({ user });
+      res.send(user);
     })
     .catch(err => {
       res
