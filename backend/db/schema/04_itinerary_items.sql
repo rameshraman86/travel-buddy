@@ -26,4 +26,4 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER set_trip_id_trigger
 BEFORE INSERT ON itinerary_items
 FOR EACH ROW
-EXECUTE FUNCTION set_trip_id();
+EXECUTE PROCEDURE set_trip_id();

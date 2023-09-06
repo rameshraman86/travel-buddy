@@ -6,22 +6,32 @@ const PORT = process.env.PORT || 8080;
 const sassMiddleware = require('./lib/sass-middleware');
 const morgan = require('morgan');
 const express = require('express');
-const http = require('http');
-const { Server } = require("socket.io");
 const app = express();
+const http = require('http');
 const server = http.createServer(app);
+const { Server } = require("socket.io");
 app.use(express.json());
 
 //setup cors
 const cors = require('cors');
 app.use(cors());
 const io = new Server(server,
-  { cors: { origin: 'http://localhost:5173/' } }
+  { cors: { origin: 'http://localhost:5173' } }
 );
 
 
+const users = [];
 io.on('connection', socket => {
   console.log('a user connected');
+  // emit will take 2 params; a string which will be the name or action and a payload which is a package in some form sent from the backend to the client. 
+  const name = "user" + Math.round(Math.random()*10000)
+  users.push(name)
+  socket.emit('intial_conn', {name, users});
+  socket.broadcast.emit('new_users', {name});
+
+  socket.on('send_msg', payload => {
+    io.emit("send_msg", payload);
+  })
 });
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT

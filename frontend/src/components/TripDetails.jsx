@@ -1,6 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import Itineraries from "./Itineraries";
+import Chat from './Chat';
 
 
 export default function TripDetails() {
@@ -12,7 +13,7 @@ export default function TripDetails() {
 
       <Itineraries tripId={id} />
       
-      <h2>Messages </h2>
+      <Chat/>
       <h2>Map</h2>
     </>
   );
