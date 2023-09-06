@@ -23,6 +23,7 @@ export default function Itineraries(props) {
     fetchData();
   }, []);
 
+  
   return (
     <div className="itineraries"> 
     <h2>Itinerary</h2>

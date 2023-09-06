@@ -20,6 +20,7 @@ export default function Messages(props) {
     fetchData();
   }, []);
 
+  
   return (
     <div className="messages"><h2>Message Board</h2>
       {messages.map((message) => (

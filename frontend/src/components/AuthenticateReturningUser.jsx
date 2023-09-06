@@ -3,20 +3,23 @@
 //if email is not associated to trip, system will create it and show user the trip details
 //if email is already associated to trip, system will take user to trip details.
 
-
 //if user enters trip url 1, but the email is already associated to trip url 2, then they will be automatically
 //navigated to trip url 2 instead of 1. 
 //if user is not part of any trips, then system will create a new user record for email, associate it to the trip they were
 //trying to access and take them there.
 //this is because of restriction that 1 email = 1 trip.
 
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, Link } from 'react-router-dom';
 import axios from 'axios';
+import NotFound from "./NotFound";
+
+
 
 export default function AuthenticateReturningUser() {
   const [email, setEmail] = useState('');
+  const [IDisValid, setIDisValid] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -25,13 +28,30 @@ export default function AuthenticateReturningUser() {
     setEmail(event.target.value);
   };
 
+
+  //Check if the trip url is a valid url in db. set the IDisValid state to true or false accordingly
+  useEffect(() => {
+    const fetchData = async (id) => {
+      try {
+        const response = await axios.get(`http://localhost:8080/api/trips/get-trip-details/${id}`);
+        if (response.data.length === 0) {
+          setIDisValid(false);
+        } else {
+          setIDisValid(true);
+        }
+      } catch (error) {
+        console.log(`error fetching trip for the id:`, error);
+      }
+    };
+    fetchData(id);
+  }, []);
+
+
   async function handleSubmit(event) {
     event.preventDefault();
-    const response = await fetch(`http://localhost:8080/api/users/${email}`);
-    const userObject = await response.json();
-    if (userObject.user) { //if user exists in the db, get their tripURL from db
-      const response = await fetch(`http://localhost:8080/api/trips/${userObject.user.email}`); //will return full tripurl with email
-      const tripURLObject = await response.json();
+    const userObject = await axios.get(`http://localhost:8080/api/users/get-user-details/${email}`);
+    console.log(userObject.data);
+    if (userObject.data) { //if user exists in the db, take them to url details
       navigate(`details`);
     } else { //if user is new, create user record and take them to tripURL details
       try {
@@ -46,6 +66,7 @@ export default function AuthenticateReturningUser() {
       }
     }
   };
+
 
   return (
     <>
