@@ -3,7 +3,7 @@
 const db = require('../connection');
 
 const getTripURLByEmail = (email) => {
-  const queryString = 'SELECT t.trip_url FROM trips as t JOIN users AS u ON t.id=u.trip_id WHERE email =$1;';
+  const queryString = 'SELECT t.trip_url FROM trips as t JOIN users AS u ON t.id=u.trip_id WHERE email=$1;';
   const queryParams = [email];
   return db.query(queryString, queryParams)
     .then(data => {

@@ -9,7 +9,7 @@ const getUsers = () => {
 
 //******check if user exists by email */
 const getUserByEmail = (email) => {
-  return db.query(`SELECT * FROM users WHERE email = $1;`, [email])
+  return db.query(`SELECT * FROM users WHERE email=$1;`, [email])
     .then(data => {
       return data.rows[0];
     });

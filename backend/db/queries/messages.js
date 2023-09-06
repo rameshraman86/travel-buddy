@@ -11,7 +11,6 @@ const getMessagesByTripID = (tripID) => {
     .catch(error => console.error(`error returning messages by trip: `, error));
 };
 
-
 module.exports = {
   getMessagesByTripID
 };
