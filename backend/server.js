@@ -56,7 +56,7 @@ const usersRoutes = require('./routes/users');
 const tripRoutes = require("./routes/trips-api");
 const itineraryRoutes = require("./routes/itinerary-api");
 const googleRoutes = require("./routes/google-api");
-
+const aiRoutes = require("./routes/ai-api");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -66,6 +66,7 @@ app.use('/users', usersRoutes);
 app.use("/api/trips", tripRoutes);
 app.use("/api/itinerary", itineraryRoutes);
 app.use("/api/google", googleRoutes);
+app.use("/api/ai", aiRoutes);
 // Note: mount other resources here, using the same pattern above
 
 // Home page

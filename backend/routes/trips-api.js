@@ -76,8 +76,8 @@ router.get("/itinerary-items/:tripid", (req, res) => {
 
 router.post("/itinerary-items/:tripid", (req, res) => {
   const itineraryItem = req.body;
-
   itineraries.addItineraryItem(itineraryItem)
+
     .then(itineryItem => {
       res.send(itineryItem);
     })

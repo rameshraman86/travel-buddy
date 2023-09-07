@@ -5,10 +5,6 @@ const { Client } = require("@googlemaps/google-maps-services-js");
 
 const client = new Client({});
 
-
-
-
-
 router.get("/", async (req, res) => {
   client
     .elevation({

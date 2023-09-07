@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from 'axios';
 
@@ -12,9 +13,12 @@ const parseArr = (string) => {
   return arr.map(str => str.slice(1, -1));
 };
 
+import AIAssistant from "./AIAssistant";
+
 
 export default function TripDetails() {
   const { id } = useParams();
+  console.log(`id is : ${id}`);
 
   const [itineraries, setItineraries] = useState([]);
   const [itineraryItems, setItineraryItems] = useState([]);
@@ -52,9 +56,9 @@ export default function TripDetails() {
     const newPlaceBody = {
       ...selectedPlace,
       itinerary_id: 1, // TODO: assign to wishlist 
-      trip_id: parseInt(id)
+      trip_id: parseInt(id),
     };
-    console.log(newPlaceBody);
+    console.log(`new place body is : ${newPlaceBody}`);
 
     setItineraryItems([...itineraryItems, newPlaceBody]);
 
@@ -78,6 +82,7 @@ export default function TripDetails() {
       <div>
         <Messages tripID={id} />
         <Chat />
+        <AIAssistant tripID={id} />
       </div>
       <div>
         <h2>Map</h2>
@@ -85,6 +90,12 @@ export default function TripDetails() {
           itineraryItems={itineraryItems}
           addToWishlist={addToWishlist} />
       </div>
+      {/* <h1>Trip {id} details</h1>
+      <Itineraries tripID={id} />
+      <Messages tripID={id} />
+      <Chat />
+      <h2>Map</h2> */}
+      {/* <AIAssistant tripID={id} /> */}
     </>
   );
 }
