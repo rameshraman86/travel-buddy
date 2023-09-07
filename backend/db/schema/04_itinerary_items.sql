@@ -21,18 +21,18 @@ CREATE TABLE itinerary_items(
 );
 
 
--- trigger to set trip_id in itinerary_items to match the trip_id in itinerary
-CREATE OR REPLACE FUNCTION set_trip_id()
-RETURNS TRIGGER AS $$
-BEGIN
-  -- Set the trip_id in itinerary_items to match the trip_id in itinerary
-  NEW.trip_id := (SELECT trip_id FROM itinerary WHERE id = NEW.itinerary_id);
-  RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
+-- -- trigger to set trip_id in itinerary_items to match the trip_id in itinerary
+-- CREATE OR REPLACE FUNCTION set_trip_id()
+-- RETURNS TRIGGER AS $$
+-- BEGIN
+--   -- Set the trip_id in itinerary_items to match the trip_id in itinerary
+--   NEW.trip_id := (SELECT trip_id FROM itinerary WHERE id = NEW.itinerary_id);
+--   RETURN NEW;
+-- END;
+-- $$ LANGUAGE plpgsql;
 
--- Create a trigger on itinerary_items
-CREATE TRIGGER set_trip_id_trigger
-BEFORE INSERT ON itinerary_items
-FOR EACH ROW
-EXECUTE PROCEDURE set_trip_id();
+-- -- Create a trigger on itinerary_items
+-- CREATE TRIGGER set_trip_id_trigger
+-- BEFORE INSERT ON itinerary_items
+-- FOR EACH ROW
+-- EXECUTE PROCEDURE set_trip_id();
