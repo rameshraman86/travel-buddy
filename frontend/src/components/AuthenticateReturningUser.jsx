@@ -19,7 +19,7 @@ import NotFound from "./NotFound";
 
 export default function AuthenticateReturningUser() {
   const [email, setEmail] = useState('');
-  const [IDisValid, setIDisValid] = useState(false);
+  const [IDisValid, setIDisValid] = useState(true);
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -69,8 +69,10 @@ export default function AuthenticateReturningUser() {
 
   return (
     <>
-      <h1>Travel Buddy - open your trip!!!</h1>
+      {!IDisValid && <NotFound />}
+      {IDisValid &&
       <form onSubmit={handleSubmit}>
+        <h1>Travel Buddy - open your trip!!!</h1>
         <input
           type="email"
           name="email"
@@ -81,6 +83,7 @@ export default function AuthenticateReturningUser() {
         ></input>
         <button type="submit">Login</button>
       </form>
+      }
     </>
   );
 }
