@@ -16,7 +16,7 @@ const parseArr = (string) => {
 import AIAssistant from "./AIAssistant";
 
 
-export default function TripDetails() {
+export default function TripDetails(props) {
   const { id } = useParams();
   console.log(`id is : ${id}`);
 

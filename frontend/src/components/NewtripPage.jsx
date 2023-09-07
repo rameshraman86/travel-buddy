@@ -4,6 +4,8 @@ import axios from 'axios';
 
 
 export default function NewTripPage(props) {
+  const { tripLocation, handleTripLocationChange } = props;
+
   const [tripName, setTripName] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
@@ -78,6 +80,15 @@ export default function NewTripPage(props) {
           required={true}
           value={tripName}
           onChange={handleTripNameChange}
+        />
+        <br />
+        <label htmlFor="tripLocation">Location:</label>
+        <input
+          type="text"
+          id="tripLocation"
+          required={true}
+          value={tripLocation}
+          onChange={handleTripLocationChange}
         />
         <br />
         <label htmlFor="startDate">Start Date:</label>

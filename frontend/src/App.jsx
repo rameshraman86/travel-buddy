@@ -11,14 +11,26 @@ import NotFound from './components/NotFound';
 
 function App() {
 
+  const [tripLocation, setTripLocation] = useState('');
+
+  const handleTripLocationChange = (event) => {
+    setTripLocation(event.target.value);
+  };
+
+
   return (
     <>
       <Routes>
         {/* <Chat /> */}
         <Route path='/' element={<Homepage />} />
-        <Route path='/new' element={<NewTripPage />} />
+        <Route path='/new' element={<NewTripPage
+          tripLocation={tripLocation}
+          handleTripLocationChange={handleTripLocationChange}
+        />} />
         <Route path='/:id' element={<AuthenticateReturningUser />} />
-        <Route path='/:id/details' element={<TripDetails />} />
+        <Route path='/:id/details' element={<TripDetails
+          tripLocation={tripLocation}
+        />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
     </>
