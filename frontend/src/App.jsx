@@ -15,6 +15,8 @@ function App() {
   const [tripName, setTripName] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
+  const [email, setEmail] = useState('');
+
 
   const handleTripLocationChange = (event) => {
     setTripLocation(event.target.value);
@@ -32,11 +34,18 @@ function App() {
     setEndDate(event.target.value);
   };
 
+  const handleSetEmail = (event) => {
+    setEmail(event.target.value);
+  };
+
   return (
     <>
       <Routes>
         {/* <Chat /> */}
-        <Route path='/' element={<Homepage />} />
+        <Route path='/' element={<Homepage
+          email={email}
+          handleSetEmail={handleSetEmail}
+        />} />
         <Route path='/new' element={<NewTripPage
           tripLocation={tripLocation}
           handleTripLocationChange={handleTripLocationChange}
