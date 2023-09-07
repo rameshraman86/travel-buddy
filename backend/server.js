@@ -24,14 +24,14 @@ const users = [];
 io.on('connection', socket => {
   console.log('a user connected');
   // emit will take 2 params; a string which will be the name or action and a payload which is a package in some form sent from the backend to the client. 
-  const name = "user" + Math.round(Math.random()*10000)
-  users.push(name)
-  socket.emit('intial_conn', {name, users});
-  socket.broadcast.emit('new_users', {name});
+  const name = "user" + Math.round(Math.random() * 10000);
+  users.push(name);
+  socket.emit('intial_conn', { name, users });
+  socket.broadcast.emit('new_users', { name });
 
   socket.on('send_msg', payload => {
     io.emit("send_msg", payload);
-  })
+  });
 });
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
@@ -54,6 +54,7 @@ app.use(express.static('public'));
 const userApiRoutes = require('./routes/users-api');
 const usersRoutes = require('./routes/users');
 const tripRoutes = require("./routes/trips-api");
+const itineraryRoutes = require("./routes/itinerary-api");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -61,6 +62,7 @@ const tripRoutes = require("./routes/trips-api");
 app.use('/api/users', userApiRoutes);
 app.use('/users', usersRoutes);
 app.use("/api/trips", tripRoutes);
+app.use("/api/itinerary", itineraryRoutes);
 // Note: mount other resources here, using the same pattern above
 
 // Home page
