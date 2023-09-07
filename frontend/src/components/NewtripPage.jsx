@@ -4,27 +4,15 @@ import axios from 'axios';
 
 
 export default function NewTripPage(props) {
-  const { tripLocation, handleTripLocationChange } = props;
+  const {
+    tripLocation, handleTripLocationChange,
+    tripName, handleTripNameChange,
+    startDate, handleStartDateChange,
+    endDate, handleEndDateChange,
+  } = props;
 
-  const [tripName, setTripName] = useState('');
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
   const navigate = useNavigate();
   const { state } = useLocation();
-
-  const handleTripNameChange = (event) => {
-    setTripName(event.target.value);
-  };
-
-  const handleStartDateChange = (event) => {
-    setStartDate(event.target.value);
-  };
-
-  const handleEndDateChange = (event) => {
-    setEndDate(event.target.value);
-  };
-
-
 
   async function handleSubmit(event) {
     event.preventDefault();
