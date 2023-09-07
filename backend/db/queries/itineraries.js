@@ -34,13 +34,14 @@ const getItineraryItemsByTripID = (trip_id) => {
 
 //**********************CREATE************************
 // add default wishlist to every new trip
-const createWishListItinerary = (trip_id) => {
-  const queryString = 'INSERT INTO itinerary (trip_id, date, type) VALUES ($1,$2,$3) RETURNING *;';
-  const queryParams = [trip_id, NOW(), "Wishlist"];
+const createWishListItinerary = (tripIDObj) => {
+  const queryString = `INSERT INTO itinerary(trip_id, type) VALUES ($1,$2) RETURNING *;`;
+  const queryParams = [tripIDObj.trip_id, "Wishlist"];
   return db
     .query(queryString, queryParams)
     .then(data => data.rows[0])
-    .catch(error => console.log(`error adding wishlist to ${trip_id}`, error));
+    .catch(error => console.log(`error adding wishlist to ${tripIDObj.trip_id}`, error));
+
 };
 
 module.exports = {

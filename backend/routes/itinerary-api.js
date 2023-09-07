@@ -17,9 +17,9 @@ router.get("/", (req, res) => {
 
 
 // ***********CREATE***********
-router.post('/create-wishlist-itinerary/:tripid', (req, res) => {
-  const trip_id = req.body.params;
-  itineraries.createWishListItinerary(trip_id)
+router.post('/create-wishlist-itinerary', (req, res) => {
+  const tripIDObj = req.body;
+  itineraries.createWishListItinerary(tripIDObj)
     .then((itinerary) => {
       res.send(itinerary);
     })
