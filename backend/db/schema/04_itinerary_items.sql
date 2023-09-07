@@ -4,10 +4,19 @@ CREATE TABLE itinerary_items(
   id SERIAL PRIMARY KEY NOT NULL,
   itinerary_id INTEGER REFERENCES itinerary(id) ON DELETE CASCADE,
   trip_id INTEGER REFERENCES trips(id) ON DELETE CASCADE,
+  lat NUMERIC(10,6),
+  lng NUMERIC(10,6),
+  address TEXT,
+  phone VARCHAR(50),
   name VARCHAR(255),
-  address VARCHAR(255),
-  description VARCHAR(1000),
-  category VARCHAR(255),
+  rating NUMERIC(3, 1),
+  user_ratings_total INTEGER,
+  url VARCHAR(255),
+  opening_hours TEXT,
+  website VARCHAR(255),
+  type VARCHAR(255),
+  photos TEXT,
+  icon VARCHAR(255),
   completed BOOLEAN DEFAULT FALSE
 );
 

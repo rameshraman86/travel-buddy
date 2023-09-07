@@ -74,7 +74,17 @@ router.get("/itinerary-items/:tripid", (req, res) => {
     });
 });
 
+router.post("/itinerary-items/:tripid", (req, res) => {
+  const itineraryItem = req.body;
 
+  itineraries.addItineraryItem(itineraryItem)
+    .then(itineryItem => {
+      res.send(itineryItem);
+    })
+    .catch(error => {
+      res.status(500).json({ error_itineryItem: error.message });
+    });
+});
 
 //get all messages of a trip
 router.get("/messages/:tripid", (req, res) => {
@@ -87,6 +97,7 @@ router.get("/messages/:tripid", (req, res) => {
       res.status(500).json({ error_trip_messages: error.message });
     });
 });
+
 
 
 // ***********CREATE***********
