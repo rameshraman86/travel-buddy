@@ -88,6 +88,18 @@ router.get("/messages/:tripid", (req, res) => {
     });
 });
 
+router.post("/itinerary-items/:tripid", (req, res) => {
+  const itineraryItem = req.body;
+
+  itineraries.addItineraryItem(itineraryItem)
+    .then(itineryItem => {
+      res.send(itineryItem);
+    })
+    .catch(error => {
+      res.status(500).json({ error_itineryItem: error.message });
+    });
+});
+
 
 // ***********CREATE***********
 router.post('/new-trip', (req, res) => {

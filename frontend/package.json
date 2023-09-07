@@ -15,7 +15,16 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.15.0",
-    "socket.io-client": "^4.7.2"
+    "socket.io-client": "^4.7.2",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.14.8",
+    "@mui/material": "^5.14.8",
+    "@reach/combobox": "^0.18.0",
+    "@react-google-maps/api": "^2.19.2",
+    "passive-events-support": "^1.1.0",
+    "react-material-ui-carousel": "^3.4.2",
+    "use-places-autocomplete": "^4.0.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
