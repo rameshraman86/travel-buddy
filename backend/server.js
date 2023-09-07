@@ -54,6 +54,8 @@ app.use(express.static('public'));
 const userApiRoutes = require('./routes/users-api');
 const usersRoutes = require('./routes/users');
 const tripRoutes = require("./routes/trips-api");
+const googleRoutes = require("./routes/google-api");
+
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -61,6 +63,7 @@ const tripRoutes = require("./routes/trips-api");
 app.use('/api/users', userApiRoutes);
 app.use('/users', usersRoutes);
 app.use("/api/trips", tripRoutes);
+app.use("/api/google", googleRoutes);
 // Note: mount other resources here, using the same pattern above
 
 // Home page

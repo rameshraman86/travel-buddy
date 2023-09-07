@@ -8,7 +8,6 @@ function ItineraryItem({ address, phone, name, rating, user_ratings_total, url, 
       <ul>
         <li>Name: {name}</li>
         <li>Address: {address}</li>
-        <li>photos: {opening_hours}</li>
         <li>Category: {type}</li>
       </ul>
     </div>
