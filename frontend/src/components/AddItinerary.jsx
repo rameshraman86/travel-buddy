@@ -8,21 +8,31 @@ export default function AddItinerary(props) {
   const {
     itineraryType,
     handleSetItineraryType,
-    handleCreateButtonClicked,
-    tripID, 
-    handleSetItineraries
+    handleCreateNewItineraryClicked,
+    tripID,
+    handleSetItineraries,
+    itineraries,
+    handlesetShowErrorMessage
   } = props;
+
 
 
   const handleNewItinerarySubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post(`http://localhost:8080/api/itinerary/create-new-itinerary`, {
-        type: itineraryType,
-        trip_id: tripID
-      });
-      handleSetItineraries(response.data);
-      handleCreateButtonClicked(event);
+
+      if (itineraries.some(itinerary => itinerary.type === itineraryType)) {
+        handlesetShowErrorMessage(true);
+        return;
+      } else {
+        handlesetShowErrorMessage(false);
+        const response = await axios.post(`http://localhost:8080/api/itinerary/create-new-itinerary`, {
+          type: itineraryType,
+          trip_id: tripID
+        });
+        handleSetItineraries(response.data);
+        handleCreateNewItineraryClicked(event);
+      }
     } catch (error) {
       console.log(`Error creating new itinerary: `, error);
     }
@@ -41,7 +51,7 @@ export default function AddItinerary(props) {
             value={itineraryType} onChange={handleSetItineraryType}
           ></input>
           <button type="submit">Create Trip</button>
-          <button type="button" onClick={handleCreateButtonClicked}>Cancel</button>
+          <button type="button" onClick={handleCreateNewItineraryClicked}>Cancel</button>
         </form>
       </div>
     </>
