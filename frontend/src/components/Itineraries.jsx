@@ -17,10 +17,6 @@ export default function Itineraries({ itineraries, itineraryItems, tripID }) {
     setItineraryDate(event.target.value);
   };
 
-  const handleNewItinerarySubmit = (event) => {
-    event.preventDefault();
-  };
-
   const handleCreateButtonClicked = (event) => {
     event.preventDefault();
     setCreateButtonClicked(!createButtonClicked);
@@ -38,8 +34,8 @@ export default function Itineraries({ itineraries, itineraryItems, tripID }) {
         handleSetItineraryType={handleSetItineraryType}
         itineraryDate={itineraryDate}
         handleSetItineraryDate={handleSetItineraryDate}
-        handleNewItinerarySubmit={handleNewItinerarySubmit}
         handleCreateButtonClicked={handleCreateButtonClicked}
+        tripID={tripID}
       />}
       {itineraries.map((itinerary) => (
         <div key={itinerary.id} className="itinerary">

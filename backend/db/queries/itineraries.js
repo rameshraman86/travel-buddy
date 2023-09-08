@@ -35,7 +35,7 @@ const getItineraryItemsByTripID = (trip_id) => {
 
 //get itinerary by name and trip id
 const getItineraryByTypeTripID = (type, trip_id) => {
-  const queryString  = 'SELECT * FROM itinerary WHERE type=$1 AND trip_id=$2;';
+  const queryString = 'SELECT * FROM itinerary WHERE type=$1 AND trip_id=$2;';
   const queryParams = [type, trip_id];
   return db
     .query(queryString, queryParams)
@@ -61,11 +61,17 @@ const createWishListItinerary = (tripIDObj) => {
     .query(queryString, queryParams)
     .then(data => data.rows[0])
     .catch(error => console.log(`error adding wishlist to ${tripIDObj.trip_id}`, error));
-
 };
 
-
-
+//add a new itinerary to trip ID
+const addItinerary = ({ trip_id, type }) => {
+  const queryString = `INSERT INTO itinerary (trip_id, type) VALUES ($1, $2) RETURNING *;`;
+  const queryParams = [trip_id, type];
+  return db
+    .query(queryString, queryParams)
+    .then(data => data.rows[0])
+    .catch(error => console.error(`Error adding to itinerary for trip id ${trip_id}`, error));
+};
 
 
 module.exports = {
@@ -74,5 +80,6 @@ module.exports = {
   getItineraryItemsByTripID,
   addItineraryItem,
   createWishListItinerary,
-  getItineraryByTypeTripID
+  getItineraryByTypeTripID,
+  addItinerary
 };

@@ -1,7 +1,7 @@
 import ItineraryItem from './ItineraryItem'; // Import the ItineraryItem component
 import React from 'react';
 import { useState } from 'react';
-
+import axios from 'axios';
 
 
 export default function AddItinerary(props) {
@@ -10,9 +10,22 @@ export default function AddItinerary(props) {
     handleSetItineraryType,
     itineraryDate,
     handleSetItineraryDate,
-    handleNewItinerarySubmit,
     handleCreateButtonClicked,
+    tripID
   } = props;
+
+
+  const handleNewItinerarySubmit = async (event) => {
+    event.preventDefault();
+    const response = await axios.post(`http://localhost:8080/api/itinerary/create-new-itinerary`, {
+      type: itineraryType,
+      trip_id: tripID
+    });
+    // const newItinerary = await response.json();
+    // console.log(newItinerary);
+  };
+
+
 
   return (
     <>
@@ -25,16 +38,9 @@ export default function AddItinerary(props) {
             required={true}
             value={itineraryType} onChange={handleSetItineraryType}
           ></input>
-          <input
-            type="date"
-            name="itineraryDate"
-            className="itineraryDate"
-            required={true}
-            value={itineraryDate} onChange={handleSetItineraryDate}
-          ></input>
+          <button type="submit">Create Trip</button>
+          <button type="button" onClick={handleCreateButtonClicked}>Cancel</button>
         </form>
-        <button type="submit">Create Trip</button>
-        <button type="button" onClick={handleCreateButtonClicked}>Cancel</button>
       </div>
     </>
   );
