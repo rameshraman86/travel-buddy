@@ -2,13 +2,15 @@ import ItineraryItem from './ItineraryItem'; // Import the ItineraryItem compone
 import React from 'react';
 import { useState } from 'react';
 import AddItinerary from './AddItinerary';
+import axios from 'axios';
+
+
 //Linked from tripdetails component
 export default function Itineraries({ itineraries, itineraryItems, tripID, handleSetItineraries, handleUpdateItineraries }) {
 
   const [createButtonClicked, setCreateButtonClicked] = useState(false);
   const [itineraryType, setItineraryType] = useState('');
   const [showErrorMessage, setShowErrorMessage] = useState(false);
-  const [deleteItinerary, setDeleteItinerary] = useState(false);
 
   const handleSetItineraryType = (event) => {
     handlesetShowErrorMessage(false);
@@ -27,18 +29,20 @@ export default function Itineraries({ itineraries, itineraryItems, tripID, handl
   };
 
 
-  const handleDeleteItinerary = (itinerary_deleted) => {
-    const confirmDelte = confirm(`Delete ${itinerary_deleted.type}?`);
-    if (confirmDelte) {
+  const handleDeleteItinerary = async (itinerary_deleted) => {
+    const confirmDelete = confirm(`Delete ${itinerary_deleted.type}?`);
+    if (confirmDelete) {
       //delete the itinerary from db
-
-
+      try {
+        const response = await axios.delete(`http://localhost:8080/api/itinerary/delete-itinerary/${itinerary_deleted.id}`);
+        console.log(`response from delete itinerary:`, response);
+      } catch (error) {
+        console.log(`error deleting itinerary:`, error);
+      }
       //delete the itinerary from state
       const updatedItineraries = itineraries.filter((itinerary) => itinerary.id !== itinerary_deleted.id);
       handleUpdateItineraries(updatedItineraries);
-
     }
-
   };
 
 

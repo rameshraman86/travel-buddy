@@ -1,6 +1,4 @@
-import ItineraryItem from './ItineraryItem'; // Import the ItineraryItem component
 import React from 'react';
-import { useState } from 'react';
 import axios from 'axios';
 
 

@@ -74,6 +74,19 @@ const addItinerary = ({ trip_id, type }) => {
 };
 
 
+//**********************DELETE************************
+const deleteItinerary = (itinerary_id) => {
+  const queryString = `DELETE FROM itinerary WHERE id=$1 RETURNING *;`;
+  const queryParams = [itinerary_id];
+  return db
+    .query(queryString, queryParams)
+    .then(data => data.rows[0])
+    .catch(error => console.error(`Error deleting itinerary item ${itinerary_id}`, error));
+};
+
+
+
+
 module.exports = {
   getItineraries,
   getItinerariesByTripID,
@@ -81,5 +94,6 @@ module.exports = {
   addItineraryItem,
   createWishListItinerary,
   getItineraryByTypeTripID,
-  addItinerary
+  addItinerary,
+  deleteItinerary
 };
