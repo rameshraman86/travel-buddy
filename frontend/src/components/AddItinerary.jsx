@@ -50,7 +50,7 @@ export default function AddItinerary(props) {
             required={true}
             value={itineraryType} onChange={handleSetItineraryType}
           ></input>
-          <button type="submit">Create Trip</button>
+          <button type="submit">Add Itinerary</button>
           <button type="button" onClick={handleCreateNewItineraryClicked}>Cancel</button>
         </form>
       </div>
