@@ -78,6 +78,7 @@ export default function TripDetails() {
       <div>
         <h1>Trip {id} details</h1>
         <Itineraries
+          tripID={id}
           itineraries={itineraries}
           itineraryItems={itineraryItems} />
       </div>
