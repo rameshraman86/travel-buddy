@@ -35,6 +35,8 @@ export default function Chat({ avatar, user, message }) {
       socket.off('send_msg', sendMsg);
     };
 
+    
+
   }, []);
 
   const onSubmit = evt => {
