@@ -15,8 +15,6 @@ export default function AddItinerary(props) {
     handlesetShowErrorMessage
   } = props;
 
-
-
   const handleNewItinerarySubmit = async (event) => {
     event.preventDefault();
     try {

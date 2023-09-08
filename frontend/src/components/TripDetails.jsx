@@ -26,7 +26,13 @@ export default function TripDetails() {
   //to handle adding new itinearies to current trip react component
   const handleSetItineraries = (new_itinerary) => {
     setItineraries(prev => [...prev, new_itinerary]);
-  }
+  };
+
+  //replace itinereries with new data
+  const handleUpdateItineraries = (updatedItineraries) => {
+    setItineraries(updatedItineraries);
+  };
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -85,13 +91,14 @@ export default function TripDetails() {
         <Itineraries
           tripID={id}
           itineraries={itineraries}
-          itineraryItems={itineraryItems} 
+          itineraryItems={itineraryItems}
           handleSetItineraries={handleSetItineraries}
-          />
+          handleUpdateItineraries={handleUpdateItineraries}
+        />
       </div>
       <div>
         <Messages tripID={id} />
-        <Chat avatar="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Windows_10_Default_Profile_Picture.svg/512px-Windows_10_Default_Profile_Picture.svg.png?20221210150350"/>
+        <Chat avatar="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Windows_10_Default_Profile_Picture.svg/512px-Windows_10_Default_Profile_Picture.svg.png?20221210150350" />
         <AIAssistant tripID={id} />
       </div>
       <div>
@@ -102,7 +109,7 @@ export default function TripDetails() {
           addToWishlist={addToWishlist}
           tripID={id}
           itineraries={itineraries}
-          />
+        />
       </div>
     </>
   );
