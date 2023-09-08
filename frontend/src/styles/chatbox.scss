@@ -1,0 +1,72 @@
+.chatbox_reciver {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+}
+
+.chatbox_sender {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: row;
+}
+
+.avatar {
+  object-fit: cover;
+  width: 2em;
+  height: 2em;
+}
+
+.chatbox_reciver strong {
+  font-size: 18px;
+}
+
+.chatbox_reciver p {
+  padding: .5em;
+  background-color: #c7f0a8;
+  border-radius: 10%;
+  max-width: 60%;
+}
+
+.chatbox_sender strong {
+  font-size: 18px;
+}
+
+.chatbox_sender p {
+  padding: .5em;
+  background-color: #ffffff;
+  border-radius: 10%;
+  max-width: 60%;
+}
+
+.chatbox_content {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.chatbox_content textarea{
+  width: 60%;
+  height: 80px;
+  border-radius: 10;
+  border-width: 0em;
+  padding: 1em;
+  font-size: 1.2em;
+  resize: none;
+}
+.chatbox_content button{
+  width: 3.9em;
+  height: 1.5em;
+  font-weight: bold;
+  border-radius: 8%;
+  font-size: 1.7em;
+  background-color: #34b7f1;
+  border-width: 0em;
+  justify-content: center;
+  color: #ffffff;
+}
+
+.chatbox_content button:hover{
+background-color: #109fdc;
+}
+
+
