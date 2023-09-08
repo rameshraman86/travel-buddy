@@ -28,11 +28,13 @@ export default function NewTripPage(props) {
       trip_name: tripName,
       start_date: startDate,
       end_date: endDate,
+      trip_location: tripLocation
     };
     try {
       //create a new trip, new user record and a default 'wishlist' itinerary for the trip
       axios.post(`http://localhost:8080/api/trips/new-trip`, newTripBody)
         .then(res => {
+          console.log(res.data);
           axios.post(`http://localhost:8080/api/users/create-new-user`, {
             email: state,
             trip_id: res.data.id,

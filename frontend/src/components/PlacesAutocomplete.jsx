@@ -13,7 +13,7 @@ import {
 import "@reach/combobox/styles.css";
 
 
-const PlacesAutocomplete = ({ setSearchedPlace, setPosition, selectMarker }) => {
+const PlacesAutocomplete = ({ setSearchedPlace, setPosition, selectMarker, position }) => {
   const {
     ready,
     value,
@@ -22,7 +22,10 @@ const PlacesAutocomplete = ({ setSearchedPlace, setPosition, selectMarker }) => 
     clearSuggestions,
   } = usePlacesAutocomplete({
     requestOptions: {
-      location: { lat: () => 35.6762, lng: () => 139.6503 },
+      location: {
+        lat: () => position.lat,
+        lng: () => position.lng
+      },
       radius: 200 * 1000
     }
   });

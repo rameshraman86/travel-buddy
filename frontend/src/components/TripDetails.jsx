@@ -18,22 +18,23 @@ import AIAssistant from "./AIAssistant";
 
 export default function TripDetails(props) {
   const { id } = useParams();
-  console.log(`id is : ${id}`);
 
   const [itineraries, setItineraries] = useState([]);
   const [itineraryItems, setItineraryItems] = useState([]);
+  const [location, setLocation] = useState();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const tripDetails = await axios.get(`http://localhost:8080/api/trips/get-trip-details/${id}`);
+        setLocation(tripDetails.data[0].trip_location);
+
         const itinResponse = await axios.get(`http://localhost:8080/api/trips/itinerary-names/${id}`);
         setItineraries(itinResponse.data);
 
         const itinItemsResponse = await axios.get(`http://localhost:8080/api/trips/itinerary-items/${id}`);
 
         const formattedItineraryItems = itinItemsResponse.data.map(item => {
-
-
           return {
             ...item,
             lat: parseFloat(item.lat),
@@ -69,8 +70,6 @@ export default function TripDetails(props) {
     }
   };
 
-
-
   return (
     <>
       <div>
@@ -88,14 +87,9 @@ export default function TripDetails(props) {
         <h2>Map</h2>
         <Map
           itineraryItems={itineraryItems}
+          location={location}
           addToWishlist={addToWishlist} />
       </div>
-      {/* <h1>Trip {id} details</h1>
-      <Itineraries tripID={id} />
-      <Messages tripID={id} />
-      <Chat />
-      <h2>Map</h2> */}
-      {/* <AIAssistant tripID={id} /> */}
     </>
   );
 }
