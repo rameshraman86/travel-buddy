@@ -7,5 +7,6 @@ CREATE TABLE trips  (
   trip_name VARCHAR(255) NOT NULL,
   start_date TIMESTAMP NOT NULL,
   end_date TIMESTAMP NOT NULL,
+  trip_location VARCHAR(255) NOT NULL,
   is_editable BOOLEAN NOT NULL DEFAULT TRUE
 );

@@ -4,25 +4,15 @@ import axios from 'axios';
 
 
 export default function NewTripPage(props) {
-  const [tripName, setTripName] = useState('');
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
+  const {
+    tripLocation, handleTripLocationChange,
+    tripName, handleTripNameChange,
+    startDate, handleStartDateChange,
+    endDate, handleEndDateChange,
+  } = props;
+
   const navigate = useNavigate();
   const { state } = useLocation();
-
-  const handleTripNameChange = (event) => {
-    setTripName(event.target.value);
-  };
-
-  const handleStartDateChange = (event) => {
-    setStartDate(event.target.value);
-  };
-
-  const handleEndDateChange = (event) => {
-    setEndDate(event.target.value);
-  };
-
-
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -38,11 +28,13 @@ export default function NewTripPage(props) {
       trip_name: tripName,
       start_date: startDate,
       end_date: endDate,
+      trip_location: tripLocation
     };
     try {
       //create a new trip, new user record and a default 'wishlist' itinerary for the trip
       axios.post(`http://localhost:8080/api/trips/new-trip`, newTripBody)
         .then(res => {
+          console.log(res.data);
           axios.post(`http://localhost:8080/api/users/create-new-user`, {
             email: state,
             trip_id: res.data.id,
@@ -78,6 +70,15 @@ export default function NewTripPage(props) {
           required={true}
           value={tripName}
           onChange={handleTripNameChange}
+        />
+        <br />
+        <label htmlFor="tripLocation">Location:</label>
+        <input
+          type="text"
+          id="tripLocation"
+          required={true}
+          value={tripLocation}
+          onChange={handleTripLocationChange}
         />
         <br />
         <label htmlFor="startDate">Start Date:</label>

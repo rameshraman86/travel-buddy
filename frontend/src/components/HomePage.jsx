@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 
-export default function Homepage() {
-  const [email, setEmail] = useState('');
+export default function Homepage(props) {
+  const { email, handleSetEmail } = props;
   const navigate = useNavigate();
 
   async function handleSubmit(event) {
@@ -24,10 +24,6 @@ export default function Homepage() {
     }
   };
 
-
-  const handleSetEmail = (event) => {
-    setEmail(event.target.value);
-  };
   
   return (
     <>

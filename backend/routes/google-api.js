@@ -5,60 +5,75 @@ const { Client } = require("@googlemaps/google-maps-services-js");
 
 const client = new Client({});
 
-router.get("/", async (req, res) => {
-  client
-    .elevation({
-      params: {
-        locations: [{ lat: 45, lng: -110 }],
-        key: process.env.VITE_GOOGLE_MAPS_API_KEY,
-      },
-      timeout: 1000, // milliseconds
-    })
-    .then((r) => {
-      console.log(r.data.results[0].elevation);
-    })
-    .catch((e) => {
-      console.log(e.response.data.error_message);
-    });
+router.get('/places', async (req, res) => {
+  try {
+    const placeInfo = await getPlaceInfo(req.query);
+    res.send(placeInfo);
+
+  } catch (error) {
+    res.json({ error_fetch_from_google_api: error.message });
+  }
 });
 
-async function getPlaceInfo() {
-  // const encodedQuery = encodeURIComponent(query); // Encode the query parameter
+router.get('/place-details', async (req, res) => {
+  try {
+    const details = await getDetails(req.query);
+    res.send(details);
 
-  const textSearch = `https://maps.googleapis.com/maps/api/place/textsearch/json
-  ?location=42.3675294%2C-71.186966
-  &query=123%20main%20street
-  &radius=10000
-  &key=${process.env.VITE_GOOGLE_MAPS_API_KEY}`;
-  // console.log(process.env.VITE_GOOGLE_MAPS_API_KEY);
+  } catch (error) {
+    res.json({ error_fetch_from_place_details_api: error.message });
+  }
+});
+
+
+async function getPlaceInfo(query) {
+  const encodedInput = encodeURIComponent(query.input);
+  const { lat, lng } = query.position;
+
+  let textSearch = `https://maps.googleapis.com/maps/api/place/textsearch/json`;
+  textSearch += `?location=${lat}%2C${lng}&query=${encodedInput}`;
+  textSearch += `&radius=10000`;
+  textSearch += `&key=${process.env.VITE_GOOGLE_MAPS_API_KEY}`;
 
   try {
     const response = await axios.get(textSearch);
-
-    if (response.status !== 200) {
-      throw new Error(`Google Places API request failed with status: ${response.status}`);
-    }
-    console.log(response);
-
-    const data = await response.json();
-    return data;
+    return response.data;
 
   } catch (error) {
     throw error;
   }
-
-
 }
 
-router.get('/places', async (req, res) => {
+async function getDetails(query) {
+  let str = `https://maps.googleapis.com/maps/api/place/details/json`;
+  str += `?place_id=${query.placeId}`;
+  str += `&key=${process.env.VITE_GOOGLE_MAPS_API_KEY}`;
+
   try {
-    console.log('api hit');
-    const placeInfo = await getPlaceInfo();
-    res.send(placeInfo);
+    const response = await axios.get(str);
+    return response.data;
 
   } catch (error) {
-    res.status(500).json({ error_fetch_from_google_api: error.message });
+    throw error;
   }
-});
+}
+
+// router.get("/", async (req, res) => {
+//   client
+//     .elevation({
+//       params: {
+//         address: "123 main street",
+//         location: [{ lat: 42.3675294, lng: -71.186966 }],
+//         key: process.env.VITE_GOOGLE_MAPS_API_KEY,
+//       },
+//       timeout: 1000, // milliseconds
+//     })
+//     .then((r) => {
+//       console.log(r.data.results[0].elevation);
+//     })
+//     .catch((e) => {
+//       console.log(e.response.data.error_message);
+//     });
+// });
 
 module.exports = router;
