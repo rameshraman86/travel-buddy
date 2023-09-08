@@ -15,6 +15,15 @@ router.get("/", (req, res) => {
     });
 });
 
+//get itinerary by type and trip id
+router.get("/get-itinerary-by-type-tripid/:type/:trip_id", (req, res) => {
+  const type = req.params.type;
+  const trip_id = req.params.trip_id;
+  itineraries.getItineraryByTypeTripID(type, trip_id)
+    .then(itinerary => res.send(itinerary))
+    .catch(error => res.status(500).json({ error_all_itineraries: error.message }));
+});
+
 
 // ***********CREATE***********
 router.post('/create-wishlist-itinerary', (req, res) => {

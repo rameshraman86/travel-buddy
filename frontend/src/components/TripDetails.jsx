@@ -20,7 +20,7 @@ export default function TripDetails(props) {
   const { id } = useParams();
   // console.log(`id is : ${id}`);
 
-  const [itineraries, setItineraries] = useState([]);
+  const [itineraries, setItineraries] = useState([]); //state to maintain the itineraries of trip
   const [itineraryItems, setItineraryItems] = useState([]);
 
   useEffect(() => {
@@ -52,13 +52,14 @@ export default function TripDetails(props) {
     fetchData();
   }, []);
 
-  const addToWishlist = async (selectedPlace) => {
+  const addToWishlist = async (selectedPlace, selectedItinerary) => {
+
     const newPlaceBody = {
       ...selectedPlace,
-      itinerary_id: parseInt(id), // TODO: assign to wishlist 
+      // itinerary_id: parseInt(id), // TODO: assign to wishlist 
+      itinerary_id: selectedItinerary[0].id, // TODO: assign to wishlist 
       trip_id: parseInt(id),
     };
-    console.log(`new place body is : ${newPlaceBody}`);
 
     setItineraryItems([...itineraryItems, newPlaceBody]);
 
@@ -68,7 +69,6 @@ export default function TripDetails(props) {
       console.log(`Error adding to Wishlist: `, error);
     }
   };
-
 
 
   return (
@@ -90,6 +90,7 @@ export default function TripDetails(props) {
           itineraryItems={itineraryItems}
           addToWishlist={addToWishlist} 
           tripID={id}
+          itineraries={itineraries}
           />
       </div>
       {/* <h1>Trip {id} details</h1>

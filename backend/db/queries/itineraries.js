@@ -22,7 +22,7 @@ const getItinerariesByTripID = (trip_id) => {
     .catch(error => console.error(`Error fetching itinerary for trip id ${trip_id}`, error));
 };
 
-
+//get all itinerary items by trip id
 const getItineraryItemsByTripID = (trip_id) => {
   const queryString = 'SELECT * FROM itinerary_items WHERE trip_id=$1;';
   const queryParams = [trip_id];
@@ -32,6 +32,19 @@ const getItineraryItemsByTripID = (trip_id) => {
     .catch(error => console.error(`Error fetching itinerary items for trip id ${trip_id}`, error));
 };
 
+
+//get itinerary by name and trip id
+const getItineraryByTypeTripID = (type, trip_id) => {
+  const queryString  = 'SELECT * FROM itinerary WHERE type=$1 AND trip_id=$2;';
+  const queryParams = [type, trip_id];
+  return db
+    .query(queryString, queryParams)
+    .then(data => data.rows)
+    .catch(error => console.error(`Error fetching itinerary type ${type} for trip id ${trip_id}`, error));
+};
+
+
+//**********************CREATE************************
 const addItineraryItem = ({ itinerary_id, trip_id, lat, lng, address, phone, name, rating, user_ratings_total, url, opening_hours, website, type, photos, icon, completed }) => {
   const queryString = `INSERT INTO itinerary_items (itinerary_id, trip_id, lat, lng, address, phone, name, rating, user_ratings_total, url, opening_hours, website, type, photos, icon, completed) VALUES ($1, $2, $3, $4, $5, $6, $7,$8, $9, $10, $11, $12, $13, $14, $15, $16) RETURNING *;`;
   const queryParams = [itinerary_id, trip_id, lat, lng, address, phone, name, rating, user_ratings_total, url, opening_hours, website, type, photos, icon, completed];
@@ -40,11 +53,10 @@ const addItineraryItem = ({ itinerary_id, trip_id, lat, lng, address, phone, nam
     .then(data => data.rows[0])
     .catch(error => console.error(`Error adding to itinerary items for trip id ${trip_id}`, error));
 };
-//**********************CREATE************************
 // add default wishlist to every new trip
 const createWishListItinerary = (tripIDObj) => {
   const queryString = `INSERT INTO itinerary(trip_id, type) VALUES ($1,$2) RETURNING *;`;
-  const queryParams = [tripIDObj.trip_id, "Wishlist"];
+  const queryParams = [tripIDObj.trip_id, "wishlist"];
   return db
     .query(queryString, queryParams)
     .then(data => data.rows[0])
@@ -52,10 +64,15 @@ const createWishListItinerary = (tripIDObj) => {
 
 };
 
+
+
+
+
 module.exports = {
   getItineraries,
   getItinerariesByTripID,
   getItineraryItemsByTripID,
   addItineraryItem,
-  createWishListItinerary
+  createWishListItinerary,
+  getItineraryByTypeTripID
 };

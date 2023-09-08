@@ -21,23 +21,23 @@ import Carousel from 'react-material-ui-carousel';
 
 
 
-function Map({ itineraryItems, addToWishlist, tripID }) {
+function Map({ itineraryItems, addToWishlist, tripID, itineraries }) {
 
-  const [itinerariesOfTrip, setItinerariesOfTrip] = useState([]);
+  //store the itinerary that is selected in the add to list map popup. this is passed to the addToWishlist function to insert the place into the correct itinerary
   const [selectedItinerary, setSelectedItinerary] = useState('');
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`http://localhost:8080/api/trips/itinerary-names/${tripID}`);
-        setItinerariesOfTrip(response.data);
-      } catch (error) {
-        console.log(`error fetching itineraries:`, error);
-      }
-    };
-    fetchData();
-  }, []);
-
+  //get the itineraryid using the itinerary name(when user chooses it in map popup) and trip id(is a props)
+  //input - tripID, itinerary Type(e.g wishlist). 
+  //output - itinerary record that matches itinerary type in the tripID
+  const getItineraryIDFromType = async (itineraryType, tripID) => {
+    try {
+      const response = await axios.get(`http://localhost:8080/api/itinerary/get-itinerary-by-type-tripid/${itineraryType}/${tripID}`);
+      const itineraryData = response.data;
+      return itineraryData;
+    } catch (error) {
+      console.log(`error fetching itineraryID:`, error);
+    }
+  };
 
   passiveSupport({
     debug: false,
@@ -178,27 +178,34 @@ function Map({ itineraryItems, addToWishlist, tripID }) {
                   {selectedPlace.name}
                 </h3>
                 {itineraryItems.some(place => place.url === selectedPlace.url) ?
-                  <p>In "Wishlist"</p> :
+                  // <p>In "Wishlist"</p> :
+                  <p>Added to Itinerary</p> :
                   // <button onClick={() => addToWishlist(selectedPlace)}>
                   <div>
-                    {/* <AddCircleIcon fontSize="small" color="primary" /> */}
-
-                    <select value={selectedItinerary} onChange={(e) => setSelectedItinerary(e.target.value)}>
+                    <select
+                      value={selectedItinerary ? selectedItinerary[0].type : selectedItinerary}
+                      onChange={async (e) => {
+                        try {
+                          const itineraryData = await getItineraryIDFromType(e.target.value, tripID);
+                          setSelectedItinerary(itineraryData);
+                        } catch (error) {
+                          console.error(`Error getting itineraries:`, error);
+                        }
+                      }}
+                    >
                       <option value="">Select an itinerary</option>
-                      {itinerariesOfTrip.map((itinerary) => (
+                      {itineraries.map((itinerary) => (
                         <option key={itinerary.id} value={itinerary.type}>
                           {itinerary.type}
                         </option>
                       ))}
                     </select>
-                    <button onClick={() => addToWishlist(selectedItinerary)}>
+                    <button onClick={() => addToWishlist(selectedPlace, selectedItinerary)}>
                       <AddCircleIcon fontSize="small" color="primary" />
                       Add to List
                     </button>
 
                     {/* Add to "Wishlist" */}
-
-
                     {/* </button> */}
                   </div>
                 }
