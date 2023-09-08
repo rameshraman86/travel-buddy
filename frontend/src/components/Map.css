@@ -42,6 +42,14 @@ button {
   height: 300px;
 }
 
+.img-div {
+  height: 200px;
+}
+
+img {
+  height: 200px;
+}
+
 .Showcase_div img {
   max-width: 250px;
   max-height: 300px;

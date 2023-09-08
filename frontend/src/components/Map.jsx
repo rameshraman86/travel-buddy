@@ -1,20 +1,11 @@
 import './Map.css';
+import InfoWindow from './InfoWindow';
 import PlacesAutocomplete from './PlacesAutocomplete';
 import FuzzySearchForm from './FuzzySearchForm';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-
-import {
-  GoogleMap,
-  useJsApiLoader,
-  MarkerF,
-  InfoWindowF
-} from "@react-google-maps/api";
+import { GoogleMap, useJsApiLoader, MarkerF } from "@react-google-maps/api";
 import { passiveSupport } from 'passive-events-support/src/utils';
-import { Rating, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import Carousel from 'react-material-ui-carousel';
 
 
 function Map({ itineraryItems, addToWishlist, location }) {
@@ -89,6 +80,7 @@ function Map({ itineraryItems, addToWishlist, location }) {
   const [mapRef, setMapRef] = useState(undefined);
   const [selectedPlace, setSelectedPlace] = useState(undefined);
   const [searchedPlace, setSearchedPlace] = useState(null);
+  const [suggestedPlaces, setSuggestedPlaces] = useState(undefined);
 
   const options = {
     disableDefaultUI: true,
@@ -107,21 +99,16 @@ function Map({ itineraryItems, addToWishlist, location }) {
       : setSelectedPlace(place);
   };
 
-  const AccordionStyle = {
-    padding: 0
-  };
-
-
-
 
   if (loadError) return <div>Error loading maps</div>;
   if (!isLoaded) return <div>Loading...</div>;
   return (
     <div>
-      {/* <FuzzySearchForm
-          setSearchedPlace={setSearchedPlace}
-          setPosition={setPosition}
-          selectMarker={handleMarkerClick} /> */}
+      <FuzzySearchForm
+        setSuggestedPlaces={setSuggestedPlaces}
+        position={position}
+        setPosition={setPosition}
+        selectMarker={handleMarkerClick} />
 
 
       <div className="places-container">
@@ -157,83 +144,20 @@ function Map({ itineraryItems, addToWishlist, location }) {
           onClick={() => handleMarkerClick(searchedPlace)}
         />}
 
+        {suggestedPlaces && (suggestedPlaces.map(place => (
+          <MarkerF
+            key={`${place.lat}-${place.lng}`}
+            position={{ lat: place.lat, lng: place.lng }}
+            icon={"http://maps.google.com/mapfiles/ms/icons/pink-dot.png"}
+            onClick={() => handleMarkerClick(place)}
+          />
+        )))}
 
-        {selectedPlace && (
-          <InfoWindowF
-            position={{ lat: selectedPlace.lat, lng: selectedPlace.lng }}
-            zIndex={1}
-            options={{
-              pixelOffset: {
-                width: 0,
-                height: -40
-              }
-            }}
-            onCloseClick={() => {
-              setSelectedPlace(undefined);
-            }}
-          >
-            <div>
-              <div className='info-window-title'>
-                <h3 className='info-window-row'>
-                  <img src={selectedPlace.icon} className='icon' />
-                  {selectedPlace.name}
-                </h3>
-                {itineraryItems.some(place => place.url === selectedPlace.url) ?
-                  <p>In "Wishlist"</p> :
-                  <button onClick={() => addToWishlist(selectedPlace)}>
-                    <AddCircleIcon fontSize="small" color="primary" />
-                    Add to "Wishlist"
-                  </button>}
-              </div>
-              {selectedPlace.photos &&
-                <Carousel navButtonsAlwaysVisible={true} autoPlay={false}
-                  navButtonsProps={{
-                    style: {
-                      // backgroundColor: 'cornflowerblue',
-                      height: '20px',
-                      width: '20px',
-                    }
-                  }} >
-                  {selectedPlace.photos.map((img, id) => (
-                    <div className="Showcase_div" key={id}><img key={id} src={img} /></div>
 
-                  ))
-                  }
-                </Carousel>}
+        <InfoWindow
+          selectedPlace={selectedPlace} setSelectedPlace={setSelectedPlace} itineraryItems={itineraryItems} addToWishlist={addToWishlist} />
 
-              <p>{selectedPlace.address}</p>
-              <a href={selectedPlace.website}>{selectedPlace.website}</a>
-              <p>{selectedPlace.phone}</p>
 
-              {selectedPlace.rating &&
-                (<div className='info-window-row'>
-                  <span>{selectedPlace.rating}</span>
-                  <Rating value={selectedPlace.rating}
-                    precision={0.5}
-                    size="small"
-                    readOnly />
-                  {selectedPlace.user_ratings_total && <span>({selectedPlace.user_ratings_total.toLocaleString()})</span>}
-                </div>)
-              }
-
-              {selectedPlace.opening_hours &&
-                <div>
-                  <Accordion elevation={0}>
-                    <AccordionSummary expandIcon={<ExpandMoreIcon />} sx={AccordionStyle}>
-                      <div>Opening Hours:</div>
-                    </AccordionSummary>
-                    <AccordionDetails sx={AccordionStyle}>
-                      {selectedPlace.opening_hours.map((day, index) =>
-                        <div key={index}>{day}</div>)}
-                    </AccordionDetails>
-                  </Accordion>
-                </div>}
-
-              <br />
-              <a href={selectedPlace.url}>View in Google Maps</a>
-            </div>
-          </InfoWindowF>
-        )}
       </GoogleMap>
     </div>
   );

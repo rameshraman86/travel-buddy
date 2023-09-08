@@ -40,25 +40,24 @@ const PlacesAutocomplete = ({ setSearchedPlace, setPosition, selectMarker, posit
     const { place_id } = data.find(result => result.description === address);
     const details = await getDetails({ placeId: place_id });
 
-    console.log(details);
+    console.log("PLACE DETAILS:", details);
 
     const placeDetails = {
       lat,
       lng,
-      address: details.formatted_address,
-      phone: details.international_phone_number,
-      name: details.name,
-      rating: details.rating,
-      user_ratings_total: details.user_ratings_total,
-      url: details.url,
-      opening_hours: details.opening_hours.weekday_text, // array
-      website: details.website,
-      type: details.types[0],
-      photos: details.photos.map(photo => photo.getUrl()), // array
-      icon: details.icon
+      address: details?.formatted_address,
+      phone: details?.international_phone_number,
+      name: details?.name,
+      rating: details?.rating,
+      user_ratings_total: details?.user_ratings_total,
+      url: details?.url,
+      opening_hours: details?.opening_hours?.weekday_text || null,
+      website: details?.website,
+      type: details?.types?.[0],
+      photos: details?.photos?.map(photo => photo.getUrl()) || null,
+      icon: details?.icon
     };
 
-    // console.log(placeDetails.types);
 
     setSearchedPlace(placeDetails);
     setPosition({ lat, lng });

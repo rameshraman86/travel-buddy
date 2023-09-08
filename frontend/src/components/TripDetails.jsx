@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import React from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from 'axios';
 
 import Itineraries from "./Itineraries";
@@ -16,7 +15,7 @@ const parseArr = (string) => {
 import AIAssistant from "./AIAssistant";
 
 
-export default function TripDetails(props) {
+export default function TripDetails() {
   const { id } = useParams();
 
   const [itineraries, setItineraries] = useState([]);
@@ -39,8 +38,8 @@ export default function TripDetails(props) {
             ...item,
             lat: parseFloat(item.lat),
             lng: parseFloat(item.lng),
-            opening_hours: parseArr(item.opening_hours),
-            photos: parseArr(item.photos),
+            opening_hours: Array.isArray(item.opening_hours) ? parseArr(item.opening_hours) : item.opening_hours,
+            photos: Array.isArray(item.photos) ? parseArr(item.photos) : item.photos,
             rating: parseFloat(item.rating)
           };
         });
@@ -59,7 +58,7 @@ export default function TripDetails(props) {
       itinerary_id: 1, // TODO: assign to wishlist 
       trip_id: parseInt(id),
     };
-    console.log(`new place body is : ${newPlaceBody}`);
+    // console.log(`new place body is : ${JSON.stringify(newPlaceBody, null, 4)}`);
 
     setItineraryItems([...itineraryItems, newPlaceBody]);
 
