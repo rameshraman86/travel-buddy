@@ -17,8 +17,9 @@ import AIAssistant from "./AIAssistant";
 
 export default function TripDetails() {
   const { id } = useParams();
+  // console.log(`id is : ${id}`);
 
-  const [itineraries, setItineraries] = useState([]);
+  const [itineraries, setItineraries] = useState([]); //state to maintain the itineraries of trip
   const [itineraryItems, setItineraryItems] = useState([]);
   const [location, setLocation] = useState();
 
@@ -52,10 +53,12 @@ export default function TripDetails() {
     fetchData();
   }, []);
 
-  const addToWishlist = async (selectedPlace) => {
+  const addToWishlist = async (selectedPlace, selectedItinerary) => {
+
     const newPlaceBody = {
       ...selectedPlace,
-      itinerary_id: 1, // TODO: assign to wishlist 
+      // itinerary_id: parseInt(id), // TODO: assign to wishlist 
+      itinerary_id: selectedItinerary[0].id, // TODO: assign to wishlist 
       trip_id: parseInt(id),
     };
     // console.log(`new place body is : ${JSON.stringify(newPlaceBody, null, 4)}`);
@@ -68,6 +71,7 @@ export default function TripDetails() {
       console.log(`Error adding to Wishlist: `, error);
     }
   };
+
 
   return (
     <>
@@ -87,7 +91,10 @@ export default function TripDetails() {
         <Map
           itineraryItems={itineraryItems}
           location={location}
-          addToWishlist={addToWishlist} />
+          addToWishlist={addToWishlist}
+          tripID={id}
+          itineraries={itineraries}
+          />
       </div>
     </>
   );

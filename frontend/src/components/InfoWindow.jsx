@@ -6,7 +6,7 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Carousel from 'react-material-ui-carousel';
 
-function InfoWindow({ selectedPlace, setSelectedPlace, itineraryItems, addToWishlist }) {
+function InfoWindow({ selectedPlace, setSelectedPlace, itineraryItems, addToWishlist, itineraries, selectedItinerary,setSelectedItinerary, getItineraryIDFromType, tripID }) {
 
   const AccordionStyle = {
     padding: 0
@@ -36,11 +36,32 @@ function InfoWindow({ selectedPlace, setSelectedPlace, itineraryItems, addToWish
                 {selectedPlace.name}
               </h3>
               {itineraryItems.some(place => place.url === selectedPlace.url) ?
-                <p>In "Wishlist"</p> :
-                <button onClick={() => addToWishlist(selectedPlace)}>
-                  <AddCircleIcon fontSize="small" color="primary" />
-                  Add to "Wishlist"
-                </button>}
+                <p>Added to Itinerary</p> :
+                <div>
+                  <select
+                    value={selectedItinerary ? selectedItinerary[0].type : selectedItinerary}
+                    onChange={async (e) => {
+                      try {
+                        const itineraryData = await getItineraryIDFromType(e.target.value, tripID);
+                        setSelectedItinerary(itineraryData);
+                      } catch (error) {
+                        console.error(`Error getting itineraries:`, error);
+                      }
+                    }}
+                  >
+                    <option value="">Select an itinerary</option>
+                    {itineraries.map((itinerary) => (
+                      <option key={itinerary.id} value={itinerary.type}>
+                        {itinerary.type}
+                      </option>
+                    ))}
+                  </select>
+                  <button onClick={() => addToWishlist(selectedPlace, selectedItinerary)}>
+                    <AddCircleIcon fontSize="small" color="primary" />
+                    Add to List
+                  </button>
+                </div>
+              }
             </div>
             {selectedPlace.photos &&
               <Carousel navButtonsAlwaysVisible={true} autoPlay={false}

@@ -8,9 +8,25 @@ import { GoogleMap, useJsApiLoader, MarkerF } from "@react-google-maps/api";
 import { passiveSupport } from 'passive-events-support/src/utils';
 
 
-function Map({ itineraryItems, addToWishlist, location }) {
+function Map({ itineraryItems, addToWishlist, location,  tripID, itineraries }) {
 
   const [position, setPosition] = useState(null);
+  //store the itinerary that is selected in the add to list map popup. this is passed to the addToWishlist function to insert the place into the correct itinerary
+  const [selectedItinerary, setSelectedItinerary] = useState('');
+
+  //get the itineraryid using the itinerary name(when user chooses it in map popup) and trip id(is a props)
+  //input - tripID, itinerary Type(e.g wishlist). 
+  //output - itinerary record that matches itinerary type in the tripID
+  const getItineraryIDFromType = async (itineraryType, tripID) => {
+    try {
+      const response = await axios.get(`http://localhost:8080/api/itinerary/get-itinerary-by-type-tripid/${itineraryType}/${tripID}`);
+      const itineraryData = response.data;
+      return itineraryData;
+    } catch (error) {
+      console.log(`error fetching itineraryID:`, error);
+    }
+  };
+
 
   const getLatLonForLocation = async (tripLocation) => {
     const geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(tripLocation)}&key=${import.meta.env.VITE_GOOGLE_MAPS_API_KEY}`;
@@ -34,6 +50,9 @@ function Map({ itineraryItems, addToWishlist, location }) {
     };
     fetchData();
   }, [location]);
+
+
+  
 
   passiveSupport({
     debug: false,
@@ -155,7 +174,13 @@ function Map({ itineraryItems, addToWishlist, location }) {
 
 
         <InfoWindow
-          selectedPlace={selectedPlace} setSelectedPlace={setSelectedPlace} itineraryItems={itineraryItems} addToWishlist={addToWishlist} />
+          selectedPlace={selectedPlace} setSelectedPlace={setSelectedPlace} itineraryItems={itineraryItems} addToWishlist={addToWishlist} 
+          selectedItinerary={selectedItinerary}
+          setSelectedItinerary={setSelectedItinerary}
+          getItineraryIDFromType={getItineraryIDFromType}
+          tripID={tripID}
+          itineraries={itineraries}
+          />
 
 
       </GoogleMap>
