@@ -3,18 +3,13 @@ import React from 'react';
 import { useState } from 'react';
 import AddItinerary from './AddItinerary';
 //Linked from tripdetails component
-export default function Itineraries({ itineraries, itineraryItems, tripID }) {
+export default function Itineraries({ itineraries, itineraryItems, tripID, handleSetItineraries }) {
 
   const [createButtonClicked, setCreateButtonClicked] = useState(false); //state to maintain the itineraries of trip
   const [itineraryType, setItineraryType] = useState('');
-  const [itineraryDate, setItineraryDate] = useState('');
 
   const handleSetItineraryType = (event) => {
     setItineraryType(event.target.value);
-  };
-
-  const handleSetItineraryDate = (event) => {
-    setItineraryDate(event.target.value);
   };
 
   const handleCreateButtonClicked = (event) => {
@@ -32,10 +27,9 @@ export default function Itineraries({ itineraries, itineraryItems, tripID }) {
       {createButtonClicked && <AddItinerary
         itineraryType={itineraryType}
         handleSetItineraryType={handleSetItineraryType}
-        itineraryDate={itineraryDate}
-        handleSetItineraryDate={handleSetItineraryDate}
         handleCreateButtonClicked={handleCreateButtonClicked}
         tripID={tripID}
+        handleSetItineraries={handleSetItineraries}
       />}
       {itineraries.map((itinerary) => (
         <div key={itinerary.id} className="itinerary">

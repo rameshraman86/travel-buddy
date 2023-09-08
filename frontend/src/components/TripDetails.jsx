@@ -23,6 +23,11 @@ export default function TripDetails() {
   const [itineraryItems, setItineraryItems] = useState([]);
   const [location, setLocation] = useState();
 
+  //to handle adding new itinearies to current trip react component
+  const handleSetItineraries = (new_itinerary) => {
+    setItineraries(prev => [...prev, new_itinerary]);
+  }
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -80,7 +85,9 @@ export default function TripDetails() {
         <Itineraries
           tripID={id}
           itineraries={itineraries}
-          itineraryItems={itineraryItems} />
+          itineraryItems={itineraryItems} 
+          handleSetItineraries={handleSetItineraries}
+          />
       </div>
       <div>
         <Messages tripID={id} />

@@ -8,23 +8,25 @@ export default function AddItinerary(props) {
   const {
     itineraryType,
     handleSetItineraryType,
-    itineraryDate,
-    handleSetItineraryDate,
     handleCreateButtonClicked,
-    tripID
+    tripID, 
+    handleSetItineraries
   } = props;
 
 
   const handleNewItinerarySubmit = async (event) => {
     event.preventDefault();
-    const response = await axios.post(`http://localhost:8080/api/itinerary/create-new-itinerary`, {
-      type: itineraryType,
-      trip_id: tripID
-    });
-    // const newItinerary = await response.json();
-    // console.log(newItinerary);
+    try {
+      const response = await axios.post(`http://localhost:8080/api/itinerary/create-new-itinerary`, {
+        type: itineraryType,
+        trip_id: tripID
+      });
+      handleSetItineraries(response.data);
+      handleCreateButtonClicked(event);
+    } catch (error) {
+      console.log(`Error creating new itinerary: `, error);
+    }
   };
-
 
 
   return (
