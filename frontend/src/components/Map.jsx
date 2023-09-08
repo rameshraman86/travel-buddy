@@ -21,7 +21,24 @@ import Carousel from 'react-material-ui-carousel';
 
 
 
-function Map({ itineraryItems, addToWishlist }) {
+function Map({ itineraryItems, addToWishlist, tripID }) {
+
+  const [itinerariesOfTrip, setItinerariesOfTrip] = useState([]);
+  const [selectedItinerary, setSelectedItinerary] = useState('');
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8080/api/trips/itinerary-names/${tripID}`);
+        setItinerariesOfTrip(response.data);
+      } catch (error) {
+        console.log(`error fetching itineraries:`, error);
+      }
+    };
+    fetchData();
+  }, []);
+
+
   passiveSupport({
     debug: false,
     listeners: [
@@ -162,10 +179,29 @@ function Map({ itineraryItems, addToWishlist }) {
                 </h3>
                 {itineraryItems.some(place => place.url === selectedPlace.url) ?
                   <p>In "Wishlist"</p> :
-                  <button onClick={() => addToWishlist(selectedPlace)}>
-                    <AddCircleIcon fontSize="small" color="primary" />
-                    Add to "Wishlist"
-                  </button>}
+                  // <button onClick={() => addToWishlist(selectedPlace)}>
+                  <div>
+                    {/* <AddCircleIcon fontSize="small" color="primary" /> */}
+
+                    <select value={selectedItinerary} onChange={(e) => setSelectedItinerary(e.target.value)}>
+                      <option value="">Select an itinerary</option>
+                      {itinerariesOfTrip.map((itinerary) => (
+                        <option key={itinerary.id} value={itinerary.type}>
+                          {itinerary.type}
+                        </option>
+                      ))}
+                    </select>
+                    <button onClick={() => addToWishlist(selectedItinerary)}>
+                      <AddCircleIcon fontSize="small" color="primary" />
+                      Add to List
+                    </button>
+
+                    {/* Add to "Wishlist" */}
+
+
+                    {/* </button> */}
+                  </div>
+                }
               </div>
               {selectedPlace.photos &&
                 <Carousel navButtonsAlwaysVisible={true} autoPlay={false}

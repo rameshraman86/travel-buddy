@@ -18,7 +18,7 @@ import AIAssistant from "./AIAssistant";
 
 export default function TripDetails(props) {
   const { id } = useParams();
-  console.log(`id is : ${id}`);
+  // console.log(`id is : ${id}`);
 
   const [itineraries, setItineraries] = useState([]);
   const [itineraryItems, setItineraryItems] = useState([]);
@@ -55,7 +55,7 @@ export default function TripDetails(props) {
   const addToWishlist = async (selectedPlace) => {
     const newPlaceBody = {
       ...selectedPlace,
-      itinerary_id: 1, // TODO: assign to wishlist 
+      itinerary_id: parseInt(id), // TODO: assign to wishlist 
       trip_id: parseInt(id),
     };
     console.log(`new place body is : ${newPlaceBody}`);
@@ -88,7 +88,9 @@ export default function TripDetails(props) {
         <h2>Map</h2>
         <Map
           itineraryItems={itineraryItems}
-          addToWishlist={addToWishlist} />
+          addToWishlist={addToWishlist} 
+          tripID={id}
+          />
       </div>
       {/* <h1>Trip {id} details</h1>
       <Itineraries tripID={id} />
