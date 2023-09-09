@@ -51,7 +51,7 @@ export default function AuthenticateReturningUser() {
     event.preventDefault();
     const userObject = await axios.get(`http://localhost:8080/api/users/get-user-details/${email}`);
     if (userObject.data.length > 0) { //if user exists in the db, take them to url details
-      navigate(`details`);
+      navigate(`details`, {email});
     } else { //if user is new, create user record and take them to tripURL details
       try {
         axios.post(`http://localhost:8080/api/users/create-new-user/`, {

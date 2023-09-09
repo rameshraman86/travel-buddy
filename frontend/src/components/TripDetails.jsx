@@ -15,7 +15,8 @@ const parseArr = (string) => {
 import AIAssistant from "./AIAssistant";
 
 
-export default function TripDetails() {
+export default function TripDetails(props) {
+  const {email} = props;
   const { id } = useParams();
   // console.log(`id is : ${id}`);
 
@@ -83,7 +84,9 @@ export default function TripDetails() {
       </div>
       <div>
         <Messages tripID={id} />
-        <Chat avatar="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Windows_10_Default_Profile_Picture.svg/512px-Windows_10_Default_Profile_Picture.svg.png?20221210150350"/>
+        <Chat avatar="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Windows_10_Default_Profile_Picture.svg/512px-Windows_10_Default_Profile_Picture.svg.png?20221210150350"
+        email={email} tripID={id}
+        />
         <AIAssistant tripID={id} />
       </div>
       <div>
