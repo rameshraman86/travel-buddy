@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Autocomplete } from "@react-google-maps/api";
 import axios from 'axios';
+import "../styles/FuzzySearchForm.css";
 
 
 // BUG: autocomplete doesn't update state of input
@@ -21,6 +22,7 @@ function FuzzySearchForm({ position, setSuggestedPlaces, setPosition }) {
   const handleSubmit = e => {
     e.preventDefault();
     getSearchResult(input);
+    setInput("");
   };
 
 
@@ -71,15 +73,15 @@ function FuzzySearchForm({ position, setSuggestedPlaces, setPosition }) {
 
   return (
     <form onSubmit={handleSubmit}>
-      {/* <Autocomplete> */}
-      <input
-        className="input"
-        placeholder="Berlin, Toronto, etc..."
-        onChange={e => setInput(e.target.value)}
-        value={input}
-        name="input"
-        type="text" />
-      {/* </Autocomplete> */}
+      <Autocomplete>
+        <input
+          className="input"
+          placeholder="Coffee shops, museums..."
+          onChange={e => setInput(e.target.value)}
+          value={input}
+          name="input"
+          type="text" />
+      </Autocomplete>
       <input type='submit' />
     </form>
   );

@@ -24,7 +24,7 @@ const getItinerariesByTripID = (trip_id) => {
 
 //get all itinerary items by trip id
 const getItineraryItemsByTripID = (trip_id) => {
-  const queryString = 'SELECT * FROM itinerary_items WHERE trip_id=$1;';
+  const queryString = 'SELECT * FROM itinerary_items WHERE trip_id=$1 ORDER BY type;';
   const queryParams = [trip_id];
   return db
     .query(queryString, queryParams)
@@ -35,7 +35,7 @@ const getItineraryItemsByTripID = (trip_id) => {
 
 //get itinerary by name and trip id
 const getItineraryByTypeTripID = (type, trip_id) => {
-  const queryString  = 'SELECT * FROM itinerary WHERE type=$1 AND trip_id=$2;';
+  const queryString = 'SELECT * FROM itinerary WHERE type=$1 AND trip_id=$2;';
   const queryParams = [type, trip_id];
   return db
     .query(queryString, queryParams)
@@ -53,6 +53,17 @@ const addItineraryItem = ({ itinerary_id, trip_id, lat, lng, address, phone, nam
     .then(data => data.rows[0])
     .catch(error => console.error(`Error adding to itinerary items for trip id ${trip_id}`, error));
 };
+
+const deleteItineraryItem = (trip_id, url) => {
+  const queryString = `DELETE FROM itinerary_items WHERE trip_id = $1 AND url = $2  RETURNING *;`;
+  const queryParams = [trip_id, url];
+
+  return db
+    .query(queryString, queryParams)
+    .then(data => data.rows[0])
+    .catch(error => console.error(`Error deleting itinerary item for trip id ${trip_id}`, error));
+};
+
 // add default wishlist to every new trip
 const createWishListItinerary = (tripIDObj) => {
   const queryString = `INSERT INTO itinerary(trip_id, type) VALUES ($1,$2) RETURNING *;`;
@@ -74,5 +85,6 @@ module.exports = {
   getItineraryItemsByTripID,
   addItineraryItem,
   createWishListItinerary,
-  getItineraryByTypeTripID
+  getItineraryByTypeTripID,
+  deleteItineraryItem
 };

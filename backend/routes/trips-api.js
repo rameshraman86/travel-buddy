@@ -112,6 +112,20 @@ router.post('/new-trip', (req, res) => {
     });
 });
 
+// ***********DELETE***********
+router.delete(`/delete-itinerary-item/:trip_id`, (req, res) => {
+  const trip_id = req.params.trip_id;
+  const url = req.body.url;
+
+  itineraries.deleteItineraryItem(trip_id, url)
+    .then((itinerary) => {
+      res.send(itinerary);
+    })
+    .catch(error => {
+      console.log(error);
+      res.status(500).json({ error_deleting_itinerary_item: error.message });
+    });
+});
 
 
 

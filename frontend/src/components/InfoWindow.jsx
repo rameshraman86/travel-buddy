@@ -6,7 +6,8 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Carousel from 'react-material-ui-carousel';
 
-function InfoWindow({ selectedPlace, setSelectedPlace, itineraryItems, addToWishlist, itineraries, selectedItinerary,setSelectedItinerary, getItineraryIDFromType, tripID }) {
+function InfoWindow({ selectedPlace, setSelectedPlace, itineraryItems, addToWishlist, itineraries, selectedItinerary, setSelectedItinerary, getItineraryIDFromType, tripID }) {
+
 
   const AccordionStyle = {
     padding: 0
@@ -37,7 +38,7 @@ function InfoWindow({ selectedPlace, setSelectedPlace, itineraryItems, addToWish
               </h3>
               {itineraryItems.some(place => place.url === selectedPlace.url) ?
                 <p>Added to Itinerary</p> :
-                <div>
+                (<div>
                   <select
                     value={selectedItinerary ? selectedItinerary[0].type : selectedItinerary}
                     onChange={async (e) => {
@@ -49,25 +50,24 @@ function InfoWindow({ selectedPlace, setSelectedPlace, itineraryItems, addToWish
                       }
                     }}
                   >
-                    <option value="">Select an itinerary</option>
+                    <option value="" disabled>Select an itinerary</option>
                     {itineraries.map((itinerary) => (
                       <option key={itinerary.id} value={itinerary.type}>
                         {itinerary.type}
                       </option>
                     ))}
                   </select>
-                  <button onClick={() => addToWishlist(selectedPlace, selectedItinerary)}>
+                  <button disabled={!selectedItinerary} onClick={() => addToWishlist(selectedPlace, selectedItinerary)}>
                     <AddCircleIcon fontSize="small" color="primary" />
                     Add to List
                   </button>
-                </div>
+                </div>)
               }
             </div>
             {selectedPlace.photos &&
               <Carousel navButtonsAlwaysVisible={true} autoPlay={false}
                 navButtonsProps={{
                   style: {
-                    // backgroundColor: 'cornflowerblue',
                     height: '20px',
                     width: '20px',
                   }

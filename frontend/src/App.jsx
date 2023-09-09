@@ -6,7 +6,7 @@ import Homepage from './components/HomePage';
 import NewTripPage from './components/NewtripPage';
 import TripDetails from './components/TripDetails';
 import AuthenticateReturningUser from './components/AuthenticateReturningUser';
-import Chat from './components/Chat';
+// import Chat from './components/Chat';
 import NotFound from './components/NotFound';
 
 function App() {
