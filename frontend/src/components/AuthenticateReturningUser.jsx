@@ -17,27 +17,21 @@ import NotFound from "./NotFound";
 
 
 
-export default function AuthenticateReturningUser() {
-  const [email, setEmail] = useState('');
-  const [IDisValid, setIDisValid] = useState(true);
+export default function AuthenticateReturningUser({ email, handleSetEmail }) {
+  const [tripIDisValid, setTripIDisValid] = useState(true);
   const navigate = useNavigate();
   const { id } = useParams();
 
 
-  const handleSetEmail = (event) => {
-    setEmail(event.target.value);
-  };
-
-
-  //Check if the trip url is a valid url in db. set the IDisValid state to true or false accordingly
+  //Check if the trip url is a valid url in db. set the tripIDisValid state to true or false accordingly
   useEffect(() => {
     const fetchData = async (id) => {
       try {
         const response = await axios.get(`http://localhost:8080/api/trips/get-trip-details/${id}`);
         if (response.data.length === 0) {
-          setIDisValid(false);
+          setTripIDisValid(false);
         } else {
-          setIDisValid(true);
+          setTripIDisValid(true);
         }
       } catch (error) {
         console.log(`error fetching trip for the id:`, error);
@@ -69,20 +63,20 @@ export default function AuthenticateReturningUser() {
 
   return (
     <>
-      {!IDisValid && <NotFound />}
-      {IDisValid &&
-      <form onSubmit={handleSubmit}>
-        <h1>Travel Buddy - open your trip!!!</h1>
-        <input
-          type="email"
-          name="email"
-          className="email"
-          required={true}
-          placeholder="Please enter email"
-          value={email} onChange={handleSetEmail}
-        ></input>
-        <button type="submit">Login</button>
-      </form>
+      {!tripIDisValid && <NotFound />}
+      {tripIDisValid &&
+        <form onSubmit={handleSubmit}>
+          <h1>Travel Buddy - open your trip!!!</h1>
+          <input
+            type="email"
+            name="email"
+            className="email"
+            required={true}
+            placeholder="Please enter email"
+            value={email} onChange={handleSetEmail}
+          ></input>
+          <button type="submit">Login</button>
+        </form>
       }
     </>
   );

@@ -15,14 +15,23 @@ const parseArr = (string) => {
 import AIAssistant from "./AIAssistant";
 
 
-export default function TripDetails(props) {
-  const {email} = props;
+export default function TripDetails({ email }) {
   const { id } = useParams();
-  // console.log(`id is : ${id}`);
 
   const [itineraries, setItineraries] = useState([]); //state to maintain the itineraries of trip
   const [itineraryItems, setItineraryItems] = useState([]);
   const [location, setLocation] = useState();
+
+  //to handle adding new itinearies to current trip react component
+  const handleSetItineraries = (new_itinerary) => {
+    setItineraries(prev => [...prev, new_itinerary]);
+  };
+
+  //replace itinereries with new data
+  const handleUpdateItineraries = (updatedItineraries) => {
+    setItineraries(updatedItineraries);
+  };
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -58,7 +67,6 @@ export default function TripDetails(props) {
 
     const newPlaceBody = {
       ...selectedPlace,
-      // itinerary_id: parseInt(id), // TODO: assign to wishlist 
       itinerary_id: selectedItinerary[0].id, // TODO: assign to wishlist 
       trip_id: parseInt(id),
     };
@@ -79,13 +87,17 @@ export default function TripDetails(props) {
       <div>
         <h1>Trip {id} details</h1>
         <Itineraries
+          tripID={id}
           itineraries={itineraries}
-          itineraryItems={itineraryItems} />
+          itineraryItems={itineraryItems}
+          handleSetItineraries={handleSetItineraries}
+          handleUpdateItineraries={handleUpdateItineraries}
+        />
       </div>
       <div>
         <Messages tripID={id} />
         <Chat avatar="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Windows_10_Default_Profile_Picture.svg/512px-Windows_10_Default_Profile_Picture.svg.png?20221210150350"
-        email={email} tripID={id}
+          email={email}
         />
         <AIAssistant tripID={id} />
       </div>
@@ -97,7 +109,7 @@ export default function TripDetails(props) {
           addToWishlist={addToWishlist}
           tripID={id}
           itineraries={itineraries}
-          />
+        />
       </div>
     </>
   );
