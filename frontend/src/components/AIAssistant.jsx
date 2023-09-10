@@ -12,12 +12,14 @@ export default function AIAssistant({ id, tripLocation, startDate, endDate }) {
   const [response, setResponse] = useState('');
   const [promptSubmitted, setPromptSubmitted] = useState(false);
 
+
   const handleSubmit = (event) => {
     event.preventDefault();
     setPromptSubmitted(true);
     handleSetResponse('');
+
     const prompt = `give me a suggestion for a ${formData.tripType} type trip to ${formData.tripLocation} for 
-      ${formData.tripDuration} days for ${formData.totalTravellers} people with a budget of ${formData.tripBudget? formData.tripBudget : "unlimited"} USD
+      ${formData.tripDuration} days for ${formData.totalTravellers} people with a budget of ${formData.tripBudget ? formData.tripBudget : "unlimited"} USD
       with ${formData.accommodationType} accommodation with kids ${formData.withKids} with pets ${formData.withPets}. Make your response concise. 
       Highlight points of interest in your response. Group your suggestion by number of days.
       give me your full response only in <html> format. 
@@ -34,25 +36,14 @@ export default function AIAssistant({ id, tripLocation, startDate, endDate }) {
   };
 
 
-
   const handleSetResponse = (aiResponse) => {
     setResponse(aiResponse);
   };
 
-  //helper func. to calculate the number of days between start and end date
-  // const calculateDateDifference = (startDate, endDate) => {
-  //   if (startDate && endDate) {
-  //     const startDateObj = new Date(startDate);
-  //     const endDateObj = new Date(endDate);
+  const handleClearButtonClicked = () => {
+    setPromptSubmitted(false);
+  };
 
-  //     // Calculate the difference in milliseconds and convert to days
-  //     const differenceInMilliseconds = endDateObj - startDateObj;
-  //     const differenceInDays = differenceInMilliseconds / (1000 * 60 * 60 * 24);
-
-  //     return Math.abs(differenceInDays); // Absolute value in case endDate is before startDate
-  //   }
-  //   return null;
-  // };
 
 
   const [formData, setFormData] = useState({
@@ -86,7 +77,7 @@ export default function AIAssistant({ id, tripLocation, startDate, endDate }) {
               name="tripLocation"
               className="tripLocation"
               placeholder="Where are you going?"
-              required="true"
+              required={true}
               value={formData.tripLocation}
               onChange={handleChange}
             />
@@ -170,15 +161,15 @@ export default function AIAssistant({ id, tripLocation, startDate, endDate }) {
           </div>
           <div>
             <button type="submit" className="submitPrompt">Ask for Suggestions</button>
+            <button type="button" className="clearSuggestions" onClick={handleClearButtonClicked}>Clear Suggestions</button>
           </div>
         </form>
         <div className="aiResponse">
           {promptSubmitted && !response && "Getting Suggestions..."}
-          {
-            promptSubmitted && response && <AIAssistantResponse
-              response={response}
-              handleSetResponse={handleSetResponse}
-            />}
+          {promptSubmitted && response && <AIAssistantResponse
+            response={response}
+            handleSetResponse={handleSetResponse}
+          />}
         </div>
       </div>
     </>
