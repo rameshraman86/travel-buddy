@@ -1,4 +1,4 @@
-import "./aiAssistant.css";
+import "../styles/aiAssistant.css";
 
 import React from "react";
 import axios from 'axios';

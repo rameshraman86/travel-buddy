@@ -1,0 +1,11 @@
+.aiAssistant {
+  display: flex;
+  flex-direction: column;
+
+  
+}
+.promptQuestions {
+  display: flex;
+  flex-direction: column;
+  max-width: 20%;
+}
