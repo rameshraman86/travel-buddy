@@ -107,38 +107,40 @@ export default function TripDetails({ email, tripLocation, startDate, endDate })
   };
 
   return (
-    <>
-      <div>
-        <h1 className="text-3xl font-bold underline">{tripName}</h1>
-        <h3>{tripDates?.start} - {tripDates?.end}</h3>
-        <Itineraries
-          tripID={id}
-          itineraries={itineraries}
-          itineraryItems={itineraryItems}
-          setItineraryItems={setItineraryItems}
-          handleMarkerClick={handleMarkerClick}
-          handleSetItineraries={handleSetItineraries}
-          handleUpdateItineraries={handleUpdateItineraries}
+    <div className="">
+      <div className="p-2">
+        <div>
+          <h1 className="text-3xl font-bold underline">{tripName}</h1>
+          <h3>{tripDates?.start} - {tripDates?.end}</h3>
+          <Itineraries
+            tripID={id}
+            itineraries={itineraries}
+            itineraryItems={itineraryItems}
+            setItineraryItems={setItineraryItems}
+            handleMarkerClick={handleMarkerClick}
+            handleSetItineraries={handleSetItineraries}
+            handleUpdateItineraries={handleUpdateItineraries}
           />
-      </div>
+        </div>
 
-      <div>
-        <Messages
-          tripID={id}
-          messages={messages}
-        />
-        <Chat2 avatar="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Windows_10_Default_Profile_Picture.svg/512px-Windows_10_Default_Profile_Picture.svg.png?20221210150350"
-          email={email}
-          tripID={id}
-          messages={messages}
-          handleSetMessages={handleSetMessages}
-        />
-        <AIAssistant
-          tripID={id}
-          tripLocation={tripLocation}
-          startDate={startDate}
-          endDate={endDate}
-        />
+        <div>
+          <Messages
+            tripID={id}
+            messages={messages}
+          />
+          <Chat2 avatar="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Windows_10_Default_Profile_Picture.svg/512px-Windows_10_Default_Profile_Picture.svg.png?20221210150350"
+            email={email}
+            tripID={id}
+            messages={messages}
+            handleSetMessages={handleSetMessages}
+          />
+          <AIAssistant
+            tripID={id}
+            tripLocation={tripLocation}
+            startDate={startDate}
+            endDate={endDate}
+          />
+        </div>
       </div>
       <div>
         <Map
@@ -150,9 +152,10 @@ export default function TripDetails({ email, tripLocation, startDate, endDate })
           setMapRef={setMapRef}
           selectedPlace={selectedPlace} setSelectedPlace={setSelectedPlace}
           handleMarkerClick={handleMarkerClick}
+          className=""
         />
       </div>
-    </>
+    </div>
   );
 }
 

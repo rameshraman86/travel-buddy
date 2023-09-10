@@ -1,6 +1,5 @@
 import { useState, Fragment, useEffect } from 'react';
 import { InfoWindowF } from "@react-google-maps/api";
-// import { Rating } from '@mui/material';
 // import Carousel from 'react-material-ui-carousel';
 import { Disclosure, Listbox, Transition } from '@headlessui/react';
 import { Carousel } from "@material-tailwind/react";
@@ -11,10 +10,11 @@ function InfoWindow({ selectedPlace, setSelectedPlace, itineraryItems, selectedI
 
   const [selectedItineraryType, setSelectedItineraryType] = useState();
 
+  useEffect(() => {
+    setSelectedItineraryType(itineraries?.[0]?.type);
+  }, []);
 
   useEffect(() => {
-    setSelectedItineraryType(itineraries[0]?.type);
-
     setSelectedItinerary(itineraries.find(itinerary => itinerary.type === selectedItineraryType));
 
   }, [itineraries, selectedItineraryType, setSelectedItinerary]);
@@ -172,19 +172,6 @@ function InfoWindow({ selectedPlace, setSelectedPlace, itineraryItems, selectedI
 
                   </Carousel>
 
-                  // <Carousel navButtonsAlwaysInvisible={true} autoPlay={true}
-                  //   navButtonsProps={{
-                  //     style: {
-                  //       height: '20px',
-                  //       width: '20px',
-                  //     }
-                  //   }} >
-                  //   {selectedPlace.photos.map((img, id) => (
-                  //     <div className="Showcase_div" key={id}><img key={id} src={img} /></div>
-
-                  //   ))
-                  //   }
-                  // </Carousel>
                 }
               </div>}
 
