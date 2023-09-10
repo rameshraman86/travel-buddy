@@ -4,7 +4,8 @@ import axios from 'axios';
 
 import Itineraries from "./Itineraries";
 import Messages from "./Messages";
-import Chat from './Chat';
+// import Chat from './Chat';
+import Chat2 from './Chat2';
 import Map from "./Map";
 
 const parseArr = (string) => {
@@ -22,6 +23,7 @@ export default function TripDetails({ email, tripLocation, startDate, endDate })
   const [itineraries, setItineraries] = useState([]); //state to maintain the itineraries of trip
   const [itineraryItems, setItineraryItems] = useState([]);
   const [location, setLocation] = useState();
+  const [messages, setMessages] = useState([]);
 
   //to handle adding new itinearies to current trip react component
   const handleSetItineraries = (new_itinerary) => {
@@ -31,6 +33,11 @@ export default function TripDetails({ email, tripLocation, startDate, endDate })
   //replace itinereries with new data
   const handleUpdateItineraries = (updatedItineraries) => {
     setItineraries(updatedItineraries);
+  };
+
+  //add a new incoming message to the state
+  const handleSetMessages = (new_message) => {
+    setMessages(prev => [...prev, new_message]);
   };
 
 
@@ -56,6 +63,11 @@ export default function TripDetails({ email, tripLocation, startDate, endDate })
           };
         });
         setItineraryItems(formattedItineraryItems);
+
+
+        //to render/update messages component
+        const messagesResponse = await axios.get(`http://localhost:8080/api/messages/get-trip-messages/${id}`);
+        setMessages(messagesResponse.data);
 
       } catch (error) {
         console.log(`error fetching itineraries:`, error);
@@ -96,9 +108,15 @@ export default function TripDetails({ email, tripLocation, startDate, endDate })
         />
       </div>
       <div>
-        <Messages tripID={id} />
-        <Chat avatar="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Windows_10_Default_Profile_Picture.svg/512px-Windows_10_Default_Profile_Picture.svg.png?20221210150350"
+        <Messages
+          tripID={id}
+          messages={messages}
+        />
+        <Chat2 avatar="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Windows_10_Default_Profile_Picture.svg/512px-Windows_10_Default_Profile_Picture.svg.png?20221210150350"
           email={email}
+          tripID={id}
+          messages={messages}
+          handleSetMessages={handleSetMessages}
         />
         <AIAssistant
           tripID={id}

@@ -4,25 +4,10 @@ import MessageItem from "./MessageItem";
 
 
 //Linked from tripdetails component
-export default function Messages(props) {
-  const [tripID, setTripID] = useState(props.tripID);
-  const [messages, setMessages] = useState([]);
+export default function Messages({ messages }) {
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const messagesResponse = await axios.get(`http://localhost:8080/api/trips/messages/${tripID}`);
-        setMessages(messagesResponse.data);
-      } catch (error) {
-        console.log(`error fetching messages:`, error);
-      }
-    };
-    fetchData();
-  }, []);
-
-  
   return (
-    <div className="messages"><h2>Message Board</h2>
+    <div className="messages"><h2>Chat</h2>
       {messages.map((message) => (
         <div className="message" key={message.id}>
           <MessageItem
