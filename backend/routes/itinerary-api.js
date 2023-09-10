@@ -26,6 +26,7 @@ router.get("/get-itinerary-by-type-tripid/:type/:trip_id", (req, res) => {
 
 
 // ***********CREATE***********
+//create a default wishlist itienrary for every new trip
 router.post('/create-wishlist-itinerary', (req, res) => {
   const tripIDObj = req.body;
   itineraries.createWishListItinerary(tripIDObj)
@@ -34,6 +35,31 @@ router.post('/create-wishlist-itinerary', (req, res) => {
     })
     .catch(error => {
       res.status(500).json({ error_creating_wishlist: error.message });
+    });
+});
+
+//create a new itinerary
+router.post('/create-new-itinerary', (req, res) => {
+  const itineraryObj = req.body;
+  itineraries.addItinerary(itineraryObj)
+    .then((itinerary) => {
+      res.send(itinerary);
+    })
+    .catch(error => {
+      res.status(500).json({ error_creating_new_itinerary: error.message });
+    });
+});
+
+
+// ***********DELETE***********
+router.delete('/delete-itinerary/:itinerary_id', (req, res) => {
+  const itinerary_id = req.params.itinerary_id;
+  itineraries.deleteItinerary(itinerary_id)
+    .then((itinerary) => {
+      res.send(itinerary);
+    })
+    .catch(error => {
+      res.status(500).json({ error_deleting_itinerary: error.message });
     });
 });
 

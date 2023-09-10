@@ -56,9 +56,15 @@ function App() {
           endDate={endDate}
           handleEndDateChange={handleEndDateChange}
         />} />
-        <Route path='/:id' element={<AuthenticateReturningUser />} />
+        <Route path='/:id' element={<AuthenticateReturningUser
+          email={email}
+          handleSetEmail={handleSetEmail}
+        />} />
         <Route path='/:id/details' element={<TripDetails
+          email={email}
           tripLocation={tripLocation}
+          startDate={startDate}
+          endDate={endDate}
         />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
