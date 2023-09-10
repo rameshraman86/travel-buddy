@@ -61,8 +61,10 @@ function App() {
           handleSetEmail={handleSetEmail}
         />} />
         <Route path='/:id/details' element={<TripDetails
-          tripLocation={tripLocation}
           email={email}
+          tripLocation={tripLocation}
+          startDate={startDate}
+          endDate={endDate}
         />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
