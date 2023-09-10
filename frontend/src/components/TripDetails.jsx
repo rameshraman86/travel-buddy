@@ -15,7 +15,8 @@ const parseArr = (string) => {
 import AIAssistant from "./AIAssistant";
 
 
-export default function TripDetails({ email }) {
+export default function TripDetails({ email, tripLocation, startDate, endDate }) {
+
   const { id } = useParams();
 
   const [itineraries, setItineraries] = useState([]); //state to maintain the itineraries of trip
@@ -99,7 +100,12 @@ export default function TripDetails({ email }) {
         <Chat avatar="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Windows_10_Default_Profile_Picture.svg/512px-Windows_10_Default_Profile_Picture.svg.png?20221210150350"
           email={email}
         />
-        <AIAssistant tripID={id} />
+        <AIAssistant
+          tripID={id}
+          tripLocation={tripLocation}
+          startDate={startDate}
+          endDate={endDate}
+        />
       </div>
       <div>
         <h2>Map</h2>
