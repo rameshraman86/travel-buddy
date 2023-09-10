@@ -2,30 +2,30 @@ import '../styles/Map.css';
 import InfoWindow from './InfoWindow';
 import PlacesAutocomplete from './PlacesAutocomplete';
 import FuzzySearchForm from './FuzzySearchForm';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { GoogleMap, useJsApiLoader, MarkerF } from "@react-google-maps/api";
 import { passiveSupport } from 'passive-events-support/src/utils';
 
 
-function Map({ itineraryItems, addToWishlist, location, tripID, itineraries, setMapRef, selectedPlace, setSelectedPlace, handleMarkerClick }) {
+function Map({ itineraryItems, addToWishlist, location, tripID, itineraries, mapRef, setMapRef, selectedPlace, setSelectedPlace, handleMarkerClick }) {
 
   const [position, setPosition] = useState(null);
   //store the itinerary that is selected in the add to list map popup. this is passed to the addToWishlist function to insert the place into the correct itinerary
-  const [selectedItinerary, setSelectedItinerary] = useState('');
+  const [selectedItinerary, setSelectedItinerary] = useState(itineraries[0]);
 
   //get the itineraryid using the itinerary name(when user chooses it in map popup) and trip id(is a props)
-  //input - tripID, itinerary Type(e.g wishlist). 
+  //input - tripID, itinerary Type(e.g wishlist). f
   //output - itinerary record that matches itinerary type in the tripID
-  const getItineraryIDFromType = async (itineraryType, tripID) => {
-    try {
-      const response = await axios.get(`http://localhost:8080/api/itinerary/get-itinerary-by-type-tripid/${itineraryType}/${tripID}`);
-      const itineraryData = response.data;
-      return itineraryData;
-    } catch (error) {
-      console.log(`error fetching itineraryID:`, error);
-    }
-  };
+  // const getItineraryIDFromType = async (itineraryType, tripID) => {
+  //   try {
+  //     const response = await axios.get(`http://localhost:8080/api/itinerary/get-itinerary-by-type-tripid/${itineraryType}/${tripID}`);
+  //     const itineraryData = response.data;
+  //     return itineraryData;
+  //   } catch (error) {
+  //     console.log(`error fetching itineraryID:`, error);
+  //   }
+  // };
 
 
   const getLatLonForLocation = async (tripLocation) => {
@@ -51,32 +51,8 @@ function Map({ itineraryItems, addToWishlist, location, tripID, itineraries, set
     fetchData();
   }, [location]);
 
-
-
   passiveSupport({
-    debug: false,
-    listeners: [
-      {
-        element: 'div',
-        event: 'touchstart'
-      },
-      {
-        element: 'div',
-        event: 'touchmove'
-      },
-      {
-        element: 'div',
-        event: 'touchend'
-      },
-      {
-        element: 'div',
-        event: 'wheel'
-      },
-      {
-        element: 'div',
-        event: 'mousewheel'
-      }
-    ]
+    debug: false, listeners: [{ element: 'div', event: 'touchstart' }, { element: 'div', event: 'touchmove' }, { element: 'div', event: 'touchend' }, { element: 'div', event: 'wheel' }, { element: 'div', event: 'mousewheel' }]
   });
 
   const [libraries] = useState(['places']);
@@ -90,15 +66,26 @@ function Map({ itineraryItems, addToWishlist, location, tripID, itineraries, set
 
   const options = {
     disableDefaultUI: true,
-    zoomControl: true
+    mapId: '700efce11ab7b45f',
+    zoomControl: true,
   };
 
-  const onMapLoad = (map) => {
-    setMapRef(map);
-  };
+  const onMapLoad = useCallback((map) => setMapRef(map), []);
 
 
-
+  useEffect(() => {
+    if (mapRef && suggestedPlaces) {
+      console.log(mapRef.getBounds());
+      const bounds = new window.google.maps.LatLngBounds();
+      suggestedPlaces?.map(marker => {
+        bounds.extend({
+          lat: marker.lat,
+          lng: marker.lng,
+        });
+      });
+      mapRef.fitBounds(bounds);
+    }
+  }, [mapRef, suggestedPlaces]);
 
   if (loadError) return <div>Error loading maps</div>;
   if (!isLoaded) return <div>Loading...</div>;
@@ -107,18 +94,17 @@ function Map({ itineraryItems, addToWishlist, location, tripID, itineraries, set
       <FuzzySearchForm
         setSuggestedPlaces={setSuggestedPlaces}
         position={position}
-        setPosition={setPosition}
-        selectMarker={handleMarkerClick} />
+      />
 
 
-      <div className="places-container">
+      {/* <div className="places-container">
         <PlacesAutocomplete
           setSearchedPlace={setSearchedPlace}
           setPosition={setPosition}
           selectMarker={handleMarkerClick}
           position={position}
         />
-      </div>
+      </div> */}
 
       <GoogleMap
         mapContainerClassName="map-container"
@@ -132,7 +118,12 @@ function Map({ itineraryItems, addToWishlist, location, tripID, itineraries, set
           <MarkerF
             key={`${place.lat}-${place.lng}`}
             position={{ lat: place.lat, lng: place.lng }}
-            // icon={customMarker}
+            icon={{
+              url: place.icon, // url
+              scaledSize: new google.maps.Size(28, 28), // scaled size
+              origin: new google.maps.Point(0, 0), // origin
+              anchor: new google.maps.Point(15, 25) // anchor
+            }}
             onClick={() => handleMarkerClick(place)}
           />
         )))}
@@ -158,7 +149,7 @@ function Map({ itineraryItems, addToWishlist, location, tripID, itineraries, set
           selectedPlace={selectedPlace} setSelectedPlace={setSelectedPlace} itineraryItems={itineraryItems} addToWishlist={addToWishlist}
           selectedItinerary={selectedItinerary}
           setSelectedItinerary={setSelectedItinerary}
-          getItineraryIDFromType={getItineraryIDFromType}
+          // getItineraryIDFromType={getItineraryIDFromType}
           tripID={tripID}
           itineraries={itineraries}
         />

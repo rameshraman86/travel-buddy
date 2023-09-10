@@ -19,38 +19,43 @@
 
 .icon {
   width: 20px;
-  height: auto;
+  height: 20px;
   margin-right: 3px;
 
 }
 
-.info-window-row {
+/* .info-window-row {
   display: flex;
   align-items: center;
   gap: 2px;
-}
+} */
 
-button {
+/* .gm-style-iw .gm-style-iw-d {
+  overflow: hidden !important;
+  padding: 0px;
+} */
+
+/* button {
   display: flex;
   align-items: center;
   gap: 4px;
-}
+} */
 
 .Showcase_div {
   display: grid;
   place-items: center;
-  height: 300px;
+  height: 200px;
 }
 
 .img-div {
   height: 200px;
 }
 
-img {
+/* img {
   height: 200px;
-}
+} */
 
 .Showcase_div img {
   max-width: 250px;
-  max-height: 300px;
+  max-height: 200px;
 }

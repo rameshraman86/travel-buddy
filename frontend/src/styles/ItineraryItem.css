@@ -25,6 +25,7 @@
 .Itinerary_Item ul {
   list-style-type: none;
   padding-left: 8px;
+  margin: 4px;
 }
 
 .Itinerary_Item li:nth-child(1) {

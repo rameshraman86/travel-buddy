@@ -58,7 +58,7 @@ export default function TripDetails() {
     const newPlaceBody = {
       ...selectedPlace,
       // itinerary_id: parseInt(id), 
-      itinerary_id: selectedItinerary[0].id,
+      itinerary_id: selectedItinerary.id,
       trip_id: parseInt(id),
     };
     // console.log(`new place body is : ${JSON.stringify(newPlaceBody, null, 4)}`);
@@ -86,7 +86,7 @@ export default function TripDetails() {
   return (
     <>
       <div>
-        <h1>{tripName}</h1>
+        <h1 className="text-3xl font-bold underline">{tripName}</h1>
         <h3>{tripDates?.start} - {tripDates?.end}</h3>
         <Itineraries
           itineraries={itineraries}
@@ -101,7 +101,6 @@ export default function TripDetails() {
         <AIAssistant tripID={id} />
       </div>
       <div>
-        <h2>Map</h2>
         <Map
           itineraryItems={itineraryItems}
           location={location}

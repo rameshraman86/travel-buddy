@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+// import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 
@@ -61,46 +61,51 @@ export default function NewTripPage(props) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div>
-        <h1>Welcome {state}! Create a new trip</h1>
-        <label htmlFor="tripName">Trip Name:</label>
-        <input
-          type="text"
-          id="tripName"
-          required={true}
-          value={tripName}
-          onChange={handleTripNameChange}
-        />
-        <br />
-        <label htmlFor="tripLocation">Location:</label>
-        <input
-          type="text"
-          id="tripLocation"
-          required={true}
-          value={tripLocation}
-          onChange={handleTripLocationChange}
-        />
-        <br />
-        <label htmlFor="startDate">Start Date:</label>
-        <input
-          type="date"
-          id="startDate"
-          required={true}
-          value={startDate}
-          onChange={handleStartDateChange}
-        />
-        <br />
-        <label htmlFor="endDate">End Date:</label>
-        <input
-          type="date"
-          id="endDate"
-          required={true}
-          value={endDate}
-          onChange={handleEndDateChange}
-        />
-        <br />
-        <button type="submit">Create Trip</button>
-        <button type="button" onClick={handleCancel}>Cancel</button>
+      <div className='flex min-h-screen min-w-screen'>
+        <div className='w-full'>
+          <h1>Welcome {state}! Create a new trip</h1>
+          <label htmlFor="tripName">Trip Name:</label>
+          <input
+            type="text"
+            id="tripName"
+            required={true}
+            value={tripName}
+            onChange={handleTripNameChange}
+          />
+          <br />
+          <label htmlFor="tripLocation">Location:</label>
+          <input
+            type="text"
+            id="tripLocation"
+            required={true}
+            value={tripLocation}
+            onChange={handleTripLocationChange}
+          />
+
+        </div>
+        <div className='w-full'>
+          <br />
+          <label htmlFor="startDate">Start Date:</label>
+          <input
+            type="date"
+            id="startDate"
+            required={true}
+            value={startDate}
+            onChange={handleStartDateChange}
+          />
+          <br />
+          <label htmlFor="endDate">End Date:</label>
+          <input
+            type="date"
+            id="endDate"
+            required={true}
+            value={endDate}
+            onChange={handleEndDateChange}
+          />
+          <br />
+          <button type="submit">Create Trip</button>
+          <button type="button" onClick={handleCancel}>Cancel</button>
+        </div>
       </div>
     </form>
   );
