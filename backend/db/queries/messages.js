@@ -11,6 +11,34 @@ const getMessagesByTripID = (tripID) => {
     .catch(error => console.error(`error returning messages by trip: `, error));
 };
 
+
+// ***********INSERT***********
+//POST a new message
+const postMessage = (messageObj) => {
+  const queryString = `INSERT INTO messages (trip_id, user_id, message, created_at)
+  SELECT
+      $1 AS trip_id,
+      u.id AS user_id,
+      $2 AS message,
+      NOW() AS created_at
+  FROM (
+      SELECT id
+      FROM users
+      WHERE email = $3
+  ) AS u
+   RETURNING *;`;
+  const queryParams = [messageObj.tripID, messageObj.message, messageObj.email];
+  return db.query(queryString, queryParams)
+    .then(data => data.rows)
+    .catch(error => console.error(`error posting message: `, error));
+};
+
+
+
+
+
+
 module.exports = {
-  getMessagesByTripID
+  getMessagesByTripID,
+  postMessage
 };
