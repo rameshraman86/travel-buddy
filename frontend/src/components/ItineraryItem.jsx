@@ -33,23 +33,6 @@ function ItineraryItem({ handleDelete, handleMarkerClick, item }) {
         <li className="flex justify-center items-center my-1">
           <span>{name}</span>
 
-
-          {/* <IconButton onClick={handleClick}>
-            <MoreVertIcon />
-          </IconButton>
-          <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-            <MenuItem onClick={handleShowMap} className="MenuItem"
-              sx={{ fontSize: "15px" }}>
-              <ListItemIcon><FmdGoodIcon fontSize="small" color="secondary" /></ListItemIcon>
-              <ListItemText>Show on map</ListItemText>
-            </MenuItem>
-            <MenuItem onClick={handleDeleteItem} className="MenuItem"
-              sx={{ fontSize: "15px" }}>
-              <ListItemIcon><DeleteIcon fontSize="small" color="secondary" /></ListItemIcon>
-              <ListItemText>Delete</ListItemText>
-            </MenuItem>
-          </Menu> */}
-
           <Menu as="div" className="relative inline-block text-left">
             <div>
               <Menu.Button className="flex items-center rounded-full  text-gray-400 hover:text-gray-600 hover:bg-orange-100 focus:outline-none">

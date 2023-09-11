@@ -1,34 +1,38 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
-import { Avatar, Image } from 'antd'
-import '../styles/chatbox.scss'
+import { Avatar, Image } from 'antd';
+import '../styles/chatbox.scss';
+import axios from 'axios';
 
 const URL = process.env.NODE_ENV === 'production' ? undefined : 'http://localhost:8080';
 const socket = io(URL);
 
-export default function Chat({ avatar, user, message, email, tripID }) {
+export default function Chat({ avatar, email, tripID, messages, handleSetMessages }) {
   const [name, setName] = useState('');
   const [users, setUsers] = useState([]);
-  const [messages, setMessages] = useState([]);
 
   useEffect(() => {
     const intialConn = payload => {
-      socket.emit('identify', { email })
-      
+      socket.emit('identify', { email });
     };
 
     const afterConn = payload => {
       setName(email);
       setUsers(payload.users);
-    }
+    };
 
     const newUser = payload => {
       setUsers(prev => [...prev, payload.name]);
     };
 
-    const sendMsg = payload => {
-      setMessages(prev => [...prev, {...payload, trip_id: tripID}]);
+    const sendMsg = (payload) => {
+      const newMessage = {
+        message: payload.msg,
+        email: payload.email,
+        trip_id: tripID
+      };
+      handleSetMessages(newMessage);
     };
 
     socket.on('intial_conn', intialConn);
@@ -42,24 +46,27 @@ export default function Chat({ avatar, user, message, email, tripID }) {
       socket.off('new_users', newUser);
       socket.off('send_msg', sendMsg);
     };
-
-    
-
   }, []);
 
 
 
-  const onSubmit = evt => {
+  const onSubmit = async (evt) => {
     evt.preventDefault();
     const msg = evt.target.msg.value;
     evt.target.msg.value = '';
-    const name = email  
-    socket.emit("send_msg", { name, msg });
+    socket.emit("send_msg", { email, msg });
+
+    const messageData = {
+      tripID: tripID,
+      message: msg,
+      email: email,
+    };
 
     try {
-      axios.post(`/messages/${tripID}`, messages);
+      //adds the new message in the db
+      const response = await axios.post("http://localhost:8080/api/messages/create-new-message", messageData);
     } catch (error) {
-      console.log(`Error adding to Wishlist: `, error);
+      console.error(`error creating message : `, error);
     }
   };
 
@@ -70,7 +77,7 @@ export default function Chat({ avatar, user, message, email, tripID }) {
         {email ? <h1>{email}</h1> : <h1>Connecting...</h1>}
         <div>
           <ul>
-            
+
           </ul>
         </div>
 
@@ -81,7 +88,7 @@ export default function Chat({ avatar, user, message, email, tripID }) {
       </div>
       <h1>__________________________________</h1>
 
-      {messages.map(message => <div key={email} className={message.name === email ? 'chatbox_sender' : 'chatbox_reciver'}>
+      {/* {messages.map(message => <div key={email} className={message.name === email ? 'chatbox_sender' : 'chatbox_reciver'}>
         <Avatar
           size={50}
           src={<Image
@@ -96,25 +103,7 @@ export default function Chat({ avatar, user, message, email, tripID }) {
           </strong> <br></br>
           {message.msg}
         </p>
-      </div>)}
-
-{/* 
-      <div className='chatbox_sender'>
-        <p>
-        <strong>
-            {email}
-          </strong> <br></br>
-          {message}
-        </p>
-        <Avatar
-          size={50}
-          src={<Image
-            src={avatar}
-            className='avatar'
-            preview={false}
-          />}
-        />
-      </div> */}
+      </div>)} */}
 
       <form onSubmit={onSubmit}>
         <div className='chatbox_content'>
@@ -127,5 +116,5 @@ export default function Chat({ avatar, user, message, email, tripID }) {
       </form>
 
     </>
-  )
-};
+  );
+}

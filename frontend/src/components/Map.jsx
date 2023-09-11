@@ -7,6 +7,7 @@ import axios from 'axios';
 import { GoogleMap, useJsApiLoader, MarkerF } from "@react-google-maps/api";
 import { passiveSupport } from 'passive-events-support/src/utils';
 
+// TODO: Overlapping markers - Remove pink marker when added to list
 
 function Map({ itineraryItems, addToWishlist, location, tripID, itineraries, mapRef, setMapRef, selectedPlace, setSelectedPlace, handleMarkerClick }) {
 
@@ -95,7 +96,6 @@ function Map({ itineraryItems, addToWishlist, location, tripID, itineraries, map
         setSuggestedPlaces={setSuggestedPlaces}
         position={position}
       />
-
 
       {/* <div className="places-container">
         <PlacesAutocomplete

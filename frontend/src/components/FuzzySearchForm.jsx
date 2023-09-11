@@ -67,7 +67,7 @@ function FuzzySearchForm({ position, setSuggestedPlaces }) {
 
 
   return (
-    <form onSubmit={handleSubmit} className='flex items-center'>
+    <form onSubmit={handleSubmit} className='relative'>
       <div className='top-12 left-4 inline-flex flex-col justify-center relative z-10'>
         {/* <Autocomplete> */}
         <input
