@@ -1,8 +1,8 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
-import { Avatar, Image } from 'antd'
-import '../styles/chatbox.scss'
+import { Avatar, Image } from 'antd';
+import '../styles/chatbox.scss';
 
 const URL = process.env.NODE_ENV === 'production' ? undefined : 'http://localhost:8080';
 const socket = io(URL);
@@ -14,21 +14,21 @@ export default function Chat({ avatar, user, message, email, tripID }) {
 
   useEffect(() => {
     const intialConn = payload => {
-      socket.emit('identify', { email })
-      
+      socket.emit('identify', { email });
+
     };
 
     const afterConn = payload => {
       setName(email);
       setUsers(payload.users);
-    }
+    };
 
     const newUser = payload => {
       setUsers(prev => [...prev, payload.name]);
     };
 
     const sendMsg = payload => {
-      setMessages(prev => [...prev, {...payload, trip_id: tripID}]);
+      setMessages(prev => [...prev, { ...payload, trip_id: tripID }]);
     };
 
     socket.on('intial_conn', intialConn);
@@ -43,7 +43,7 @@ export default function Chat({ avatar, user, message, email, tripID }) {
       socket.off('send_msg', sendMsg);
     };
 
-    
+
 
   }, []);
 
@@ -53,7 +53,7 @@ export default function Chat({ avatar, user, message, email, tripID }) {
     evt.preventDefault();
     const msg = evt.target.msg.value;
     evt.target.msg.value = '';
-    const name = email  
+    const name = email;
     socket.emit("send_msg", { name, msg });
 
     try {
@@ -70,7 +70,7 @@ export default function Chat({ avatar, user, message, email, tripID }) {
         {email ? <h1>{email}</h1> : <h1>Connecting...</h1>}
         <div>
           <ul>
-            
+
           </ul>
         </div>
 
@@ -92,13 +92,13 @@ export default function Chat({ avatar, user, message, email, tripID }) {
         />
         <p>
           <strong>
-          {message.name}
+            {message.name}
           </strong> <br></br>
           {message.msg}
         </p>
       </div>)}
 
-{/* 
+      {/* 
       <div className='chatbox_sender'>
         <p>
         <strong>
@@ -127,5 +127,5 @@ export default function Chat({ avatar, user, message, email, tripID }) {
       </form>
 
     </>
-  )
-};
+  );
+}

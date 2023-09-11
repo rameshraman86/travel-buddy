@@ -1,27 +1,19 @@
 import "../styles/ItineraryItem.css";
 import { useState, Fragment } from "react";
 import { Menu, Transition } from '@headlessui/react';
+import Itineraries from "./Itineraries";
 
 
 
-function ItineraryItem({ handleDelete, handleMarkerClick, item }) {
+function ItineraryItem({ itineraries, handleDelete, handleMarkerClick, item }) {
   const { address, phone, name, rating, user_ratings_total, url, opening_hours, website, type, photos, icon } = item;
 
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+
   const handleDeleteItem = () => {
     handleDelete(url);
-    setAnchorEl(null);
   };
   const handleShowMap = () => {
     handleMarkerClick(item);
-    setAnchorEl(null);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
   };
 
   return (
@@ -64,6 +56,21 @@ function ItineraryItem({ handleDelete, handleMarkerClick, item }) {
                       </button>
                     )}
                   </Menu.Item>
+
+                  {/* {itineraries.map((itin, id) => { */}
+                  <Menu.Item>
+                    {({ active }) => (
+                      <button
+                        className={`${active ? 'bg-gray-200 font-medium text-gray-900' : 'text-gray-700'
+                          } group flex w-full items-center px-2 py-2 text-sm`}
+                        onClick={() => { }}
+                      >
+                        <p className="my-auto">{itineraries[0].type}</p>
+                      </button>
+                    )}
+                  </Menu.Item>
+                  {/* })} */}
+
                   <Menu.Item>
                     {({ active }) => (
                       <button

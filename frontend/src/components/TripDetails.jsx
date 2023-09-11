@@ -124,7 +124,17 @@ export default function TripDetails({ email, tripLocation, startDate, endDate })
           />
         </div>
 
-        <div>
+        <div className="mt-10">
+          <AIAssistant
+            tripID={id}
+            tripLocation={tripLocation}
+            startDate={startDate}
+            endDate={endDate}
+          />
+        </div>
+
+
+        <div className="bg-white/[0.5] rounded-xl w-full p-4 mt-2 my-5">
           <Messages
             tripID={id}
             messages={messages}
@@ -135,13 +145,9 @@ export default function TripDetails({ email, tripLocation, startDate, endDate })
             messages={messages}
             handleSetMessages={handleSetMessages}
           />
-          <AIAssistant
-            tripID={id}
-            tripLocation={tripLocation}
-            startDate={startDate}
-            endDate={endDate}
-          />
         </div>
+
+
       </div>
       <Map
         itineraryItems={itineraryItems}

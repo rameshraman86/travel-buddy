@@ -41,7 +41,6 @@ export default function Itineraries({ itineraries, itineraryItems, setItineraryI
     setCreateButtonClicked(!createButtonClicked);
   };
 
-  let [isOpen, setIsOpen] = useState(false);
 
   const handleDeleteItinerary = async (itinerary_deleted) => {
     closeModal();
@@ -60,6 +59,7 @@ export default function Itineraries({ itineraries, itineraryItems, setItineraryI
     // }
   };
 
+  const [isOpen, setIsOpen] = useState(false);
   function openModal() {
     setIsOpen(true);
   }
@@ -175,6 +175,7 @@ export default function Itineraries({ itineraries, itineraryItems, setItineraryI
                   handleDelete={handleDeleteItineraryItems}
                   handleMarkerClick={handleMarkerClick}
                   item={item}
+                  itineraries={itineraries}
                   {...item} />
               );
             }

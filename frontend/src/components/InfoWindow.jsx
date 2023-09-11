@@ -58,21 +58,9 @@ function InfoWindow({ selectedPlace, setSelectedPlace, itineraryItems, selectedI
             </h3>
             <div className='my-1'>
               {itineraryItems.some(place => place.url === selectedPlace.url) ?
-                <p className="text-s italic flex items-center gap-1">
+                <p className="text-sm font-medium italic flex items-center gap-1">
                   In List</p> :
                 (<div>
-                  {/* <select
-                    value={selectedItineraryType}
-                    onChange={setSelectedItineraryType}
-                  >
-                    <option value="" disabled>Select an itinerary</option>
-                    {itineraries.map((itinerary) => (
-                      <option key={itinerary.id} value={itinerary.type}>
-                        {itinerary.type}
-                      </option>
-                    ))}
-                  </select> */}
-
                   <div>
                     <Listbox value={selectedItineraryType}
                       onChange={setSelectedItineraryType}>
@@ -165,10 +153,10 @@ function InfoWindow({ selectedPlace, setSelectedPlace, itineraryItems, selectedI
               {selectedPlace.photos && <div className='h-56 w-60 group'>
                 {selectedPlace.photos &&
                   <Carousel
-                    leftControl={<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-5 h-5 stroke-white -ml-4 group-hover:bg-gray-500/30 rounded-full" >
+                    leftControl={<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-5 h-5 stroke-gray-300 -ml-2 group-hover:bg-gray-500/30 rounded-full" >
                       <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" className='' />
                     </svg>}
-                    rightControl={<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-5 h-5 stroke-white -mr-4 group-hover:bg-gray-500/30 rounded-full">
+                    rightControl={<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-5 h-5 stroke-gray-300  -mr-2 group-hover:bg-gray-500/30 rounded-full">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                     </svg>
                     }
