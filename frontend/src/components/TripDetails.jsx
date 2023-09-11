@@ -8,6 +8,7 @@ import Messages from "./Messages";
 import Chat2 from './Chat2';
 import Map from "./Map";
 import AIAssistant from "./AIAssistant";
+import Chat from "./Chat";
 
 
 export default function TripDetails({ email, tripLocation, startDate, endDate }) {
@@ -128,7 +129,14 @@ export default function TripDetails({ email, tripLocation, startDate, endDate })
             tripID={id}
             messages={messages}
           />
-          <Chat2 avatar="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Windows_10_Default_Profile_Picture.svg/512px-Windows_10_Default_Profile_Picture.svg.png?20221210150350"
+          {/* <Chat2 avatar="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Windows_10_Default_Profile_Picture.svg/512px-Windows_10_Default_Profile_Picture.svg.png?20221210150350"
+            email={email}
+            tripID={id}
+            messages={messages}
+            handleSetMessages={handleSetMessages}
+          /> */}
+          <Chat
+            avatar="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Windows_10_Default_Profile_Picture.svg/512px-Windows_10_Default_Profile_Picture.svg.png?20221210150350"
             email={email}
             tripID={id}
             messages={messages}
