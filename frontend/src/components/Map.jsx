@@ -91,7 +91,7 @@ function Map({ itineraryItems, addToWishlist, location, tripID, itineraries, map
   if (loadError) return <div>Error loading maps</div>;
   if (!isLoaded) return <div>Loading...</div>;
   return (
-    <div>
+    <div className='w-full max-h-screen relative overflow-hidden'>
       <FuzzySearchForm
         setSuggestedPlaces={setSuggestedPlaces}
         position={position}

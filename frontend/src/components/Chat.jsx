@@ -99,7 +99,7 @@ export default function Chat({ avatar, email, tripID, messages, handleSetMessage
         />
         <p>
           <strong>
-          {message.name}
+            {message.name}
           </strong> <br></br>
           {message.msg}
         </p>
