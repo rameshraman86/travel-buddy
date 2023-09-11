@@ -51,7 +51,7 @@ export default function Homepage(props) {
                   required
                   placeholder="Enter your email"
                   value={email} onChange={handleSetEmail}
-                  className="block w-72 rounded-full border-0 py-1.5 px-3 text-gray-900 shadow-sm focus:outline-none ring-2 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-amber-600 sm:text-sm sm:leading-6"
+                  className="block w-72 rounded-full border-0 py-1.5 px-3 text-gray-900 shadow-sm focus:outline-none ring-2 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-amber-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>

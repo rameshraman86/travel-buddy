@@ -67,11 +67,11 @@ function FuzzySearchForm({ position, setSuggestedPlaces }) {
 
 
   return (
-    <form onSubmit={handleSubmit} className='relative'>
-      <div className='top-12 left-4 inline-flex flex-col justify-center relative z-10'>
+    <form onSubmit={handleSubmit} className='relative top-16 left-5 -mt-12'>
+      <div className='inline-flex flex-col justify-center relative z-10'>
         {/* <Autocomplete> */}
         <input
-          className="opacity-75 p-2 pl-8 rounded-full border border-gray-400 bg-gray-100 focus:bg-white focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-transparent"
+          className="opacity-75 p-2 pl-8 rounded-full border border-gray-500 bg-gray-200 focus:bg-white focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent"
           placeholder="Coffee shops, museums..."
           onChange={e => setInput(e.target.value)}
           value={input}

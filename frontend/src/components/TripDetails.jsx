@@ -107,11 +107,11 @@ export default function TripDetails({ email, tripLocation, startDate, endDate })
   };
 
   return (
-    <div className="">
-      <div className="p-2">
+    <div className="flex m-0 p-0 w-screen h-screen">
+      <div className="py-4 px-4 w-full overflow-y-auto">
         <div>
-          <h1 className="text-3xl font-bold underline">{tripName}</h1>
-          <h3>{tripDates?.start} - {tripDates?.end}</h3>
+          <h1 className="text-3xl font-extrabold text-gray-800">{tripName}</h1>
+          <span className="text-md text-gray-600 font-semibold ml-0.5 my-1">{tripDates?.start} - {tripDates?.end}</span>
           <Itineraries
             tripID={id}
             itineraries={itineraries}
@@ -124,7 +124,7 @@ export default function TripDetails({ email, tripLocation, startDate, endDate })
         </div>
 
         <div>
-          <Messages
+          {/* <Messages
             tripID={id}
             messages={messages}
           />
@@ -133,7 +133,7 @@ export default function TripDetails({ email, tripLocation, startDate, endDate })
             tripID={id}
             messages={messages}
             handleSetMessages={handleSetMessages}
-          />
+          /> */}
           <AIAssistant
             tripID={id}
             tripLocation={tripLocation}
@@ -142,19 +142,16 @@ export default function TripDetails({ email, tripLocation, startDate, endDate })
           />
         </div>
       </div>
-      <div>
-        <Map
-          itineraryItems={itineraryItems}
-          location={location}
-          addToWishlist={addToWishlist}
-          tripID={id}
-          itineraries={itineraries}
-          setMapRef={setMapRef}
-          selectedPlace={selectedPlace} setSelectedPlace={setSelectedPlace}
-          handleMarkerClick={handleMarkerClick}
-          className=""
-        />
-      </div>
+      <Map
+        itineraryItems={itineraryItems}
+        location={location}
+        addToWishlist={addToWishlist}
+        tripID={id}
+        itineraries={itineraries}
+        setMapRef={setMapRef}
+        selectedPlace={selectedPlace} setSelectedPlace={setSelectedPlace}
+        handleMarkerClick={handleMarkerClick}
+      />
     </div>
   );
 }
