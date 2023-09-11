@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from 'axios';
-
 import Itineraries from "./Itineraries";
 import Messages from "./Messages";
 // import Chat from './Chat';
@@ -109,9 +108,11 @@ export default function TripDetails({ email, tripLocation, startDate, endDate })
   return (
     <div className="flex m-0 p-0 w-screen h-screen">
       <div className="py-4 px-4 w-full overflow-y-auto">
+
         <div>
-          <h1 className="text-3xl font-extrabold text-gray-800">{tripName}</h1>
-          <span className="text-md text-gray-600 font-semibold ml-0.5 my-1">{tripDates?.start} - {tripDates?.end}</span>
+          <h1 className="text-3xl font-bold text-gray-800">{tripName}</h1>
+          <span className="text-xl text-gray-600 font-extrabold ml-0.5 my-0.5 mr-2">{location}</span>
+          <span className="text-lg text-gray-600 font-bold ml-0.5">{tripDates?.start} - {tripDates?.end}</span>
           <Itineraries
             tripID={id}
             itineraries={itineraries}
@@ -124,7 +125,7 @@ export default function TripDetails({ email, tripLocation, startDate, endDate })
         </div>
 
         <div>
-          {/* <Messages
+          <Messages
             tripID={id}
             messages={messages}
           />
@@ -133,7 +134,7 @@ export default function TripDetails({ email, tripLocation, startDate, endDate })
             tripID={id}
             messages={messages}
             handleSetMessages={handleSetMessages}
-          /> */}
+          />
           <AIAssistant
             tripID={id}
             tripLocation={tripLocation}
@@ -152,7 +153,11 @@ export default function TripDetails({ email, tripLocation, startDate, endDate })
         selectedPlace={selectedPlace} setSelectedPlace={setSelectedPlace}
         handleMarkerClick={handleMarkerClick}
       />
+
+
+
     </div>
+
   );
 }
 

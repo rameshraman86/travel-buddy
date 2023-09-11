@@ -7,6 +7,7 @@ import AIAssistantResponse from "./aiAssistantResponse";
 import { Listbox, Transition, Dialog } from "@headlessui/react";
 
 // What are the props for?
+// Clear out fields after modal closes
 
 export default function AIAssistant({ id, tripLocation, startDate, endDate }) {
   const [prompt, setPrompt] = useState("");
@@ -91,8 +92,8 @@ export default function AIAssistant({ id, tripLocation, startDate, endDate }) {
   return (
     <div className="mt-12">
       <h2 className="text-xl font-semibold text-gray-800 my-4">Not sure where to start? </h2>
-      <div className="flex items-center gap-2">
-        <button onClick={openModal} className='rounded-xl border border-transparent bg-amber-700 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-amber-800 focus:outline-none'>Ask our Assistant!</button>
+      <div className="flex items-center gap-2 mb-4">
+        <button onClick={openModal} className='rounded-xl border border-transparent bg-amber-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-amber-700 focus:outline-none'>Ask our Assistant!</button>
 
         <button onClick={handleClearButtonClicked} className="inline-flex justify-center px-4 py-2 text-sm font-semibold  text-white bg-gray-600 border border-transparent rounded-xl hover:bg-gray-700 duration-300" >Clear Suggestions</button>
       </div>
@@ -146,7 +147,7 @@ export default function AIAssistant({ id, tripLocation, startDate, endDate }) {
                 <Dialog.Title
                   as="h3"
                   className="text-lg font-medium leading-6 text-gray-900 flex items-center gap-1">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 inline stroke-amber-800">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 inline stroke-amber-600">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" />
                   </svg>
                   Tell us about your trip
@@ -272,7 +273,7 @@ export default function AIAssistant({ id, tripLocation, startDate, endDate }) {
                                                     } absolute inset-y-0 left-0 flex items-center pl-1.5`}
                                                 >
                                                   <svg
-                                                    className="h-5 w-5 fill-amber-800"
+                                                    className="h-5 w-5 fill-amber-600"
                                                     xmlns="http://www.w3.org/2000/svg"
                                                     viewBox="0 0 20 20"
                                                     fill="currentColor"
@@ -365,7 +366,7 @@ export default function AIAssistant({ id, tripLocation, startDate, endDate }) {
                                                     } absolute inset-y-0 left-0 flex items-center pl-1.5`}
                                                 >
                                                   <svg
-                                                    className="h-5 w-5 fill-amber-800"
+                                                    className="h-5 w-5 fill-amber-600"
                                                     xmlns="http://www.w3.org/2000/svg"
                                                     viewBox="0 0 20 20"
                                                     fill="currentColor"
@@ -416,7 +417,7 @@ export default function AIAssistant({ id, tripLocation, startDate, endDate }) {
                       </div>
 
                       <div className="mt-2">
-                        <button type="submit" className="inline-flex justify-center mr-3 px-4 py-2 text-sm font-semibold text-white bg-amber-700 border border-transparent rounded-xl hover:bg-amber-800 duration-300" onClick={closeModal}>Ask for Suggestions</button>
+                        <button type="submit" className="inline-flex justify-center mr-3 px-4 py-2 text-sm font-semibold text-white bg-amber-600 border border-transparent rounded-xl hover:bg-amber-700 duration-300" onClick={closeModal}>Ask for Suggestions</button>
                         <button type="button" className="inline-flex justify-center px-4 py-2 text-sm font-semibold  text-white bg-gray-600 border border-transparent rounded-xl hover:bg-gray-700 duration-300" onClick={closeModal}>Cancel</button>
                       </div>
                     </div>

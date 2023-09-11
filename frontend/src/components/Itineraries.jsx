@@ -6,6 +6,7 @@ import { useState, Fragment } from 'react';
 import AddItinerary from './AddItinerary';
 import { Dialog, Transition } from "@headlessui/react";
 
+
 //Linked from tripdetails component
 export default function Itineraries({ itineraries, itineraryItems, setItineraryItems, handleMarkerClick, tripID, handleSetItineraries, handleUpdateItineraries }) {
 
@@ -73,7 +74,7 @@ export default function Itineraries({ itineraries, itineraryItems, setItineraryI
 
       <form onSubmit={handleCreateNewItineraryClicked}>
         {showErrorMessage && <p>Itinerary type {itineraryType} already exists.</p>}
-        <button type="submit" className='rounded-xl border border-transparent bg-amber-700 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-amber-800 focus:outline-none gap-1 my-4 mt-8'>Create New List</button>
+        <button type="submit" className='rounded-xl border border-transparent bg-amber-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-amber-700 focus:outline-none gap-1 my-4 mt-8'>Create New List</button>
       </form>
       {createButtonClicked && <AddItinerary
         itineraryType={itineraryType}

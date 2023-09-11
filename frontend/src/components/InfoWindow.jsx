@@ -2,7 +2,8 @@ import { useState, Fragment, useEffect } from 'react';
 import { InfoWindowF } from "@react-google-maps/api";
 // import Carousel from 'react-material-ui-carousel';
 import { Disclosure, Listbox, Transition } from '@headlessui/react';
-import { Carousel } from "@material-tailwind/react";
+// import { Carousel } from "@material-tailwind/react";
+import { Carousel } from 'flowbite-react';
 
 
 
@@ -161,18 +162,25 @@ function InfoWindow({ selectedPlace, setSelectedPlace, itineraryItems, selectedI
               }
 
 
-              {<div className='my-1 mx-1'>
+              {selectedPlace.photos && <div className='h-56 w-60 group'>
                 {selectedPlace.photos &&
-                  <Carousel className="">
+                  <Carousel
+                    leftControl={<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-5 h-5 stroke-white -ml-4 group-hover:bg-gray-500/30 rounded-full" >
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" className='' />
+                    </svg>}
+                    rightControl={<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-5 h-5 stroke-white -mr-4 group-hover:bg-gray-500/30 rounded-full">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                    </svg>
+                    }
+                    pauseOnHover indicators={false}>
                     {selectedPlace.photos.map((img, id) => (
-                      <div className="grid place-items-center h-52" key={id}>
-                        <img key={id} src={img} className='max-h-52 max-w-64' />
+                      <div className="grid place-items-center h-56" key={id}>
+                        <img key={id} src={img} className=' object-contain h-56 w-60' />
                       </div>))
                     }
-
                   </Carousel>
-
                 }
+
               </div>}
 
               {selectedPlace.opening_hours &&
