@@ -1,7 +1,7 @@
 // import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
-import '../styles/NewtripPage.css'
+import '../styles/NewtripPage.css';
 
 export default function NewTripPage(props) {
   const {
@@ -61,98 +61,88 @@ export default function NewTripPage(props) {
 
   return (
     <>
-<div className="newtrip flex mt-64 min-h-full flex-1 flex-col justify-center items-center px-6 pb-12 gap-12">
+      <div className="h-screen">
+        {/* <h1 className="text-center text-4xl font-bold leading-9 tracking-tight text-gray-900">Welcome {state}</h1> */}
+        <form onSubmit={handleSubmit} className='flex h-full w-full'>
 
-      {/* <h1 className="text-center text-4xl font-bold leading-9 tracking-tight text-gray-900">Welcome {state}</h1> */}
+          <div className='h-full w-1/2 bg-gray-100 flex flex-col justify-center items-center'>
+            <div className="flex items-center gap-2 mb-12 -mt-[102px] ">
+              <h1 className='text-center text-4xl tracking-normal	font-extrabold tracking-tight text-gray-800'>Destination</h1>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6.115 5.19l.319 1.913A6 6 0 008.11 10.36L9.75 12l-.387.775c-.217.433-.132.956.21 1.298l1.348 1.348c.21.21.329.497.329.795v1.089c0 .426.24.815.622 1.006l.153.076c.433.217.956.132 1.298-.21l.723-.723a8.7 8.7 0 002.288-4.042 1.087 1.087 0 00-.358-1.099l-1.33-1.108c-.251-.21-.582-.299-.905-.245l-1.17.195a1.125 1.125 0 01-.98-.314l-.295-.295a1.125 1.125 0 010-1.591l.13-.132a1.125 1.125 0 011.3-.21l.603.302a.809.809 0 001.086-1.086L14.25 7.5l1.256-.837a4.5 4.5 0 001.528-1.732l.146-.292M6.115 5.19A9 9 0 1017.18 4.64M6.115 5.19A8.965 8.965 0 0112 3c1.929 0 3.716.607 5.18 1.64" />
+              </svg>
+            </div>
 
+            <div className='flex flex-col mb-3'>
+              <label htmlFor="tripName" className="block text-md leading-5 font-bold text-gray-700 ml-2.5 mb-1">What should we call this trip?</label>
+              <input
+                type="text"
+                id="tripName"
+                placeholder='Summer Vacation'
+                required={true}
+                value={tripName}
+                onChange={handleTripNameChange}
+                className="mt-1 block w-72 rounded-full border-0 py-1.5 px-4 text-gray-900 shadow-sm focus:outline-none ring-2 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-amber-600 sm:text-sm sm:leading-6" />
+            </div>
 
-      <form onSubmit={handleSubmit}>
-
-        <div className='grid lg:grid-cols-2 sm:grid-cols-1 gap-4'>
-
-
-          <div className='md:col-start-1 md:col-end-1 sm:col-span-1'>
-
-          <div className="flex justify-center">
-
-            <h1 className='text-center text-2xl leading-9 font-bold tracking-tight text-gray-900 mb-5'>Destination</h1>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-7 h-7 mt-1 ml-2">
-  <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-1.5 0a6.5 6.5 0 11-11-4.69v.447a3.5 3.5 0 001.025 2.475L8.293 10 8 10.293a1 1 0 000 1.414l1.06 1.06a1.5 1.5 0 01.44 1.061v.363a1 1 0 00.553.894l.276.139a1 1 0 001.342-.448l1.454-2.908a1.5 1.5 0 00-.281-1.731l-.772-.772a1 1 0 00-1.023-.242l-.384.128a.5.5 0 01-.606-.25l-.296-.592a.481.481 0 01.646-.646l.262.131a1 1 0 00.447.106h.188a1 1 0 00.949-1.316l-.068-.204a.5.5 0 01.149-.538l1.44-1.234A6.492 6.492 0 0116.5 10z" clip-rule="evenodd" />
-</svg>
-</div>
-            
-
-            <label htmlFor="tripName" className='font-bold'>What should we call this trip?</label>
-            <br />
-            <input
-              type="text"
-              id="tripName"
-              required={true}
-              value={tripName}
-              onChange={handleTripNameChange} 
-              className="mt-1 block w-72 rounded-full border-0 py-1.5 px-3 text-gray-900 shadow-sm focus:outline-none ring-2 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-amber-600 sm:text-sm sm:leading-6"/>
-
-            <br />
-
-            <label htmlFor="tripLocation" className='font-bold'>Where are you heading?</label>
-            <br />
-            <input
-              type="text"
-              id="tripLocation"
-              required={true}
-              value={tripLocation}
-              onChange={handleTripLocationChange} 
-              className="block w-72 rounded-full border-0 py-1.5 px-3 text-gray-900 shadow-sm focus:outline-none ring-2 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-amber-600 sm:text-sm sm:leading-6"/>
+            <div className='flex flex-col'>
+              <label htmlFor="tripLocation" className="block text-md leading-5 font-bold text-gray-700 ml-2.5 mb-1">Where are you heading?</label>
+              <input
+                type="text"
+                id="tripLocation"
+                placeholder='Tokyo'
+                required={true}
+                value={tripLocation}
+                onChange={handleTripLocationChange}
+                className="block w-72 rounded-full border-0 py-1.5 px-4 text-gray-900 shadow-sm focus:outline-none ring-2 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-amber-600 sm:text-sm sm:leading-6" />
+            </div>
           </div>
 
 
 
-          <div className='md:col-start-2 md:col-end-2 sm:col-span-1'>
+          <div className='flex flex-col h-full justify-center items-center w-1/2'>
 
-          <div className="flex justify-center">
+            <div className="flex items-center gap-2 mb-12">
 
-          <h1 className='text-center text-2xl leading-9 font-bold tracking-tight text-gray-900 mb-5'>Trip Dates</h1>
-          <svg className="w-7 h-7 mt-1 ml-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M192 93.7C192 59.5 221 0 256 0c36 0 64 59.5 64 93.7l0 66.3L497.8 278.5c8.9 5.9 14.2 15.9 14.2 26.6v56.7c0 10.9-10.7 18.6-21.1 15.2L320 320v80l57.6 43.2c4 3 6.4 7.8 6.4 12.8v42c0 7.8-6.3 14-14 14c-1.3 0-2.6-.2-3.9-.5L256 480 145.9 511.5c-1.3 .4-2.6 .5-3.9 .5c-7.8 0-14-6.3-14-14V456c0-5 2.4-9.8 6.4-12.8L192 400V320L21.1 377C10.7 380.4 0 372.7 0 361.8V305.1c0-10.7 5.3-20.7 14.2-26.6L192 160V93.7z"/></svg>
+              <h1 className='text-center text-4xl tracking-normal	font-extrabold tracking-tight text-gray-800'>Trip Dates</h1>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8">
+                <path d="M12.75 12.75a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM7.5 15.75a.75.75 0 100-1.5.75.75 0 000 1.5zM8.25 17.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM9.75 15.75a.75.75 0 100-1.5.75.75 0 000 1.5zM10.5 17.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12 15.75a.75.75 0 100-1.5.75.75 0 000 1.5zM12.75 17.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM14.25 15.75a.75.75 0 100-1.5.75.75 0 000 1.5zM15 17.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM16.5 15.75a.75.75 0 100-1.5.75.75 0 000 1.5zM15 12.75a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM16.5 13.5a.75.75 0 100-1.5.75.75 0 000 1.5z" />
+                <path fillRule="evenodd" d="M6.75 2.25A.75.75 0 017.5 3v1.5h9V3A.75.75 0 0118 3v1.5h.75a3 3 0 013 3v11.25a3 3 0 01-3 3H5.25a3 3 0 01-3-3V7.5a3 3 0 013-3H6V3a.75.75 0 01.75-.75zm13.5 9a1.5 1.5 0 00-1.5-1.5H5.25a1.5 1.5 0 00-1.5 1.5v7.5a1.5 1.5 0 001.5 1.5h13.5a1.5 1.5 0 001.5-1.5v-7.5z" clipRule="evenodd" />
+              </svg>
+
+            </div>
+
+            <div className='flex flex-col mb-3'>
+              <label htmlFor="startDate" className="block text-md leading-5 font-bold text-gray-700 ml-2.5 mb-1">Start</label>
+              <input
+                type="date"
+                id="startDate"
+                required={true}
+                value={startDate}
+                onChange={handleStartDateChange}
+                className="mt-1 block w-72 rounded-full border-0 py-1.5 px-4 text-gray-900 shadow-sm focus:outline-none ring-2 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-amber-600 sm:text-sm sm:leading-6" />
+            </div>
+
+
+
+            <div className='flex flex-col'>
+              <label htmlFor="endDate" className="block text-md leading-5 font-bold text-gray-700 ml-2.5 mb-1">End</label>
+              <input
+                type="date"
+                id="endDate"
+                required={true}
+                value={endDate}
+                onChange={handleEndDateChange}
+                className="block w-72 rounded-full border-0 py-1.5 px-4 text-gray-900 shadow-sm focus:outline-none ring-2 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-amber-600 sm:text-sm sm:leading-6" />
+            </div>
+
+            <div className='flex w-72 mt-16 gap-4'>
+              <button className="flex w-full justify-center rounded-full bg-amber-600 px-4 py-2 text-md font-semibold leading-6 text-white shadow-sm hover:bg-amber-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-700" type="submit">Create Trip</button>
+
+              <button className="flex w-full justify-center rounded-full bg-gray-600 px-4 py-2 text-md font-semibold leading-6 text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-700" type="button" onClick={handleCancel}>Cancel</button>
+            </div>
           </div>
-
-          
-            <label htmlFor="startDate" className='font-bold'>Start</label>
-            <br />
-            <input
-              type="date"
-              id="startDate"
-              required={true}
-              value={startDate}
-              onChange={handleStartDateChange} 
-              className="block w-72 rounded-full border-0 py-1.5 px-3 text-gray-900 shadow-sm focus:outline-none ring-2 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-amber-600 sm:text-sm sm:leading-6"/>
-
-            <br />
-
-            <label htmlFor="endDate" className='font-bold'>End</label>
-            <br />
-            <input
-              type="date"
-              id="endDate"
-              required={true}
-              value={endDate}
-              onChange={handleEndDateChange}
-              className="block w-72 rounded-full border-0 py-1.5 px-3 text-gray-900 shadow-sm focus:outline-none ring-2 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-amber-600 sm:text-sm sm:leading-6"/>
-          </div>
-
-
-
-          <div className='flex md:col-start-1 md:col-end-2 mt-16 gap-4'>
-
-            <button className="flex w-full justify-center rounded-full bg-amber-600 px-4 py-1.5 text-lg font-semibold leading-6 text-white shadow-sm hover:bg-amber-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-700" type="submit">Create Trip</button>
-            
-            <br />
-
-            <button className="flex w-full justify-center rounded-full bg-amber-600 px-4 py-1.5 text-lg font-semibold leading-6 text-white shadow-sm hover:bg-amber-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-700" type="button" onClick={handleCancel}>Cancel</button>
-          </div>
-
-
-        </div>
-      </form>
+        </form>
       </div>
     </>
   );
