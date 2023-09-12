@@ -113,6 +113,21 @@ router.delete(`/delete-itinerary-item/:trip_id`, (req, res) => {
     });
 });
 
+// ***********UPDATE***********
+router.put(`/move-itinerary-item/:trip_id`, (req, res) => {
+  const trip_id = req.params.trip_id;
+  const url = req.body.data.url;
+  const itinerary_id = req.body.data.itinerary_id;
+
+  itineraries.updateItineraryItem(itinerary_id, trip_id, url)
+    .then((itinerary) => {
+      res.send(itinerary);
+    })
+    .catch(error => {
+      console.log(error);
+      res.status(500).json({ error_updating_itinerary_item: error.message });
+    });
+});
 
 
 module.exports = router;

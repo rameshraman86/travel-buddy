@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from 'axios';
-
 import Itineraries from "./Itineraries";
 import Messages from "./Messages";
 // import Chat from './Chat';
-import Chat2 from './Chat2';
+// import Chat2 from './Chat2';
 import Map from "./Map";
 import AIAssistant from "./AIAssistant";
 import Chat from "./Chat";
@@ -108,11 +107,13 @@ export default function TripDetails({ email, tripLocation, startDate, endDate })
   };
 
   return (
-    <div className="">
-      <div className="p-2">
+    <div className="flex m-0 p-0 w-screen h-screen">
+      <div className="py-4 px-4 w-full overflow-y-auto">
+
         <div>
-          <h1 className="text-3xl font-bold underline">{tripName}</h1>
-          <h3>{tripDates?.start} - {tripDates?.end}</h3>
+          <h1 className="text-3xl font-bold text-gray-800">{tripName}</h1>
+          <span className="text-xl text-gray-600 font-extrabold ml-0.5 my-0.5 mr-2">{location}</span>
+          <span className="text-lg text-gray-600 font-bold ml-0.5 my-0.5">{tripDates?.start} - {tripDates?.end}</span>
           <Itineraries
             tripID={id}
             itineraries={itineraries}
@@ -124,7 +125,17 @@ export default function TripDetails({ email, tripLocation, startDate, endDate })
           />
         </div>
 
-        <div>
+        <div className="mt-10">
+          <AIAssistant
+            tripID={id}
+            tripLocation={tripLocation}
+            startDate={startDate}
+            endDate={endDate}
+          />
+        </div>
+
+
+        <div className="bg-white/[0.5] rounded-xl w-full p-4 mt-2 my-5">
           <Messages
             tripID={id}
             messages={messages}
@@ -142,28 +153,25 @@ export default function TripDetails({ email, tripLocation, startDate, endDate })
             messages={messages}
             handleSetMessages={handleSetMessages}
           />
-          <AIAssistant
-            tripID={id}
-            tripLocation={tripLocation}
-            startDate={startDate}
-            endDate={endDate}
-          />
         </div>
+
+
       </div>
-      <div>
-        <Map
-          itineraryItems={itineraryItems}
-          location={location}
-          addToWishlist={addToWishlist}
-          tripID={id}
-          itineraries={itineraries}
-          setMapRef={setMapRef}
-          selectedPlace={selectedPlace} setSelectedPlace={setSelectedPlace}
-          handleMarkerClick={handleMarkerClick}
-          className=""
-        />
-      </div>
+      <Map
+        itineraryItems={itineraryItems}
+        location={location}
+        addToWishlist={addToWishlist}
+        tripID={id}
+        itineraries={itineraries}
+        setMapRef={setMapRef}
+        selectedPlace={selectedPlace} setSelectedPlace={setSelectedPlace}
+        handleMarkerClick={handleMarkerClick}
+      />
+
+
+
     </div>
+
   );
 }
 
@@ -178,11 +186,11 @@ const parseDate = (dateString) => {
   const year = date.getFullYear();
   const month = date.getMonth() + 1; // Months are zero-based, so adding 1
   const day = date.getDate();
-  // const hours = date.getHours();
-  // const minutes = date.getMinutes();
+  const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  const dayOfWeek = daysOfWeek[date.getDay()];
 
   // Creating a readable string
-  return `${day}/${month}/${year}`;
+  return `${dayOfWeek}, ${day}/${month}/${year}`;
 
 
 };

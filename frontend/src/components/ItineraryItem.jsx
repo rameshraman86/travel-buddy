@@ -1,41 +1,39 @@
 import "../styles/ItineraryItem.css";
 import { useState, Fragment } from "react";
 import { Menu, Transition } from '@headlessui/react';
+import Itineraries from "./Itineraries";
+import { Draggable } from "react-beautiful-dnd";
 
 
-
-function ItineraryItem({ handleDelete, handleMarkerClick, item }) {
+function ItineraryItem({ itineraries, itinerary, handleMove, handleDelete, handleMarkerClick, item }) {
   const { address, phone, name, rating, user_ratings_total, url, opening_hours, website, type, photos, icon } = item;
 
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+  const otherItineraries = itineraries.filter(itin => itin.type !== itinerary.type);
+
+  const handleMoveItem = (itin) => {
+    handleMove(itin.id, url);
   };
+
+
   const handleDeleteItem = () => {
     handleDelete(url);
-    setAnchorEl(null);
   };
   const handleShowMap = () => {
     handleMarkerClick(item);
-    setAnchorEl(null);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
   };
 
   return (
-    <div className="flex items-center">
+    <div className="flex items-center mt-1 bg-white rounded-xl px-2 py-0.5">
       <div className="flex justify-center items-center bg-white w-8 h-8 p-2 rounded-full">
         <img src={icon} alt="" className="" />
       </div>
-      <ul className="pl-2 m-1">
-        <li className="flex justify-center items-center my-1">
+      <ul className="pl-2">
+        <li className="flex justify-center items-center text-gray-800 text-[15px] font-medium">
           <span>{name}</span>
 
           <Menu as="div" className="relative inline-block text-left">
             <div>
-              <Menu.Button className="flex items-center rounded-full  text-gray-400 hover:text-gray-600 hover:bg-orange-100 focus:outline-none">
+              <Menu.Button className="flex items-center rounded-full  text-gray-400 hover:text-gray-600 hover:bg-amber-100 focus:outline-none">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
                 </svg>
@@ -64,6 +62,21 @@ function ItineraryItem({ handleDelete, handleMarkerClick, item }) {
                       </button>
                     )}
                   </Menu.Item>
+
+                  {otherItineraries.map(itin => (
+                    <Menu.Item key={itin.id}>
+                      {({ active }) => (
+                        <button
+                          className={`${active ? 'bg-gray-200 font-medium text-gray-900' : 'text-gray-700'
+                            } group flex w-full items-center px-2 py-2 text-sm`}
+                          onClick={() => handleMoveItem(itin)}
+                        >
+                          <p className="my-auto">Move to {itin.type}</p>
+                        </button>
+                      )}
+                    </Menu.Item>
+                  ))}
+
                   <Menu.Item>
                     {({ active }) => (
                       <button
