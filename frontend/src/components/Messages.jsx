@@ -14,8 +14,8 @@ export default function Messages({ messages }) {
         </svg>
 
         <span>Chat</span></h2>
-      {messages.map((message) => (
-        <div className="text-[15px] font-medium text-gray-100 bg-gray-700/90 p-3 rounded-xl mb-3" key={message.id}>
+      {messages.map((message, index) => (
+        <div className="text-[15px] font-medium text-gray-100 bg-gray-700/90 p-3 rounded-xl mb-3" key={index}>
           <MessageItem
             className=""
             email={message.email}
