@@ -150,6 +150,7 @@ export default function TripDetails({ email, tripLocation, startDate, endDate })
           <Messages
             tripID={id}
             messages={messages}
+            name={email}
           />
           {/* <Chat2 avatar="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Windows_10_Default_Profile_Picture.svg/512px-Windows_10_Default_Profile_Picture.svg.png?20221210150350"
             email={email}
