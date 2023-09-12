@@ -14,7 +14,7 @@ export default function Itineraries({ itineraries, itineraryItems, setItineraryI
   const [itineraryType, setItineraryType] = useState('');
   const [showErrorMessage, setShowErrorMessage] = useState(false);
 
-  const handleDeleteItineraryItems = async (url) => {
+  const handleDeleteItineraryItem = async (url) => {
     try {
       await axios.delete(`http://localhost:8080/api/trips/delete-itinerary-item/${tripID}`, { data: { url } });
 
@@ -22,6 +22,21 @@ export default function Itineraries({ itineraries, itineraryItems, setItineraryI
       setItineraryItems(newItems);
     } catch (error) {
       console.log(`Error deleting itinerary item: `, error);
+    }
+  };
+
+  const handleMoveItineraryItem = async (itinerary_id, url) => {
+    try {
+      await axios.put(`http://localhost:8080/api/trips/move-itinerary-item/${tripID}`, { data: { url, itinerary_id } });
+
+      const item = itineraryItems.find(item => item.url === url);
+      item.itinerary_id = itinerary_id;
+
+      const newItems = itineraryItems.filter(item => item.url !== url);
+      setItineraryItems([...newItems, item]);
+
+    } catch (error) {
+      console.log(`Error updating itinerary item: `, error);
     }
   };
 
@@ -59,6 +74,8 @@ export default function Itineraries({ itineraries, itineraryItems, setItineraryI
     // }
   };
 
+
+
   const [isOpen, setIsOpen] = useState(false);
   function openModal() {
     setIsOpen(true);
@@ -74,7 +91,7 @@ export default function Itineraries({ itineraries, itineraryItems, setItineraryI
 
       <form onSubmit={handleCreateNewItineraryClicked}>
         {showErrorMessage && <p>Itinerary type {itineraryType} already exists.</p>}
-        <button type="submit" className='rounded-xl border border-transparent bg-amber-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-amber-700 focus:outline-none gap-1 my-4 mt-8'>Create New List</button>
+        <button type="submit" className='rounded-xl border border-transparent bg-amber-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-amber-700 focus:outline-none gap-1 my-5'>Create New List</button>
       </form>
       {createButtonClicked && <AddItinerary
         itineraryType={itineraryType}
@@ -172,10 +189,12 @@ export default function Itineraries({ itineraries, itineraryItems, setItineraryI
               return (
                 <ItineraryItem
                   key={item.url}
-                  handleDelete={handleDeleteItineraryItems}
+                  handleDelete={handleDeleteItineraryItem}
+                  handleMove={handleMoveItineraryItem}
                   handleMarkerClick={handleMarkerClick}
                   item={item}
                   itineraries={itineraries}
+                  itinerary={itinerary}
                   {...item} />
               );
             }

@@ -5,8 +5,14 @@ import Itineraries from "./Itineraries";
 
 
 
-function ItineraryItem({ itineraries, handleDelete, handleMarkerClick, item }) {
+function ItineraryItem({ itineraries, itinerary, handleMove, handleDelete, handleMarkerClick, item }) {
   const { address, phone, name, rating, user_ratings_total, url, opening_hours, website, type, photos, icon } = item;
+
+  const otherItineraries = itineraries.filter(itin => itin.type !== itinerary.type);
+
+  const handleMoveItem = (itin) => {
+    handleMove(itin.id, url);
+  };
 
 
   const handleDeleteItem = () => {
@@ -57,19 +63,19 @@ function ItineraryItem({ itineraries, handleDelete, handleMarkerClick, item }) {
                     )}
                   </Menu.Item>
 
-                  {/* {itineraries.map((itin, id) => { */}
-                  <Menu.Item>
-                    {({ active }) => (
-                      <button
-                        className={`${active ? 'bg-gray-200 font-medium text-gray-900' : 'text-gray-700'
-                          } group flex w-full items-center px-2 py-2 text-sm`}
-                        onClick={() => { }}
-                      >
-                        <p className="my-auto">{itineraries[0].type}</p>
-                      </button>
-                    )}
-                  </Menu.Item>
-                  {/* })} */}
+                  {otherItineraries.map(itin => (
+                    <Menu.Item key={itin.id}>
+                      {({ active }) => (
+                        <button
+                          className={`${active ? 'bg-gray-200 font-medium text-gray-900' : 'text-gray-700'
+                            } group flex w-full items-center px-2 py-2 text-sm`}
+                          onClick={() => handleMoveItem(itin)}
+                        >
+                          <p className="my-auto">Move to {itin.type}</p>
+                        </button>
+                      )}
+                    </Menu.Item>
+                  ))}
 
                   <Menu.Item>
                     {({ active }) => (
