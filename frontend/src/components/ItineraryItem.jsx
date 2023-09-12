@@ -2,7 +2,7 @@ import "../styles/ItineraryItem.css";
 import { useState, Fragment } from "react";
 import { Menu, Transition } from '@headlessui/react';
 import Itineraries from "./Itineraries";
-
+import { Draggable } from "react-beautiful-dnd";
 
 
 function ItineraryItem({ itineraries, itinerary, handleMove, handleDelete, handleMarkerClick, item }) {
@@ -23,8 +23,8 @@ function ItineraryItem({ itineraries, itinerary, handleMove, handleDelete, handl
   };
 
   return (
-    <div className="flex items-center mt-1">
-      <div className="flex justify-center items-center bg-gray-50 w-8 h-8 p-2 rounded-full">
+    <div className="flex items-center mt-1 bg-white rounded-xl px-2 py-0.5">
+      <div className="flex justify-center items-center bg-white w-8 h-8 p-2 rounded-full">
         <img src={icon} alt="" className="" />
       </div>
       <ul className="pl-2">
