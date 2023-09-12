@@ -19,36 +19,18 @@ const io = new Server(server,
   { cors: { origin: 'http://localhost:5173' } }
 );
 
-const users = [];
-
 io.on('connection', socket => {
   console.log('a user connected');
-  // emit will take 2 params; a string which will be the name or action and a payload which is a package in some form sent from the backend to the client. 
 
-  // const name = "user" + Math.round(Math.random() * 10000);
-  // users.push(name);
-  socket.emit('intial_conn');
-
-  socket.on('identify', payload => {
-    users.push(payload.email);
-    socket.broadcast.emit('new_users', { name: payload.email });
-    socket.emit('after_conn', { users });
+  socket.on('initial_connection', payload => {
+    socket.join(payload.tripID);
   });
-
   socket.on('send_msg', payload => {
-    io.emit("send_msg", payload);
-    
+    socket.to(payload.tripID).emit("send_msg", payload);
   });
-
   socket.on("disconnect", () => {
     console.log('a user disconnected');
   });
-
-  socket.on("send-message", (msg, tripID) => {
-    socket.emit("receive-message", { msg });
-    console.log(msg);
-  });
-
 });
 
 

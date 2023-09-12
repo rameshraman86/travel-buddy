@@ -4,7 +4,7 @@ import axios from 'axios';
 import Itineraries from "./Itineraries";
 import Messages from "./Messages";
 // import Chat from './Chat';
-import Chat2 from './Chat2';
+// import Chat2 from './Chat2';
 import Map from "./Map";
 import AIAssistant from "./AIAssistant";
 import Chat from "./Chat";
