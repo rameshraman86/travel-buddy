@@ -2,11 +2,17 @@ import "../styles/ItineraryItem.css";
 import { useState, Fragment } from "react";
 import { Menu, Transition } from '@headlessui/react';
 import Itineraries from "./Itineraries";
+import { Draggable } from "react-beautiful-dnd";
 
 
-
-function ItineraryItem({ itineraries, handleDelete, handleMarkerClick, item }) {
+function ItineraryItem({ itineraries, itinerary, handleMove, handleDelete, handleMarkerClick, item }) {
   const { address, phone, name, rating, user_ratings_total, url, opening_hours, website, type, photos, icon } = item;
+
+  const otherItineraries = itineraries.filter(itin => itin.type !== itinerary.type);
+
+  const handleMoveItem = (itin) => {
+    handleMove(itin.id, url);
+  };
 
 
   const handleDeleteItem = () => {
@@ -17,8 +23,8 @@ function ItineraryItem({ itineraries, handleDelete, handleMarkerClick, item }) {
   };
 
   return (
-    <div className="flex items-center mt-1">
-      <div className="flex justify-center items-center bg-gray-50 w-8 h-8 p-2 rounded-full">
+    <div className="flex items-center mt-1 bg-white rounded-xl px-2 py-0.5">
+      <div className="flex justify-center items-center bg-white w-8 h-8 p-2 rounded-full">
         <img src={icon} alt="" className="" />
       </div>
       <ul className="pl-2">
@@ -57,19 +63,19 @@ function ItineraryItem({ itineraries, handleDelete, handleMarkerClick, item }) {
                     )}
                   </Menu.Item>
 
-                  {/* {itineraries.map((itin, id) => { */}
-                  <Menu.Item>
-                    {({ active }) => (
-                      <button
-                        className={`${active ? 'bg-gray-200 font-medium text-gray-900' : 'text-gray-700'
-                          } group flex w-full items-center px-2 py-2 text-sm`}
-                        onClick={() => { }}
-                      >
-                        <p className="my-auto">{itineraries[0].type}</p>
-                      </button>
-                    )}
-                  </Menu.Item>
-                  {/* })} */}
+                  {otherItineraries.map(itin => (
+                    <Menu.Item key={itin.id}>
+                      {({ active }) => (
+                        <button
+                          className={`${active ? 'bg-gray-200 font-medium text-gray-900' : 'text-gray-700'
+                            } group flex w-full items-center px-2 py-2 text-sm`}
+                          onClick={() => handleMoveItem(itin)}
+                        >
+                          <p className="my-auto">Move to {itin.type}</p>
+                        </button>
+                      )}
+                    </Menu.Item>
+                  ))}
 
                   <Menu.Item>
                     {({ active }) => (

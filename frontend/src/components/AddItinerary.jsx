@@ -37,7 +37,7 @@ export default function AddItinerary(props) {
 
 
   return (
-    <div className='bg-amber-200/50 rounded-xl w-96 p-4 absolute z-10 translate-x-40 -translate-y-20'>
+    <div className='bg-amber-200/50 rounded-xl w-96 p-4 absolute z-10 translate-x-40 -translate-y-[74px]'>
       <form onSubmit={handleNewItinerarySubmit} className='flex gap-2'>
         <input
           type="text"
