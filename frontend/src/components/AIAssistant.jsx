@@ -3,7 +3,7 @@ import "../styles/aiAssistant.css";
 // import React from "react";
 import axios from 'axios';
 import { useState, Fragment } from "react";
-import AIAssistantResponse from "./aiAssistantResponse";
+import AIAssistantResponse from "./AIAssistantResponse.jsx";
 import { Listbox, Transition, Dialog } from "@headlessui/react";
 
 // What are the props for?

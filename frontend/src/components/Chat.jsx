@@ -19,6 +19,7 @@ export default function Chat({ avatar, email, tripID, messages, handleSetMessage
       };
       //update frontend with message of other user sending message
       handleSetMessages(newMessage);
+      setMessages(newMessage)
     };
 
     socket.on('send_msg', receiveMsg);
