@@ -73,6 +73,7 @@ function FuzzySearchForm({ position, setSuggestedPlaces }) {
         <input
           className="opacity-75 p-2 pl-8 rounded-full border border-gray-500 bg-gray-200 focus:bg-white focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent"
           placeholder="Coffee shops, museums..."
+          autoComplete='off'
           onChange={e => setInput(e.target.value)}
           value={input}
           name="input"
@@ -86,7 +87,7 @@ function FuzzySearchForm({ position, setSuggestedPlaces }) {
       </div>
 
       {isLoading &&
-        <div className='top-12 left-5 inline-flex flex-col justify-center relative z-10'>
+        <div className='inline-flex flex-col ml-2 justify-center relative z-10'>
           <div
             className="inline-block h-4 w-4  animate-spin rounded-full border-4 border-solid border-gray-400 border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
             role="status">

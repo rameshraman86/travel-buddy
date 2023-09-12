@@ -166,6 +166,7 @@ export default function AIAssistant({ id, tripLocation, startDate, endDate }) {
                           type="text"
                           name="tripLocation"
                           placeholder="Toronto"
+                          autoComplete='off'
                           required={true}
                           value={formData.tripLocation}
                           onChange={handleChange}
@@ -179,6 +180,7 @@ export default function AIAssistant({ id, tripLocation, startDate, endDate }) {
                           type="number"
                           name="tripDuration"
                           placeholder="10"
+                          autoComplete='off'
                           value={formData.tripDuration}
                           onChange={handleChange}
                           className="w-60 opacity-75 bg-gray-50 rounded-full border-0 py-1.5 px-4 text-gray-900 shadow-sm focus:outline-none ring-2 ring-inset ring-gray-300 placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-amber-600 focus:bg-white sm:text-sm sm:leading-6"
@@ -191,6 +193,7 @@ export default function AIAssistant({ id, tripLocation, startDate, endDate }) {
                           type="number"
                           name="totalTravellers"
                           placeholder="5"
+                          autoComplete='off'
                           value={formData.totalTravellers}
                           onChange={handleChange}
                           className="w-60 opacity-75 bg-gray-50 rounded-full border-0 py-1.5 px-4 text-gray-900 shadow-sm focus:outline-none ring-2 ring-inset ring-gray-300 placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-amber-600 focus:bg-white sm:text-sm sm:leading-6"
@@ -203,6 +206,7 @@ export default function AIAssistant({ id, tripLocation, startDate, endDate }) {
                           type="number"
                           name="tripBudget"
                           placeholder="5000"
+                          autoComplete='off'
                           value={formData.tripBudget}
                           onChange={handleChange}
                           className="w-60 opacity-75 bg-gray-50 rounded-full border-0 py-1.5 px-4 text-gray-900 shadow-sm focus:outline-none ring-2 ring-inset ring-gray-300 placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-amber-600 focus:bg-white sm:text-sm sm:leading-6"
