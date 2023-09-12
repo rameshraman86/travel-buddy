@@ -22,7 +22,7 @@ export default function Chat({ avatar, email, tripID, messages, handleSetMessage
     };
 
     socket.on('send_msg', receiveMsg);
-    
+
     return () => {
       socket.off('send_msg', receiveMsg);
       socket.removeAllListeners("initial_connection");
@@ -57,7 +57,7 @@ export default function Chat({ avatar, email, tripID, messages, handleSetMessage
   return (
     <div className='pt-5'>
       <form onSubmit={onSubmit} className='flex gap-1 items-start w-full'>
-        <input name="msg" rows={6} placeholder='Enter your message' className='rounded-xl block px-4 py-2.5 w-full text-sm text-gray-900 bg-gray-50 border-none outline-none focus:bg-white ring-2 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-amber-600 ' >
+        <input name="msg" rows={6} placeholder='Enter your message' autoComplete='off' className='rounded-xl block px-4 py-2.5 w-full text-sm text-gray-900 bg-gray-50 border-none outline-none focus:bg-white ring-2 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-amber-600 ' >
         </input>
         <button className="self-end inline-flex justify-center rounded-xl border border-transparent bg-amber-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-amber-700 focus:outline-none gap-2 items-center" >
           Send

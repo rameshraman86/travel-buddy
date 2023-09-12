@@ -42,6 +42,7 @@ export default function AddItinerary(props) {
         <input
           type="text"
           name="type"
+          autoComplete='off'
           className="rounded-full border-0 py-1.5 px-4 text-gray-900 bg-gray-200 shadow-sm focus:outline-none focus:bg-gray-100 ring-2 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-amber-600 sm:text-sm sm:leading-6"
           required={true} placeholder='Monday'
           value={itineraryType} onChange={handleSetItineraryType}

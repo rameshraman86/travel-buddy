@@ -112,8 +112,11 @@ export default function TripDetails({ email, tripLocation, startDate, endDate })
 
         <div>
           <h1 className="text-3xl font-bold text-gray-800">{tripName}</h1>
-          <span className="text-xl text-gray-600 font-extrabold ml-0.5 my-0.5 mr-2">{location}</span>
-          <span className="text-lg text-gray-600 font-bold ml-0.5 my-0.5">{tripDates?.start} - {tripDates?.end}</span>
+          <div className="flex items-center">
+            <span className="text-lg text-gray-600 font-extrabold mx-0.5">{location}</span>
+            <span className="w-1.5 h-1.5 mx-1.5 bg-gray-600 rounded-full dark:bg-gray-400"></span>
+            <span className="text-lg text-gray-600 font-bold ml-0.5">{tripDates?.start} - {tripDates?.end}</span>
+          </div>
           <Itineraries
             tripID={id}
             itineraries={itineraries}

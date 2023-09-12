@@ -9,7 +9,7 @@ import { Carousel } from 'flowbite-react';
 
 function InfoWindow({ selectedPlace, setSelectedPlace, itineraryItems, selectedItinerary, setSelectedItinerary, addToWishlist, itineraries }) {
 
-  const [selectedItineraryType, setSelectedItineraryType] = useState();
+  const [selectedItineraryType, setSelectedItineraryType] = useState(' ');
 
   useEffect(() => {
     setSelectedItineraryType(itineraries?.[0]?.type);

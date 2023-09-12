@@ -6,6 +6,6 @@ export default function AIAssistantResponse({ response }) {
   // flexbox not working on this :(
 
   return (
-    <div className="text-md leading-6 font-medium text-gray-700 ml-2 mb-1" dangerouslySetInnerHTML={createMarkup()} />
+    <div className="list-disc text-md leading-6 font-medium text-gray-700 ml-2 mb-1" dangerouslySetInnerHTML={createMarkup()} />
   );
 }
