@@ -1,8 +1,6 @@
 import { useState, Fragment, useEffect } from 'react';
 import { InfoWindowF } from "@react-google-maps/api";
-// import Carousel from 'react-material-ui-carousel';
 import { Disclosure, Listbox, Transition } from '@headlessui/react';
-// import { Carousel } from "@material-tailwind/react";
 import { Carousel } from 'flowbite-react';
 
 
@@ -13,7 +11,7 @@ function InfoWindow({ selectedPlace, setSelectedPlace, itineraryItems, selectedI
 
   useEffect(() => {
     setSelectedItineraryType(itineraries?.[0]?.type);
-  }, []);
+  }, [itineraries]);
 
   useEffect(() => {
     setSelectedItinerary(itineraries.find(itinerary => itinerary.type === selectedItineraryType));
@@ -54,7 +52,6 @@ function InfoWindow({ selectedPlace, setSelectedPlace, itineraryItems, selectedI
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" className="group-hover:stroke-blue-800 group-hover:stroke-2" />
                 </svg>
               </a>
-              {/* <img src={selectedPlace.icon} className='inline w-5 h-5 ml-1' /> */}
             </h3>
             <div className='my-1'>
               {itineraryItems.some(place => place.url === selectedPlace.url) ?
@@ -80,7 +77,7 @@ function InfoWindow({ selectedPlace, setSelectedPlace, itineraryItems, selectedI
                           leaveTo="opacity-0"
                         >
                           <Listbox.Options className="absolute mt-1 max-h-60 w-1/2 overflow-auto rounded-md bg-white py-1 text-base ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                            {itineraries.map((itinerary) => (
+                            {itineraries && itineraries.map((itinerary) => (
                               <Listbox.Option key={itinerary.id} value={itinerary.type} className={({ active }) =>
                                 `relative cursor-default select-none py-2 pl-10 pr-4 ${active ? 'bg-gray-100 text-gray-900' : 'text-gray-900'
                                 }`

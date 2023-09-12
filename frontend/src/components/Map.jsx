@@ -9,10 +9,10 @@ import { passiveSupport } from 'passive-events-support/src/utils';
 
 // TODO: Overlapping markers - Remove pink marker when added to list
 
-function Map({ itineraryItems, addToWishlist, location, tripID, itineraries, mapRef, setMapRef, selectedPlace, setSelectedPlace, handleMarkerClick }) {
+function Map({ itineraryItems, suggestedPlaces, setSuggestedPlaces, addToWishlist, location, tripID, itineraries, mapRef, setMapRef, selectedPlace, setSelectedPlace, handleMarkerClick }) {
 
   const [position, setPosition] = useState(null);
-  //store the itinerary that is selected in the add to list map popup. this is passed to the addToWishlist function to insert the place into the correct itinerary
+  // stores the itinerary that is selected in the add to list map popup. this is passed to the addToWishlist function
   const [selectedItinerary, setSelectedItinerary] = useState(itineraries[0]);
 
   //get the itineraryid using the itinerary name(when user chooses it in map popup) and trip id(is a props)
@@ -63,7 +63,6 @@ function Map({ itineraryItems, addToWishlist, location, tripID, itineraries, map
   });
 
   const [searchedPlace, setSearchedPlace] = useState(null);
-  const [suggestedPlaces, setSuggestedPlaces] = useState(undefined);
 
   const options = {
     disableDefaultUI: true,

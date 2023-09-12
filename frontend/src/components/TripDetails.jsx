@@ -76,18 +76,18 @@ export default function TripDetails({ email, tripLocation, startDate, endDate })
     fetchData();
   }, []);
 
+  const [suggestedPlaces, setSuggestedPlaces] = useState(undefined);
+  // set suggestedPlaces to filter out the new place
   const addToWishlist = async (selectedPlace, selectedItinerary) => {
-
     const newPlaceBody = {
       ...selectedPlace,
       // itinerary_id: parseInt(id), 
       itinerary_id: selectedItinerary.id,
       trip_id: parseInt(id),
     };
-    // console.log(`new place body is : ${JSON.stringify(newPlaceBody, null, 4)}`);
-
+    // console.log(`newPlaceBody : ${JSON.stringify(newPlaceBody, null, 4)}`);
     setItineraryItems([...itineraryItems, newPlaceBody]);
-
+    setSuggestedPlaces(suggestedPlaces.filter(place => place.url !== newPlaceBody.url));
     try {
       await axios.post(`http://localhost:8080/api/trips/itinerary-items/${id}`, newPlaceBody);
     } catch (error) {
@@ -177,6 +177,8 @@ export default function TripDetails({ email, tripLocation, startDate, endDate })
         setMapRef={setMapRef}
         selectedPlace={selectedPlace} setSelectedPlace={setSelectedPlace}
         handleMarkerClick={handleMarkerClick}
+        suggestedPlaces={suggestedPlaces}
+        setSuggestedPlaces={setSuggestedPlaces}
       />
 
 
