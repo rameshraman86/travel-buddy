@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import MessageItem from "./MessageItem";
-import "../styles/chatbox.scss"
+import "../styles/chatbox.scss";
 
 
 //Linked from tripdetails component
 export default function Messages({ messages, name }) {
 
 
-  
+
   return (
     <div className=" bg-gray-100">
       <h2 className="text-lg font-semibold text-gray-700 mb-4 flex items-center">
@@ -18,7 +18,7 @@ export default function Messages({ messages, name }) {
 
         <span>Chat</span></h2>
       {messages.map((message, index) => (
-        <div className={message.email === name ? 'chatbox_sender' : 'chatbox_reciver'} key={index}> 
+        <div className={message.email === name ? 'chatbox_sender' : 'chatbox_reciver'} key={index}>
           <MessageItem
             className=""
             email={message.email}

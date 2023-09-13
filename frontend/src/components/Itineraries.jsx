@@ -6,6 +6,7 @@ import { useState, Fragment } from 'react';
 import AddItinerary from './AddItinerary';
 import { Dialog, Transition } from "@headlessui/react";
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import _ from 'lodash';
 
 
 //Linked from tripdetails component
@@ -108,7 +109,47 @@ export default function Itineraries({ itineraries, itineraryItems, setItineraryI
   }
 
   const onDragEnd = result => {
+    const { destination, source, draggableId } = result;
 
+    if (!destination) {
+      return;
+    }
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    ) {
+      return;
+    }
+
+    console.log(result);
+
+    const newItineraryItems = _.cloneDeep(itineraryItems);
+
+    if (source.droppableId === destination.droppableId) {
+      newItineraryItems.splice(source.index, 1);
+      const item = itineraryItems.find(item => item.id === parseInt(draggableId));
+      newItineraryItems.splice(destination.index, 0, item);
+      console.log(newItineraryItems);
+
+      setItineraryItems(newItineraryItems);
+
+    } else {
+      const index = newItineraryItems.map(item => item.id).indexOf(parseInt(draggableId));
+      newItineraryItems[index].itinerary_id = parseInt(destination.droppableId);
+
+      setItineraryItems(newItineraryItems);
+      dndMoveItineraryItem(parseInt(destination.droppableId), newItineraryItems[index].url);
+
+    }
+
+  };
+
+  const dndMoveItineraryItem = async (itinerary_id, url) => {
+    try {
+      await axios.put(`http://localhost:8080/api/trips/move-itinerary-item/${tripID}`, { data: { url, itinerary_id } });
+    } catch (error) {
+      console.log(`Error deleting itinerary item: `, error);
+    }
   };
 
 
@@ -134,10 +175,14 @@ export default function Itineraries({ itineraries, itineraryItems, setItineraryI
       <DragDropContext onDragEnd={onDragEnd}>
 
         {itineraries.map((itinerary) => (
-          <Droppable droppableId={itinerary.type} key={itinerary.id}>
+          <Droppable droppableId={itinerary.id.toString()} key={itinerary.id}>
             {provided => (
 
-              <div ref={provided.innerRef} {...provided.droppableProps} key={itinerary.id} className="bg-white/[0.5] rounded-xl w-5/6 p-4 mt-0 my-5">
+              <div
+                ref={provided.innerRef}
+                {...provided.droppableProps}
+                key={itinerary.id}
+                className="bg-white/[0.5] rounded-xl w-5/6 p-4 mt-0 my-5">
                 <div className="flex items-center gap-1 mb-2">
                   <div className="font-semibold text-md text-gray-900">{toTitleCase(itinerary.type)}</div>
                   <button type='button' className='group' onClick={() => openModal(itinerary)}>
@@ -148,11 +193,12 @@ export default function Itineraries({ itineraries, itineraryItems, setItineraryI
                 </div>
 
 
-                {itineraryItems.map((item) => {
+                {itineraryItems.map((item, index) => {
                   if (itinerary.id === item.itinerary_id) {
                     return (
                       <ItineraryItem
                         key={item.url}
+                        index={index}
                         handleDelete={handleDeleteItineraryItem}
                         handleMove={handleMoveItineraryItem}
                         handleMarkerClick={handleMarkerClick}
