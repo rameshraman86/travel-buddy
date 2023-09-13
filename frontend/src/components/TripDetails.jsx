@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from 'axios';
 import Itineraries from "./Itineraries";
 import Messages from "./Messages";
@@ -8,6 +8,7 @@ import Messages from "./Messages";
 import Map from "./Map";
 import AIAssistant from "./AIAssistant";
 import Chat from "./Chat";
+
 
 
 export default function TripDetails({ email, tripLocation, startDate, endDate }) {
@@ -20,6 +21,10 @@ export default function TripDetails({ email, tripLocation, startDate, endDate })
   const [tripName, setTripName] = useState("");
   const [tripDates, setTripDates] = useState({});
   const [messages, setMessages] = useState([]);
+  const [isHovered, setIsHovered] = useState(false);
+
+  const navigate = useNavigate();
+
 
   //to handle adding new itinearies to current trip react component
   const handleSetItineraries = (new_itinerary) => {
@@ -34,6 +39,15 @@ export default function TripDetails({ email, tripLocation, startDate, endDate })
   //add a new incoming message to the state
   const handleSetMessages = (new_message) => {
     setMessages(prev => [...prev, new_message]);
+  };
+
+
+
+  const onMouseEnter = () => setIsHovered(true);
+  const onMouseLeave = () => setIsHovered(false);
+  const handleLogoutButton = (event) => {
+    event.preventDefault();
+    navigate(`/`);
   };
 
 
@@ -106,18 +120,16 @@ export default function TripDetails({ email, tripLocation, startDate, endDate })
       : setSelectedPlace(place);
   };
 
-  const [isHovered, setIsHovered] = useState(false);
-  const onMouseEnter = () => setIsHovered(true);
-  const onMouseLeave = () => setIsHovered(false);
+
 
   return (
     <div className="flex m-0 p-0 w-screen h-screen">
       <div className="py-4 px-4 w-full overflow-y-auto">
-        <div>
+        <form onSubmit={handleLogoutButton}>
           <button className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
             {isHovered ? "Logout" : email}
           </button>
-        </div>
+        </form>
         <div>
           <h1 className="text-3xl font-bold text-gray-800">{tripName}</h1>
           <div className="flex items-center">
