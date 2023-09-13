@@ -23,7 +23,7 @@ function ItineraryItem({ index, itineraries, itinerary, handleMove, handleDelete
   };
 
   return (
-    <Draggable draggableId={id.toString()} index={index}>
+    <Draggable draggableId={id?.toString()} index={index}>
       {provided => (
         <div
           ref={provided.innerRef}

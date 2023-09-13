@@ -26,11 +26,11 @@ export default function AIAssistant({ id, tripLocation, startDate, endDate }) {
 
     const prompt = `give me a suggestion for a ${formData.tripType} type trip to ${formData.tripLocation} for 
       ${formData.tripDuration} days for ${formData.totalTravellers} people with a budget of ${formData.tripBudget ? formData.tripBudget : "unlimited"} USD
-      with ${formData.accommodationType} accommodation with kids ${formData.withKids} with pets ${formData.withPets}. Make your response concise. 
+      with ${formData.accommodationType} accommodation with kids ${formData.withKids} with pets ${formData.withPets}. Respond in bulletpoints, where each bulletpoint doesn't exceed 15 words. 
       Highlight points of interest in your response. Group your suggestion by number of days.
       give me your full response only in <html> format. 
       include only the contents inside <body></body> but do not include the tag <body></body>. 
-      keep all headings at <h4>. Do not have any heading higher than <h4>. wrap the entire response inside <div>.`;
+      keep all headings at <h4>. Do not have any heading higher than <h4>. wrap the entire response inside <div>. Each <ul> should have the class "list-disc". Each <li> should have the the class "ml-4".`;
     console.log(prompt);
     axios.post("http://localhost:8080/api/ai/chat", { prompt })
       .then(res => {
@@ -101,7 +101,11 @@ export default function AIAssistant({ id, tripLocation, startDate, endDate }) {
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 stroke-amber-600">
           <path strokeLinecap="round" strokeLinejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
         </svg>
-        <span>Not sure where to start?</span> </h2>
+        <span>Not sure where to start?</span>
+
+
+
+      </h2>
       <div className="flex items-center gap-2 mb-4">
         <button onClick={openModal} className='rounded-xl border border-transparent bg-amber-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-amber-700 focus:outline-none'>Ask our Assistant!</button>
 
@@ -109,14 +113,17 @@ export default function AIAssistant({ id, tripLocation, startDate, endDate }) {
       </div>
 
 
-      <div className="bg-white/[0.5] rounded-xl w-full p-4 mt-2 my-5">
+      <div className={promptSubmitted ? "bg-white/[0.5] rounded-xl w-full p-4 mt-2 my-5" : "bg-white/0 rounded-xl w-full p-4 mt-2 my-5"}>
         {isLoading &&
           <div className="flex items-center">
             <div className='inline-flex flex-col mr-2 justify-center relative z-10'>
-              <div
+              {/* <div
                 className="inline-block h-4 w-4  animate-spin rounded-full border-4 border-solid border-gray-700 border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
                 role="status">
-              </div>
+              </div> */}
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="animate-bounce w-5 h-5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M8.625 9.75a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 01.778-.332 48.294 48.294 0 005.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
+              </svg>
             </div>
             <div className="text-md leading-5 font-medium text-gray-700 italic">Getting Suggestions...</div>
           </div>
