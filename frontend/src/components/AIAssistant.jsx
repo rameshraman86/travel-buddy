@@ -24,13 +24,8 @@ export default function AIAssistant({ id, tripLocation, startDate, endDate }) {
     setPromptSubmitted(true);
     handleSetResponse('');
 
-    const prompt = `give me a suggestion for a ${formData.tripType} type trip to ${formData.tripLocation} for 
-      ${formData.tripDuration} days for ${formData.totalTravellers} people with a budget of ${formData.tripBudget ? formData.tripBudget : "unlimited"} USD
-      with ${formData.accommodationType} accommodation with kids ${formData.withKids} with pets ${formData.withPets}. Respond in bulletpoints, where each bulletpoint doesn't exceed 15 words. 
-      Highlight points of interest in your response. Group your suggestion by number of days.
-      give me your full response only in <html> format. 
-      include only the contents inside <body></body> but do not include the tag <body></body>. 
-      keep all headings at <h4>. Do not have any heading higher than <h4>. wrap the entire response inside <div>. Each <ul> should have the class "list-disc". Each <li> should have the the class "ml-4".`;
+    const prompt = `Give me a suggestion for a ${formData.tripType} type trip to ${formData.tripLocation} for ${formData.tripDuration} days for ${formData.totalTravellers} people with a budget of ${formData.tripBudget ? formData.tripBudget : "unlimited"} USD with ${formData.accommodationType} accommodation with kids ${formData.withKids} with pets ${formData.withPets}. Respond in bulletpoints, where each bulletpoint doesn't exceed 15 words. Highlight points of interest in your response. Group your suggestion by number of days.
+    Give me your full response only in <html> format. Include only the contents inside <body></body> but do not include the tag <body></body>.  Keep all headings at <h4>. Do not have any heading higher than <h4>. Wrap the entire response inside <div>. Each day should be an <h4>, followed by  a  <ul> with the class "list-disc", and each <li>  inside the <ul> should have the the class "ml-4".`;
     console.log(prompt);
     axios.post("http://localhost:8080/api/ai/chat", { prompt })
       .then(res => {
