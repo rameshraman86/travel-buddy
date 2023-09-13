@@ -13,9 +13,13 @@ export default function AIAssistant({ id, tripLocation, startDate, endDate }) {
   const [prompt, setPrompt] = useState("");
   const [response, setResponse] = useState('');
   const [promptSubmitted, setPromptSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
 
 
   const handleSubmit = (event) => {
+    setIsLoading(true);
+
     event.preventDefault();
     setPromptSubmitted(true);
     handleSetResponse('');
@@ -31,6 +35,7 @@ export default function AIAssistant({ id, tripLocation, startDate, endDate }) {
     axios.post("http://localhost:8080/api/ai/chat", { prompt })
       .then(res => {
         handleSetResponse(res.data.message.content);
+        setIsLoading(false);
       })
       .catch(error => {
         console.error(error);
@@ -89,6 +94,7 @@ export default function AIAssistant({ id, tripLocation, startDate, endDate }) {
 
 
 
+
   return (
     <div className="">
       <h2 className="text-xl font-semibold text-gray-700 mb-4 flex items-center gap-1">
@@ -104,7 +110,18 @@ export default function AIAssistant({ id, tripLocation, startDate, endDate }) {
 
 
       <div className="bg-white/[0.5] rounded-xl w-full p-4 mt-2 my-5">
-        {promptSubmitted && !response && "Getting Suggestions..."}
+        {isLoading &&
+          <div className="flex items-center">
+            <div className='inline-flex flex-col mr-2 justify-center relative z-10'>
+              <div
+                className="inline-block h-4 w-4  animate-spin rounded-full border-4 border-solid border-gray-700 border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                role="status">
+              </div>
+            </div>
+            <div className="text-md leading-5 font-medium text-gray-700 italic">Getting Suggestions...</div>
+          </div>
+        }
+        {/* {promptSubmitted && !response && "Getting Suggestions..."} */}
         {promptSubmitted && response && <AIAssistantResponse
           response={response}
           handleSetResponse={handleSetResponse}

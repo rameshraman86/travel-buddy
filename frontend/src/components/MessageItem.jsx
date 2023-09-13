@@ -5,11 +5,11 @@ export default function MessageItem({ email, message }) {
 
   return (
     <>
-      <div>
-        <p>
-        <strong>{email}: </strong>
-        <i>{message}</i>
-      </p>
+      <div className="msg-container">
+        <span>{email}</span>
+        <div>
+          <p className="msg">{message}</p>
+        </div>
       </div>
     </>
   );
