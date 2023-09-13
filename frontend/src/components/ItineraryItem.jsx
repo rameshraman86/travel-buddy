@@ -29,7 +29,7 @@ function ItineraryItem({ index, itineraries, itinerary, handleMove, handleDelete
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
-          className="flex items-center mt-1 bg-white rounded-xl px-2 py-0.5">
+          className="flex items-center mt-1.5 bg-white rounded-full px-2 py-1">
           <div className="flex justify-center items-center bg-white w-8 h-8 p-2 rounded-full">
             <img src={icon} alt="" className="" />
           </div>
