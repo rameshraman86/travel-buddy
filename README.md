@@ -1,20 +1,20 @@
 ### Travel Buddy
 Use Travel Buddy to create memorable trips with your friends or family without the hassle of coordinating over multiple apps.
 
-## Main features
-- Browse and add places from the map onto your lists.
+## Features
+
+- Create your trip
+!['Create your trip'](https://github.com/natashachiu/travel-buddy/blob/main/screenshots/create-trip.png?raw=true)
+
+- Explore and add places from the map onto your lists.
+!['Add to places'](https://github.com/natashachiu/travel-buddy/blob/main/screenshots/explore-places.png?raw=true)
+
 - Don't know where to start? Ask our assistant for suggestions.
-- Chat with your friends about the trip.
+!['Ask for suggestions'](https://github.com/natashachiu/travel-buddy/blob/main/screenshots/assistant-prompt.png?raw=true)
+!['Assistant reply'](https://github.com/natashachiu/travel-buddy/blob/main/screenshots/assistant-reply.png?raw=true)
 
-1. Create your trip
-['create a trip']()
-
-2. Add places to your trip
-[]()
-3. Ask assistant for suggestions
-[]()
-4. Chat with your friends
-[]()
+- Chat with your friends about your trip.
+!['Chat'](https://github.com/natashachiu/travel-buddy/blob/main/screenshots/chat.png?raw=true)
 
 ## Stack
 - Frontend: React, Tailwind CSS
