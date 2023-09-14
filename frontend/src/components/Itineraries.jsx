@@ -114,21 +114,23 @@ export default function Itineraries({ itineraries, itineraryItems, setItineraryI
     if (destination.droppableId === source.droppableId &&
       destination.index === source.index
     ) { return; }
-
     console.log(result);
     const newItineraryItems = _.cloneDeep(itineraryItems);
 
     // drag and drop within the same itinerary
     if (source.droppableId === destination.droppableId) {
-      newItineraryItems.splice(source.index, 1);
-      const item = itineraryItems.find(item => item.url === draggableId);
-      newItineraryItems.splice(destination.index, 0, item);
+      const item = newItineraryItems.splice(source.index, 1);
+      // const item = itineraryItems.find(item => item.url === draggableId);
+      newItineraryItems.splice(destination.index, 0, item[0]);
       setItineraryItems(newItineraryItems);
 
     } else {
       // note: could not use destination.index to decipher the drop position, and thus could not reorder itinerary items
       const index = newItineraryItems.map(item => item.url).indexOf(draggableId);
       newItineraryItems[index].itinerary_id = parseInt(destination.droppableId);
+      // const item = newItineraryItems.splice(index, 1)
+      // item[0].itinerary_id = parseInt(destination.droppableId);
+      // newItineraryItems.splice(newIndex, 0, item[0])
 
       setItineraryItems(newItineraryItems);
       dndMoveItineraryItem(parseInt(destination.droppableId), newItineraryItems[index].url);
