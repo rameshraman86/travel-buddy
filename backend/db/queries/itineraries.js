@@ -24,7 +24,7 @@ const getItinerariesByTripID = (trip_id) => {
 
 //get all itinerary items by trip id
 const getItineraryItemsByTripID = (trip_id) => {
-  const queryString = 'SELECT * FROM itinerary_items WHERE trip_id=$1 ORDER BY type;';
+  const queryString = 'SELECT * FROM itinerary_items WHERE trip_id=$1;';
   const queryParams = [trip_id];
   return db
     .query(queryString, queryParams)

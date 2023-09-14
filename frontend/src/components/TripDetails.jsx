@@ -92,7 +92,7 @@ export default function TripDetails({ email, tripLocation, startDate, endDate })
 
   const [suggestedPlaces, setSuggestedPlaces] = useState(undefined);
   // set suggestedPlaces to filter out the new place
-  const addToWishlist = async (selectedPlace, selectedItinerary) => {
+  const addToWishlist = (selectedPlace, selectedItinerary) => {
     const newPlaceBody = {
       ...selectedPlace,
       // itinerary_id: parseInt(id), 
@@ -102,6 +102,10 @@ export default function TripDetails({ email, tripLocation, startDate, endDate })
     // console.log(`newPlaceBody : ${JSON.stringify(newPlaceBody, null, 4)}`);
     setItineraryItems([...itineraryItems, newPlaceBody]);
     setSuggestedPlaces(suggestedPlaces.filter(place => place.url !== newPlaceBody.url));
+    addToWishlistDB(newPlaceBody);
+  };
+
+  const addToWishlistDB = async (newPlaceBody) => {
     try {
       await axios.post(`http://localhost:8080/api/trips/itinerary-items/${id}`, newPlaceBody);
     } catch (error) {

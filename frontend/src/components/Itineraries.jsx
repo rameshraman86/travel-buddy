@@ -110,31 +110,25 @@ export default function Itineraries({ itineraries, itineraryItems, setItineraryI
 
   const onDragEnd = result => {
     const { destination, source, draggableId } = result;
-
-    if (!destination) {
-      return;
-    }
-    if (
-      destination.droppableId === source.droppableId &&
+    if (!destination) { return; }
+    if (destination.droppableId === source.droppableId &&
       destination.index === source.index
-    ) {
-      return;
-    }
+    ) { return; }
 
     console.log(result);
-
     const newItineraryItems = _.cloneDeep(itineraryItems);
 
+    // drag and drop within the same itinerary
     if (source.droppableId === destination.droppableId) {
       newItineraryItems.splice(source.index, 1);
-      const item = itineraryItems.find(item => item.id === parseInt(draggableId));
+      // const item = itineraryItems.find(item => item.id === parseInt(draggableId));
+      const item = itineraryItems.find(item => item.url === draggableId);
       newItineraryItems.splice(destination.index, 0, item);
-      console.log(newItineraryItems);
-
       setItineraryItems(newItineraryItems);
 
     } else {
-      const index = newItineraryItems.map(item => item.id).indexOf(parseInt(draggableId));
+      // const index = newItineraryItems.map(item => item.id).indexOf(parseInt(draggableId));
+      const index = newItineraryItems.map(item => item.url).indexOf(draggableId);
       newItineraryItems[index].itinerary_id = parseInt(destination.droppableId);
 
       setItineraryItems(newItineraryItems);
