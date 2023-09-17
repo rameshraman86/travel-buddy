@@ -17,9 +17,10 @@ Use Travel Buddy to create memorable trips with your friends or family without t
 !['Chat'](https://github.com/natashachiu/travel-buddy/blob/main/screenshots/chat.png?raw=true)
 
 ## Stack
+- Architecture: MVC
 - Frontend: React, Tailwind CSS
 - Backend: Express, Node, PostgreSQL, Socket.io
-- APIs: Google's Maps and Places API, Open AI API 
+- APIs: Google's Maps and Places API, Open AI API
 
 ## Setup
 You need two terminal windows/tabs for this (or some other plan for running two Node processes).
