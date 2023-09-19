@@ -71,8 +71,10 @@ Travel Buddy is your all-in-one solution for planning memorable trips with ease.
      ```bash
      git clone <repository_url>
      ```
+2. **Setup environment variables**
+    - Copy .env.example in backend folder and create a new .env file in the same folder with API keys and database details.
 
-2. **Frontend Setup:**
+3. **Frontend Setup:**
    - Navigate to the "frontend" directory:
 
      ```bash
