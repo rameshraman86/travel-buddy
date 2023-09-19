@@ -58,72 +58,60 @@ Travel Buddy is your all-in-one solution for planning memorable trips with ease.
 - Google Places API
 - OpenAI API
 
-## Project Setup Instructions
+## Project Setup
 
 ### Prerequisites:
-- Ensure you have Node.js and npm (Node Package Manager) installed on your system.
+- Ensure you have Node.js, npm, and PostgreSQL installed on your system.
 
 ### Setup Instructions:
 
 1. **Clone the Repository:**
-   - Start by cloning the project repository from GitHub. You can do this by running the following command in your terminal:
+   - Clone the project repository from GitHub:
 
      ```bash
      git clone <repository_url>
      ```
 
-   Replace `<repository_url>` with the actual URL of your GitHub repository.
-
-2. **Navigate to the Frontend:**
-   - In your terminal, navigate to the "frontend" directory of the project using the `cd` command:
+2. **Frontend Setup:**
+   - Navigate to the "frontend" directory:
 
      ```bash
      cd frontend
      ```
-
-3. **Frontend Dependencies:**
-   - Inside the "frontend" directory, set npm to handle legacy peer dependencies by running:
+   - Set npm to handle legacy peer dependencies:
 
      ```bash
      npm config set legacy-peer-deps true
      ```
-
-   - Install the required frontend dependencies:
+   - Install frontend dependencies and start the development server:
 
      ```bash
      npm install
-     ```
-
-   - Start the development server:
-
-     ```bash
      npm run dev
      ```
 
-   This will launch your frontend application. Open your web browser and go to `http://localhost:5173` to view it.
+   Access your frontend application at `http://localhost:5173` in your web browser.
 
-4. **Navigate to the Backend:**
-   - Open a new terminal window/tab, if you haven't already.
-   - Navigate to the "backend" directory of the project using the `cd` command:
+3. **Backend Setup:**
+   - In a new terminal window/tab, navigate to the "backend" directory:
 
      ```bash
      cd ../backend
      ```
 
-   Note: If your project structure is different, adjust the path accordingly.
-
-5. **Backend Dependencies:**
-   - Install the required backend dependencies:
+   - Install backend dependencies and set up the database schema:
 
      ```bash
      npm install
+     npm run db:reset
      ```
 
-6. **Start the Backend Server:**
+   - Start the backend server:
+
      ```bash
      npm run local
      ```
 
-   Your backend server should now be up and running. You can access it at `http://localhost:8080`.
+   Access your backend server at `http://localhost:8080`.
 
-By following these steps, you will have successfully set up and launched both the frontend and backend of your GitHub project. Make sure to replace `<repository_url>` with the actual URL of your GitHub repository to ensure users can access your project's code.
+By following these steps, you'll have successfully set up and launched both the frontend and backend of your GitHub project. Be sure to replace `<repository_url>` with your GitHub repository's actual URL.
