@@ -39,12 +39,24 @@ Stay connected with your fellow travelers through real-time chat. Discuss plans,
 Travel Buddy is your all-in-one solution for planning memorable trips with ease. Start your next adventure today!
 
 
+## Technology Stack
 
-## Stack
-- Architecture: MVC
-- Frontend: React, Tailwind CSS
-- Backend: Express, Node, PostgreSQL, Socket.io
-- APIs: Google's Maps and Places API, Open AI API
+**Architecture:** MVC (Model-View-Controller)
+
+**Frontend:**
+- React
+- Tailwind CSS
+
+**Backend:**
+- Express
+- Node.js
+- PostgreSQL
+- Socket.io
+
+**API Integrations:**
+- Google Maps API
+- Google Places API
+- OpenAI API
 
 ## Project Setup Instructions
 
