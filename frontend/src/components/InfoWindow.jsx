@@ -15,17 +15,8 @@ function InfoWindow({ selectedPlace, setSelectedPlace, itineraryItems, selectedI
 
   useEffect(() => {
     setSelectedItinerary(itineraries.find(itinerary => itinerary.type === selectedItineraryType));
-
   }, [itineraries, selectedItineraryType, setSelectedItinerary]);
 
-  // const selectOnChange = async (e) => {
-  //   try {
-  //     const itineraryData = await getItineraryIDFromType(e.target.value, tripID);
-  //     setSelectedItinerary(itineraryData);
-  //   } catch (error) {
-  //     console.error(`Error getting itineraries:`, error);
-  //   }
-  // };
   return (
     <>
 

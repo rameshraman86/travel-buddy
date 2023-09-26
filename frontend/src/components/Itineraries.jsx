@@ -1,7 +1,6 @@
 import "../styles/Itineraries.css";
 import axios from "axios";
 import ItineraryItem from './ItineraryItem'; // Import the ItineraryItem component
-// import React from 'react';
 import { useState, Fragment } from 'react';
 import AddItinerary from './AddItinerary';
 import { Dialog, Transition } from "@headlessui/react";
@@ -9,7 +8,6 @@ import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import _ from 'lodash';
 
 
-//Linked from tripdetails component
 export default function Itineraries({ itineraries, itineraryItems, setItineraryItems, handleMarkerClick, tripID, handleSetItineraries, handleUpdateItineraries }) {
 
   const [createButtonClicked, setCreateButtonClicked] = useState(false);
@@ -120,7 +118,6 @@ export default function Itineraries({ itineraries, itineraryItems, setItineraryI
     // drag and drop within the same itinerary
     if (source.droppableId === destination.droppableId) {
       const item = newItineraryItems.splice(source.index, 1);
-      // const item = itineraryItems.find(item => item.url === draggableId);
       newItineraryItems.splice(destination.index, 0, item[0]);
       setItineraryItems(newItineraryItems);
 
@@ -128,10 +125,6 @@ export default function Itineraries({ itineraries, itineraryItems, setItineraryI
       // note: could not use destination.index to decipher the drop position, and thus could not reorder itinerary items
       const index = newItineraryItems.map(item => item.url).indexOf(draggableId);
       newItineraryItems[index].itinerary_id = parseInt(destination.droppableId);
-      // const item = newItineraryItems.splice(index, 1)
-      // item[0].itinerary_id = parseInt(destination.droppableId);
-      // newItineraryItems.splice(newIndex, 0, item[0])
-
       setItineraryItems(newItineraryItems);
       dndMoveItineraryItem(parseInt(destination.droppableId), newItineraryItems[index].url);
 
@@ -150,8 +143,6 @@ export default function Itineraries({ itineraries, itineraryItems, setItineraryI
 
   return (
     <div className="Itineraries">
-      {/* <h2>Itinerary</h2> */}
-
       <form onSubmit={handleCreateNewItineraryClicked}>
         {showErrorMessage && <p>Itinerary type {itineraryType} already exists.</p>}
         <button type="submit" className='rounded-xl border border-transparent bg-amber-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-amber-700 focus:outline-none gap-1 my-5'>Create New List</button>
@@ -252,7 +243,6 @@ export default function Itineraries({ itineraries, itineraryItems, setItineraryI
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
                   >
-                    {/* {console.log(itinerary.type)} */}
                     Are you sure you want to delete {selectedItin && toTitleCase(selectedItin.type)}?
                   </Dialog.Title>
 

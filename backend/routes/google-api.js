@@ -58,22 +58,4 @@ async function getDetails(query) {
   }
 }
 
-// router.get("/", async (req, res) => {
-//   client
-//     .elevation({
-//       params: {
-//         address: "123 main street",
-//         location: [{ lat: 42.3675294, lng: -71.186966 }],
-//         key: process.env.VITE_GOOGLE_MAPS_API_KEY,
-//       },
-//       timeout: 1000, // milliseconds
-//     })
-//     .then((r) => {
-//       console.log(r.data.results[0].elevation);
-//     })
-//     .catch((e) => {
-//       console.log(e.response.data.error_message);
-//     });
-// });
-
 module.exports = router;

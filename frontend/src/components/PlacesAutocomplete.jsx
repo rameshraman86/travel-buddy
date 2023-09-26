@@ -40,8 +40,6 @@ const PlacesAutocomplete = ({ setSearchedPlace, setPosition, selectMarker, posit
     const { place_id } = data.find(result => result.description === address);
     const details = await getDetails({ placeId: place_id });
 
-    console.log("PLACE DETAILS:", details);
-
     const placeDetails = {
       lat,
       lng,

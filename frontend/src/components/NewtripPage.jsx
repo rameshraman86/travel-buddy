@@ -62,7 +62,6 @@ export default function NewTripPage(props) {
   return (
     <>
       <div className="h-screen">
-        {/* <h1 className="text-center text-4xl font-bold leading-9 tracking-tight text-gray-900">Welcome {state}</h1> */}
         <form onSubmit={handleSubmit} className='flex h-full w-full'>
 
           <div className='h-full w-1/2 bg-gray-100 flex flex-col justify-center items-center'>

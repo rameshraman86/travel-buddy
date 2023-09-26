@@ -3,8 +3,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from 'axios';
 import Itineraries from "./Itineraries";
 import Messages from "./Messages";
-// import Chat from './Chat';
-// import Chat2 from './Chat2';
 import Map from "./Map";
 import AIAssistant from "./AIAssistant";
 import Chat from "./Chat";
@@ -99,7 +97,6 @@ export default function TripDetails({ email, tripLocation, startDate, endDate })
       itinerary_id: selectedItinerary.id,
       trip_id: parseInt(id),
     };
-    // console.log(`newPlaceBody : ${JSON.stringify(newPlaceBody, null, 4)}`);
     setItineraryItems([...itineraryItems, newPlaceBody]);
     setSuggestedPlaces(suggestedPlaces.filter(place => place.url !== newPlaceBody.url));
     addToWishlistDB(newPlaceBody);
@@ -151,7 +148,6 @@ export default function TripDetails({ email, tripLocation, startDate, endDate })
             handleUpdateItineraries={handleUpdateItineraries}
           />
         </div>
-
         <div className="mt-10">
           <AIAssistant
             tripID={id}
@@ -160,20 +156,12 @@ export default function TripDetails({ email, tripLocation, startDate, endDate })
             endDate={endDate}
           />
         </div>
-
-
         <div className="bg-white/[0.5] rounded-xl w-full p-4 mt-2 my-5">
           <Messages
             tripID={id}
             messages={messages}
             name={email}
           />
-          {/* <Chat2 avatar="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Windows_10_Default_Profile_Picture.svg/512px-Windows_10_Default_Profile_Picture.svg.png?20221210150350"
-            email={email}
-            tripID={id}
-            messages={messages}
-            handleSetMessages={handleSetMessages}
-          /> */}
           <Chat
             avatar="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Windows_10_Default_Profile_Picture.svg/512px-Windows_10_Default_Profile_Picture.svg.png?20221210150350"
             email={email}
@@ -182,8 +170,6 @@ export default function TripDetails({ email, tripLocation, startDate, endDate })
             handleSetMessages={handleSetMessages}
           />
         </div>
-
-
       </div>
       <Map
         itineraryItems={itineraryItems}
@@ -197,9 +183,6 @@ export default function TripDetails({ email, tripLocation, startDate, endDate })
         suggestedPlaces={suggestedPlaces}
         setSuggestedPlaces={setSuggestedPlaces}
       />
-
-
-
     </div>
 
   );
@@ -221,6 +204,4 @@ const parseDate = (dateString) => {
 
   // Creating a readable string
   return `${dayOfWeek}, ${day}/${month}/${year}`;
-
-
 };

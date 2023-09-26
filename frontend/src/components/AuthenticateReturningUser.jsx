@@ -15,8 +15,6 @@ import { useNavigate, useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import NotFound from "./NotFound";
 
-
-
 export default function AuthenticateReturningUser({ email, handleSetEmail }) {
   const [tripIDisValid, setTripIDisValid] = useState(true);
   const navigate = useNavigate();

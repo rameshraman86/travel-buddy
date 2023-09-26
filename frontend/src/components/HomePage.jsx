@@ -1,6 +1,3 @@
-//this is homepage component
-// import React from "react";
-// import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -11,8 +8,6 @@ export default function Homepage(props) {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    // const response = await fetch(`http://localhost:8080/api/users/get-user-details/${email}`);
-    // const userObject = await response.json();
     const userObject = await axios.get(`http://localhost:8080/api/users/get-user-details/${email}`);
     if (userObject.data.length > 0) { //if user exists in the db, take them to url details
       const response = await fetch(`http://localhost:8080/api/trips/get-trip-url/${userObject.data[0].email}`); //will return full tripurl
@@ -23,8 +18,6 @@ export default function Homepage(props) {
       navigate("/new", { state: email });
     }
   }
-
-
 
 
   return (

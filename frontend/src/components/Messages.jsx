@@ -4,10 +4,7 @@ import MessageItem from "./MessageItem";
 import "../styles/chatbox.scss";
 
 
-//Linked from tripdetails component
 export default function Messages({ messages, name }) {
-
-
 
   return (
     <div className="">

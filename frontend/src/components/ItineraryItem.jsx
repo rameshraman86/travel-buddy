@@ -102,8 +102,6 @@ function ItineraryItem({ index, itineraries, itinerary, handleMove, handleDelete
                 </Menu>
 
               </li>
-              {/* <li>{address}</li> */}
-              {/* <li>Category: {type}</li> */}
             </ul>
           </div>
         )}

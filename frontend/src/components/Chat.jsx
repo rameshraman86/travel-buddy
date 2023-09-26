@@ -1,7 +1,6 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
-import { Avatar, Image } from 'antd';
 import '../styles/chatbox.scss';
 import axios from 'axios';
 
@@ -19,7 +18,7 @@ export default function Chat({ avatar, email, tripID, messages, handleSetMessage
       };
       //update frontend with message of other user sending message
       handleSetMessages(newMessage);
-      setMessages(newMessage)
+      // setMessages(newMessage)
     };
 
     socket.on('send_msg', receiveMsg);

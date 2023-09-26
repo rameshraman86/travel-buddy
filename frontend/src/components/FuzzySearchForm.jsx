@@ -13,28 +13,22 @@ function FuzzySearchForm({ position, setSuggestedPlaces }) {
   const handleSubmit = e => {
     e.preventDefault();
     getSearchResult(input);
-
     setInput("");
   };
-
 
   const getSearchResult = async (input) => {
     setIsLoading(true);
     try {
       const result = await axios.get(`http://localhost:8080/api/google/places`, { params: { input, position } });
       const resultsArr = result.data.results;
-      // console.log("TEXT SEARCH RESULT:", resultsArr);
-
       const placeDetailsArr = await Promise.all(resultsArr.map(async (result) => {
         try {
           const details = await axios.get(`http://localhost:8080/api/google/place-details`, { params: { placeId: result.place_id } });
-
           return details.data.result;
         } catch (error) {
           console.log(`error fetching photo:`, error);
         }
       }));
-      // console.log(placeDetailsArr);
 
       const formattedResultsArr = placeDetailsArr.map(details => {
         return {
@@ -50,11 +44,9 @@ function FuzzySearchForm({ position, setSuggestedPlaces }) {
           website: details?.website,
           type: details?.types?.[0],
           photos: details?.photos?.map(photo => getPhotoUrl(photo.photo_reference)) || null,
-          // photos: getPhotoUrl(details?.photos?.[0].photo_reference),
           icon: details?.icon
         };
       });
-      // console.log(formattedResultsArr[0].photos);
       setSuggestedPlaces(formattedResultsArr);
 
     } catch (error) {
@@ -69,7 +61,6 @@ function FuzzySearchForm({ position, setSuggestedPlaces }) {
   return (
     <form onSubmit={handleSubmit} className='relative top-16 left-5 -mt-12'>
       <div className='inline-flex flex-col justify-center relative z-10'>
-        {/* <Autocomplete> */}
         <input
           className="opacity-75 p-2 pl-8 rounded-full border border-gray-500 bg-gray-200 focus:bg-white focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent"
           placeholder="Coffee shops, museums..."
@@ -82,7 +73,6 @@ function FuzzySearchForm({ position, setSuggestedPlaces }) {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
         </svg>
 
-        {/* </Autocomplete> */}
         <button type="submit" hidden>Search</button>
       </div>
 
