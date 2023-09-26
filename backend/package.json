@@ -9,7 +9,7 @@
     "local": "./node_modules/.bin/nodemon -L --ignore public/",
     "db:reset": "node bin/resetdb.js"
   },
-  "author": "Lighthouse Labs",
+  "author": "Ramesh Raman",
   "license": "ISC",
   "dependencies": {
     "@googlemaps/google-maps-services-js": "^3.3.37",
