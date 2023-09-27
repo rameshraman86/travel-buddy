@@ -60,6 +60,7 @@ function App() {
         />} />
         <Route path='/:id/details' element={<TripDetails
           email={email}
+          setEmail={setEmail}
           tripLocation={tripLocation}
           startDate={startDate}
           endDate={endDate}

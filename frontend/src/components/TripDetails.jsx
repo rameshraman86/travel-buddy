@@ -9,7 +9,7 @@ import Chat from "./Chat";
 
 
 
-export default function TripDetails({ email, tripLocation, startDate, endDate }) {
+export default function TripDetails({ email, setEmail, tripLocation, startDate, endDate }) {
 
   const { id } = useParams();
 
@@ -23,7 +23,7 @@ export default function TripDetails({ email, tripLocation, startDate, endDate })
   const [suggestedPlaces, setSuggestedPlaces] = useState(undefined);
   const [mapRef, setMapRef] = useState(undefined);
   const [selectedPlace, setSelectedPlace] = useState(undefined);
-  
+
   const navigate = useNavigate();
 
 
@@ -88,6 +88,11 @@ export default function TripDetails({ email, tripLocation, startDate, endDate })
       }
     };
     fetchData();
+  }, []);
+
+
+  useEffect(() => {
+    setEmail(sessionStorage.getItem('email'));
   }, []);
 
 

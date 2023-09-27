@@ -38,11 +38,11 @@ export default function AuthenticateReturningUser({ email, handleSetEmail }) {
     fetchData(id);
   }, []);
 
-
   async function handleSubmit(event) {
     event.preventDefault();
     const userObject = await axios.get(`http://localhost:8080/api/users/get-user-details/${email}`);
     if (userObject.data.length > 0) { //if user exists in the db, take them to url details
+      sessionStorage.setItem('email', email);
       navigate(`details`, { email });
     } else { //if user is new, create user record and take them to tripURL details
       try {
@@ -50,6 +50,7 @@ export default function AuthenticateReturningUser({ email, handleSetEmail }) {
           email: email,
           trip_id: id,
         }).then(() => {
+          sessionStorage.setItem('email', email);
           navigate(`details`);
         });
       } catch (error) {

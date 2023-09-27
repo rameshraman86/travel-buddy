@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useEffect } from "react";
 
 
 export default function Homepage({ email, handleSetEmail }) {
@@ -12,12 +13,13 @@ export default function Homepage({ email, handleSetEmail }) {
       const response = await fetch(`http://localhost:8080/api/trips/get-trip-url/${userObject.data[0].email}`); //will return full tripurl
       const tripURLObject = await response.json();
       const tripDetailsRoute = tripURLObject[0].trip_url.split('/').pop() + "/details"; //strip the trip id from url and append /details route
+      sessionStorage.setItem('email', email);
       navigate(tripDetailsRoute);
     } else { //if user is new, take them to create new trip page
+      sessionStorage.setItem('email', email);
       navigate("/new", { state: email });
     }
   }
-
 
   return (
     <>
