@@ -1,4 +1,3 @@
-// import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import '../styles/NewtripPage.css';
@@ -12,7 +11,14 @@ export default function NewTripPage(props) {
   } = props;
 
   const navigate = useNavigate();
-  const { state } = useLocation();
+  const { state } = useLocation(); //captures user email
+
+  function sha1(data) {
+    var generator = crypto.createHash('sha1');
+    generator.update(data);
+    return generator.digest('hex');
+  }
+
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -21,6 +27,17 @@ export default function NewTripPage(props) {
     const recentTrip = await response_recent_trip.json();
     const new_url_id = recentTrip[0].id + 1;
     const new_trip_url = `http://localhost:5173/${new_url_id}`;
+
+
+    //Hash the combination of (email + create trip timestamp + startDate, endDate, tripName) and create a 8 or 12 length code
+    // try {
+    //   const trip_url_string = state + startDate + endDate + tripName + Date.now();
+    //   const url = await axios.get(`http://localhost:8080/api/trips/generate-sha1/${trip_url_string}`);
+    //   new_url_id = url.data;
+    //   new_trip_url = `http://localhost:5173/${new_url_id}`;
+    // } catch (error) {
+    //   console.error(`error generating sha1 url id`, error);
+    // }
 
     //post request to create new record in trips db and a new user for the trip
     const newTripBody = {
@@ -34,7 +51,6 @@ export default function NewTripPage(props) {
       //create a new trip, new user record and a default 'wishlist' itinerary for the trip
       axios.post(`http://localhost:8080/api/trips/new-trip`, newTripBody)
         .then(res => {
-          console.log(res.data);
           axios.post(`http://localhost:8080/api/users/create-new-user`, {
             email: state,
             trip_id: res.data.id,

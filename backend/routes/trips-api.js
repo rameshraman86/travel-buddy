@@ -3,6 +3,7 @@ const router = express.Router();
 const trips = require("../db/queries/trips");
 const tripsData = require("../db/queries/tripsData");
 const itineraries = require("../db/queries/itineraries");
+const crypto = require('crypto');
 
 // ***********READ***********
 //get all trips
@@ -97,6 +98,14 @@ router.post('/new-trip', (req, res) => {
       res.status(500).json({ error_create_trip: error.message });
     });
 });
+
+//generate a new sha1 for string to use as tripUrlID
+router.get('/generate-sha1/:string', (req, res) => {
+  const string = req.params.string;
+  const hash = crypto.createHash('sha1').update(string).digest('hex');
+  res.send(hash);
+});
+
 
 // ***********DELETE***********
 router.delete(`/delete-itinerary-item/:trip_id`, (req, res) => {

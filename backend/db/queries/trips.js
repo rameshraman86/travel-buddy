@@ -19,7 +19,6 @@ const getTripDetailsbyTripID = (trip_id) => {
     .catch(error => console.error(`Errors returning trip ${trip_id}: `, error));
 };
 
-
 //get the most recent trip
 const getRecentTrip = () => {
   const queryString = "SELECT * FROM trips ORDER BY id DESC LIMIT 1;";
