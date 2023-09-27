@@ -2,8 +2,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 
-export default function Homepage(props) {
-  const { email, handleSetEmail } = props;
+export default function Homepage({ email, handleSetEmail }) {
   const navigate = useNavigate();
 
   async function handleSubmit(event) {
@@ -12,7 +11,7 @@ export default function Homepage(props) {
     if (userObject.data.length > 0) { //if user exists in the db, take them to url details
       const response = await fetch(`http://localhost:8080/api/trips/get-trip-url/${userObject.data[0].email}`); //will return full tripurl
       const tripURLObject = await response.json();
-      const tripDetailsRoute = tripURLObject.trip_url.split('/').pop() + "/details"; //strip the trip id from url and append /details route
+      const tripDetailsRoute = tripURLObject[0].trip_url.split('/').pop() + "/details"; //strip the trip id from url and append /details route
       navigate(tripDetailsRoute);
     } else { //if user is new, take them to create new trip page
       navigate("/new", { state: email });

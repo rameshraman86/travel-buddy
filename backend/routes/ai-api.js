@@ -15,7 +15,6 @@ router.post("/chat", async (req, res) => {
       messages: [{ "role": "user", "content": prompt }],
       max_tokens: 512,
       temperature: 0,
-      // stream: true,
     });
     res.send(completion.choices[0]);
   } catch (error) {

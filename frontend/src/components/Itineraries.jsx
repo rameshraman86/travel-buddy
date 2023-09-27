@@ -17,7 +17,6 @@ export default function Itineraries({ itineraries, itineraryItems, setItineraryI
   const handleDeleteItineraryItem = async (url) => {
     try {
       await axios.delete(`http://localhost:8080/api/trips/delete-itinerary-item/${tripID}`, { data: { url } });
-
       const deletedItem = itineraryItems.find(item => item.url === url);
       const newItems = itineraryItems && itineraryItems.filter(item => item.url !== deletedItem.url);
       setItineraryItems(newItems);
@@ -27,7 +26,6 @@ export default function Itineraries({ itineraries, itineraryItems, setItineraryI
   };
 
   const handleDeleteItineraryItems = async (remainingItems, deletedItems) => {
-
     try {
       deletedItems.map(async item => {
         const url = item.url;
@@ -73,8 +71,6 @@ export default function Itineraries({ itineraries, itineraryItems, setItineraryI
 
   const handleDeleteItinerary = async (itinerary_deleted) => {
     closeModal();
-    // const confirmDelete = confirm(`Delete ${itinerary_deleted.type}?`);
-    // if (confirmDelete) {
     //delete the itinerary from db
     try {
       const response = await axios.delete(`http://localhost:8080/api/itinerary/delete-itinerary/${itinerary_deleted.id}`);
@@ -88,7 +84,7 @@ export default function Itineraries({ itineraries, itineraryItems, setItineraryI
     handleUpdateItineraries(updatedItineraries);
     // }
 
-    // also delete itinerary items in that itinerary
+    // delete itinerary items in that itinerary
     const remainingItems = itineraryItems.filter(item => itinerary_deleted.id !== item.itinerary_id);
     const deletedItems = itineraryItems.filter(item => itinerary_deleted.id === item.itinerary_id);
     handleDeleteItineraryItems(remainingItems, deletedItems);

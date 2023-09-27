@@ -7,7 +7,7 @@ const getTripURLByEmail = (email) => {
   const queryParams = [email];
   return db.query(queryString, queryParams)
     .then(data => {
-      return data.rows[0];
+      return data.rows;
     })
     .catch(error => console.log(`error getting url: `, error));
 };

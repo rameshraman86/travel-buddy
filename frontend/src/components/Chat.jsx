@@ -1,5 +1,5 @@
 import React from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { io } from 'socket.io-client';
 import '../styles/chatbox.scss';
 import axios from 'axios';
@@ -7,7 +7,7 @@ import axios from 'axios';
 const URL = process.env.NODE_ENV === 'production' ? undefined : 'http://localhost:8080';
 const socket = io(URL);
 
-export default function Chat({ avatar, email, tripID, messages, handleSetMessages }) {
+export default function Chat({ email, tripID, handleSetMessages }) {
   useEffect(() => {
     socket.emit("initial_connection", { email, tripID });
     const receiveMsg = (payload) => {
@@ -18,7 +18,6 @@ export default function Chat({ avatar, email, tripID, messages, handleSetMessage
       };
       //update frontend with message of other user sending message
       handleSetMessages(newMessage);
-      // setMessages(newMessage)
     };
 
     socket.on('send_msg', receiveMsg);

@@ -20,7 +20,10 @@ export default function TripDetails({ email, tripLocation, startDate, endDate })
   const [tripDates, setTripDates] = useState({});
   const [messages, setMessages] = useState([]);
   const [isHovered, setIsHovered] = useState(false);
-
+  const [suggestedPlaces, setSuggestedPlaces] = useState(undefined);
+  const [mapRef, setMapRef] = useState(undefined);
+  const [selectedPlace, setSelectedPlace] = useState(undefined);
+  
   const navigate = useNavigate();
 
 
@@ -73,7 +76,6 @@ export default function TripDetails({ email, tripLocation, startDate, endDate })
             rating: parseFloat(item.rating)
           };
         });
-        // console.log(formattedItineraryItems);
         setItineraryItems(formattedItineraryItems);
 
 
@@ -88,12 +90,11 @@ export default function TripDetails({ email, tripLocation, startDate, endDate })
     fetchData();
   }, []);
 
-  const [suggestedPlaces, setSuggestedPlaces] = useState(undefined);
+
   // set suggestedPlaces to filter out the new place
   const addToWishlist = (selectedPlace, selectedItinerary) => {
     const newPlaceBody = {
       ...selectedPlace,
-      // itinerary_id: parseInt(id), 
       itinerary_id: selectedItinerary.id,
       trip_id: parseInt(id),
     };
@@ -110,8 +111,7 @@ export default function TripDetails({ email, tripLocation, startDate, endDate })
     }
   };
 
-  const [mapRef, setMapRef] = useState(undefined);
-  const [selectedPlace, setSelectedPlace] = useState(undefined);
+
 
   const handleMarkerClick = (place) => {
     mapRef?.setZoom(14);
