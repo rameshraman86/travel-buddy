@@ -9,13 +9,19 @@ export default function Homepage({ email, handleSetEmail }) {
   async function handleSubmit(event) {
     event.preventDefault();
     const userObject = await axios.get(`http://localhost:8080/api/users/get-user-details/${email}`);
-    if (userObject.data.length > 0) { //if user exists in the db, take them to url details
+    if (userObject.data.length === 1) { //if user exists in the db, associated to 1 trip, take user to their tripurl
       const response = await fetch(`http://localhost:8080/api/trips/get-trip-url/${userObject.data[0].email}`); //will return full tripurl
       const tripURLObject = await response.json();
       const tripDetailsRoute = tripURLObject[0].trip_url.split('/').pop() + "/details"; //strip the trip id from url and append /details route
       sessionStorage.setItem('email', email);
       navigate(tripDetailsRoute);
-    } else { //if user is new, take them to create new trip page
+    }
+    //User exists in the db, associated to >1 trip, take user to choose trip page
+    if (userObject.data.length > 1) {
+      sessionStorage.setItem('email', email);
+      navigate("/choose_trips");
+    }
+    if (userObject.data.length === 0) { //if user is new, take them to create new trip page
       sessionStorage.setItem('email', email);
       navigate("/new", { state: email });
     }

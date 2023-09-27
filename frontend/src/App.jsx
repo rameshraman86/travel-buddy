@@ -7,6 +7,7 @@ import NewTripPage from './components/NewtripPage';
 import TripDetails from './components/TripDetails';
 import AuthenticateReturningUser from './components/AuthenticateReturningUser';
 import NotFound from './components/NotFound';
+import ChooseTrips from './components/ChooseTrips';
 
 function App() {
 
@@ -57,6 +58,9 @@ function App() {
         <Route path='/:id' element={<AuthenticateReturningUser
           email={email}
           handleSetEmail={handleSetEmail}
+        />} />
+        <Route path='/choose_trips' element={<ChooseTrips
+          email={email}
         />} />
         <Route path='/:id/details' element={<TripDetails
           email={email}
