@@ -1,27 +1,30 @@
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useEffect } from "react";
+import ChooseTrip from "./ChooseTrip";
 
 
-export default function Homepage({ email, handleSetEmail }) {
+export default function Homepage({ email, handleSetEmail, isExistingUser, setIsExistingUser, setEmail }) {
   const navigate = useNavigate();
 
   async function handleSubmit(event) {
     event.preventDefault();
     const userObject = await axios.get(`http://localhost:8080/api/users/get-user-details/${email}`);
-    if (userObject.data.length === 1) { //if user exists in the db, associated to 1 trip, take user to their tripurl
-      const response = await fetch(`http://localhost:8080/api/trips/get-trip-url/${userObject.data[0].email}`); //will return full tripurl
-      const tripURLObject = await response.json();
-      const tripDetailsRoute = tripURLObject[0].trip_url.split('/').pop() + "/details"; //strip the trip id from url and append /details route
+    // if (userObject.data.length === 1) { //if user exists in the db, associated to 1 trip, take user to their tripurl
+    //   const response = await fetch(`http://localhost:8080/api/trips/get-trip-url/${userObject.data[0].email}`); //will return full tripurl
+    //   const tripURLObject = await response.json();
+    //   const tripDetailsRoute = tripURLObject[0].trip_url.split('/').pop() + "/details"; //strip the trip id from url and append /details route
+    //   sessionStorage.setItem('email', email);
+    //   navigate(tripDetailsRoute);
+    // }
+    //User exists in the db, associated to >=1 trip, take user to choose trip page
+    if (userObject.data.length >= 1) {
       sessionStorage.setItem('email', email);
-      navigate(tripDetailsRoute);
-    }
-    //User exists in the db, associated to >1 trip, take user to choose trip page
-    if (userObject.data.length > 1) {
-      sessionStorage.setItem('email', email);
-      navigate("/choose_trips");
+      // navigate("/choose_trip");
+      setIsExistingUser(true);
     }
     if (userObject.data.length === 0) { //if user is new, take them to create new trip page
+      setIsExistingUser(false);
       sessionStorage.setItem('email', email);
       navigate("/new", { state: email });
     }
@@ -40,31 +43,38 @@ export default function Homepage({ email, handleSetEmail }) {
           </svg>
         </div >
 
-        <div className="flex justify-center items-center">
-          <form className="space-y-2 flex gap-1" onSubmit={handleSubmit}>
-            <div className="flex flex-col justify-center items-center">
 
-              <div className="mt-2">
-                <input
-                  type="email"
-                  name="email"
-                  required
-                  placeholder="Enter your email"
-                  value={email} onChange={handleSetEmail}
-                  className="block w-72 rounded-full border-0 py-1.5 px-3 text-gray-900 shadow-sm focus:outline-none ring-2 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-amber-600 sm:text-sm sm:leading-6" />
+        {!isExistingUser &&
+          <div className="flex justify-center items-center">
+            <form className="space-y-2 flex gap-1" onSubmit={handleSubmit}>
+              <div className="flex flex-col justify-center items-center">
+
+                <div className="mt-2">
+                  <input
+                    type="email"
+                    name="email"
+                    required
+                    placeholder="Enter your email"
+                    value={email} onChange={handleSetEmail}
+                    className="block w-72 rounded-full border-0 py-1.5 px-3 text-gray-900 shadow-sm focus:outline-none ring-2 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-amber-600 sm:text-sm sm:leading-6" />
+                </div>
               </div>
-            </div>
-            <div>
-              <button
-                type="submit"
-                className="flex w-full justify-center rounded-full bg-amber-600 px-4 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-amber-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-700">
-                Get Started
-              </button>
-            </div>
-          </form>
+              <div>
+                <button
+                  type="submit"
+                  className="flex w-full justify-center rounded-full bg-amber-600 px-4 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-amber-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-700">
+                  Get Started
+                </button>
+              </div>
+            </form>
 
-        </div>
+          </div>}
       </div >
+      {isExistingUser && <ChooseTrip
+        email={email}
+        setEmail={setEmail}
+        setIsExistingUser={setIsExistingUser}
+      />}
     </>
   );
 }

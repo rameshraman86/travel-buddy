@@ -13,11 +13,11 @@ export default function NewTripPage(props) {
   const navigate = useNavigate();
   const { state } = useLocation(); //captures user email
 
-  function sha1(data) {
-    var generator = crypto.createHash('sha1');
-    generator.update(data);
-    return generator.digest('hex');
-  }
+  // function sha1(data) {
+  //   var generator = crypto.createHash('sha1');
+  //   generator.update(data);
+  //   return generator.digest('hex');
+  // }
 
 
   async function handleSubmit(event) {
@@ -52,7 +52,8 @@ export default function NewTripPage(props) {
       axios.post(`http://localhost:8080/api/trips/new-trip`, newTripBody)
         .then(res => {
           axios.post(`http://localhost:8080/api/users/create-new-user`, {
-            email: state,
+            // email: state,
+            email: sessionStorage.getItem('email'),
             trip_id: res.data.id,
           });
           axios.post(`http://localhost:8080/api/itinerary/create-wishlist-itinerary`, {

@@ -7,7 +7,7 @@ import NewTripPage from './components/NewtripPage';
 import TripDetails from './components/TripDetails';
 import AuthenticateReturningUser from './components/AuthenticateReturningUser';
 import NotFound from './components/NotFound';
-import ChooseTrips from './components/ChooseTrips';
+import ChooseTrip from './components/ChooseTrip';
 
 function App() {
 
@@ -16,6 +16,7 @@ function App() {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [email, setEmail] = useState('');
+  const [isExistingUser, setIsExistingUser] = useState(false);
 
 
   const handleTripLocationChange = (event) => {
@@ -36,7 +37,9 @@ function App() {
 
   const handleSetEmail = (event) => {
     setEmail(event.target.value);
+    setIsExistingUser(false); //this clears chooseTrip content if user changes email
   };
+
 
   return (
     <>
@@ -44,6 +47,9 @@ function App() {
         <Route path='/' element={<Homepage
           email={email}
           handleSetEmail={handleSetEmail}
+          isExistingUser={isExistingUser}
+          setIsExistingUser={setIsExistingUser}
+          setEmail={setEmail}
         />} />
         <Route path='/new' element={<NewTripPage
           tripLocation={tripLocation}
@@ -59,10 +65,7 @@ function App() {
           email={email}
           handleSetEmail={handleSetEmail}
         />} />
-        <Route path='/choose_trips' element={<ChooseTrips
-          email={email}
-          setEmail={setEmail}
-        />} />
+        <Route path='/choose_trip' element={<ChooseTrip />} />
         <Route path='/:id/details' element={<TripDetails
           email={email}
           setEmail={setEmail}

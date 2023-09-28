@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import axios from "axios";
-import ChooseTripsItems from "./ChooseTripsItems";
 
-export default function ChooseTrips({ email, setEmail }) {
+export default function ChooseTrip({ email, setEmail, setIsExistingUser }) {
 
   const [trips, setTrips] = useState([]);
-
   useEffect(() => {
     setEmail(sessionStorage.getItem('email'));
 
@@ -22,6 +20,12 @@ export default function ChooseTrips({ email, setEmail }) {
     return date.toLocaleDateString('en-CA', { year: 'numeric', month: '2-digit', day: '2-digit' });
   }
 
+
+  const handleBackButton = (event) => {
+    event.preventDefault();
+    setIsExistingUser(false);
+    setEmail('');
+  };
 
   return (
     <>
@@ -46,8 +50,13 @@ export default function ChooseTrips({ email, setEmail }) {
           ))}
         </tbody>
       </table>
-      <h1> <Link className="text-amber-600" to='/new'>Create a new Trip!</Link></h1>
 
+      <form onSubmit={handleBackButton}>
+        <h1> <Link className='rounded-xl border border-transparent bg-amber-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-amber-700 focus:outline-none' to='/new'>Create a new Trip!</Link></h1>
+        <button type="submit" className="inline-flex justify-center px-4 py-2 text-sm font-semibold  text-white bg-gray-600 border border-transparent rounded-xl hover:bg-gray-700 duration-300" >
+          Back
+        </button>
+      </form>
     </>
   );
 }
