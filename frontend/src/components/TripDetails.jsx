@@ -132,7 +132,7 @@ export default function TripDetails({ email, setEmail, tripLocation, startDate, 
     <div className="flex m-0 p-0 w-screen h-screen">
       <div className="py-4 px-4 w-full overflow-y-auto">
 
-        <div className="flex flex justify-between items-end gap-1.5">
+        <div className="flex justify-between items-end gap-1.5">
           <div className="flex flex-row">
             <h1 className="text-center text-4xl font-extrabold leading-9 tracking-tight text-gray-800">Travel Buddy</h1>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10 stroke-amber-600">

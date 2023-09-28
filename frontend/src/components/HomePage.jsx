@@ -62,19 +62,20 @@ export default function Homepage({ email, handleSetEmail, isExistingUser, setIsE
               <div>
                 <button
                   type="submit"
-                  className="flex w-full justify-center rounded-full bg-amber-600 px-4 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-amber-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-700">
+                  className="flex w-full justify-center rounded-full bg-amber-600 px-4 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-amber-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-700
+                  transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300">
                   Get Started
                 </button>
               </div>
             </form>
 
           </div>}
-      </div >
       {isExistingUser && <ChooseTrip
         email={email}
         setEmail={setEmail}
         setIsExistingUser={setIsExistingUser}
       />}
+      </div >
     </>
   );
 }

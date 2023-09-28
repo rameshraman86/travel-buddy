@@ -29,34 +29,58 @@ export default function ChooseTrip({ email, setEmail, setIsExistingUser }) {
 
   return (
     <>
-      <h1>Welcome Back {email}. Choose from your trips below to continue planning or create a new trip.</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>Trip</th>
-            <th>Location</th>
-            <th>Start</th>
-            <th>End</th>
-          </tr>
-        </thead>
-        <tbody>
-          {trips.map(trip => (
-            <tr key={trip.trip_url}>
-              <td><a href={trip.trip_url + '/details'}>{trip.trip_name}</a></td>
-              <td>{trip.trip_location}</td>
-              <td>{formatDate(trip.start_date)}</td>
-              <td>{formatDate(trip.end_date)}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div className="w-1/2 flex flex-col justify-center border-solid">
+        <div className="title flex justify-between">
+          <div className="text-center text-3xl font-bold leading-9 tracking-tight text-gray-800">
+            Your Trips
+          </div>
+          <div className="action buttons">
+            <form onSubmit={handleBackButton}>
+              <button
+                type="submit"
+                className="inline-flex justify-center px-4 py-2 text-sm font-semibold text-white bg-gray-600 border border-transparent rounded-xl hover:bg-gray-700 duration-300 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110">
+                Back
+              </button>
+              <h1>
+                <Link className="rounded-xl border border-transparent bg-amber-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-amber-700 focus:outline-none" to="/new"> + New Trip</Link>
+              </h1>
+            </form>
+          </div>
+        </div>
+        <div className="border-t-4 border-gray-300 my-4"></div>
+        <table>
+          <tbody>
+            {trips.map((trip) => (
+              <tr key={trip.trip_url} className="border-b-2 border-gray-200 hover:bg-gray-100">
+                <td className="px-4 py-2">
+                  <div className="flex justify-between">
+                    <div>
+                      <div>
+                        <span className="text-center text-2xl font-bold leading-9 tracking-tight text-gray-800">
+                          {trip.trip_name} - {trip.trip_location}
+                        </span>
+                      </div>
+                      <div>
+                        <span className="font-light">
+                          {formatDate(trip.start_date)} to {formatDate(trip.end_date)}
+                        </span>
+                      </div>
+                    </div>
+                    <div>
+                      <a href={trip.trip_url + '/details'}>
+                        <button className="rounded-xl border border-transparent bg-amber-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-amber-700 focus:outline-none">
+                          Edit Trip
+                        </button>
+                      </a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
-      <form onSubmit={handleBackButton}>
-        <h1> <Link className='rounded-xl border border-transparent bg-amber-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-amber-700 focus:outline-none' to='/new'>Create a new Trip!</Link></h1>
-        <button type="submit" className="inline-flex justify-center px-4 py-2 text-sm font-semibold  text-white bg-gray-600 border border-transparent rounded-xl hover:bg-gray-700 duration-300" >
-          Back
-        </button>
-      </form>
     </>
   );
 }
