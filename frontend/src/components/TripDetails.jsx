@@ -13,7 +13,7 @@ export default function TripDetails({ email, setEmail, tripLocation, startDate, 
 
   const { id } = useParams();
 
-  const [itineraries, setItineraries] = useState([]); 
+  const [itineraries, setItineraries] = useState([]);
   const [itineraryItems, setItineraryItems] = useState([]);
   const [location, setLocation] = useState("");
   const [tripName, setTripName] = useState("");
@@ -131,13 +131,23 @@ export default function TripDetails({ email, setEmail, tripLocation, startDate, 
   return (
     <div className="flex m-0 p-0 w-screen h-screen">
       <div className="py-4 px-4 w-full overflow-y-auto">
-        <form onSubmit={handleLogoutButton}>
-          <button className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-            {isHovered ? "Logout" : email}
-          </button>
-        </form>
-        <div>
-          <h1 className="text-3xl font-bold text-gray-800">{tripName}</h1>
+
+        <div className="flex flex justify-between items-end gap-1.5">
+          <div className="flex flex-row">
+            <h1 className="text-center text-4xl font-extrabold leading-9 tracking-tight text-gray-800">Travel Buddy</h1>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10 stroke-amber-600">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498l4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 00-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0z" />
+            </svg>
+          </div>
+          <form onSubmit={handleLogoutButton} className="flex justify-right">
+            <button className=" hover:bg-gray-200 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+              {isHovered ? "Logout" : email}
+            </button>
+          </form>
+        </div >
+
+        <div className="my-6">
+          <h1 className="text-2xl font-bold text-gray-800">{tripName}</h1>
           <div className="flex items-center">
             <span className="text-lg text-gray-600 font-extrabold mx-0.5">{location}</span>
             <span className="w-1.5 h-1.5 mx-1.5 bg-gray-600 rounded-full dark:bg-gray-400"></span>
