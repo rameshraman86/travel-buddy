@@ -87,6 +87,18 @@ router.post("/itinerary-items/:tripid", (req, res) => {
 });
 
 
+//get all Trips of a user by email
+router.get('/get-all-trips-of-user/:email', (req, res) => {
+  const email = req.params.email;
+  trips.getAllTripsByEmail(email)
+    .then(tripDetails => {
+      res.send(tripDetails);
+    })
+    .catch(error => {
+      res.status(500).json({ error_all_trips: error.message });
+    });
+});
+
 // ***********CREATE***********
 router.post('/new-trip', (req, res) => {
   const trip = req.body;

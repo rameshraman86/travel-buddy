@@ -13,7 +13,7 @@ export default function TripDetails({ email, setEmail, tripLocation, startDate, 
 
   const { id } = useParams();
 
-  const [itineraries, setItineraries] = useState([]); //state to maintain the itineraries of trip
+  const [itineraries, setItineraries] = useState([]); 
   const [itineraryItems, setItineraryItems] = useState([]);
   const [location, setLocation] = useState("");
   const [tripName, setTripName] = useState("");

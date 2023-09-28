@@ -1,4 +1,3 @@
-import "../styles/aiAssistant.css";
 import axios from 'axios';
 import { useState, Fragment } from "react";
 import AIAssistantResponse from "./AIAssistantResponse.jsx";
@@ -92,16 +91,12 @@ export default function AIAssistant({ id, tripLocation, startDate, endDate }) {
           <path strokeLinecap="round" strokeLinejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
         </svg>
         <span>Not sure where to start?</span>
-
-
-
       </h2>
+
       <div className="flex items-center gap-2 mb-4">
         <button onClick={openModal} className='rounded-xl border border-transparent bg-amber-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-amber-700 focus:outline-none'>Ask our Assistant!</button>
-
         <button onClick={handleClearButtonClicked} className="inline-flex justify-center px-4 py-2 text-sm font-semibold  text-white bg-gray-600 border border-transparent rounded-xl hover:bg-gray-700 duration-300" >Clear Suggestions</button>
       </div>
-
 
       <div className={promptSubmitted ? "bg-white/[0.5] rounded-xl w-full p-4 mt-2 my-5" : "bg-white/0 rounded-xl w-full p-4 mt-2 my-5"}>
         {isLoading &&

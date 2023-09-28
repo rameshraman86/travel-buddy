@@ -29,6 +29,17 @@ const getRecentTrip = () => {
 };
 
 
+//get all Trips of a user by email
+const getAllTripsByEmail = (email) => {
+  const queryString = "SELECT trip_url, trip_name, start_date, end_date, trip_location FROM trips AS t JOIN users AS u ON t.id=u.trip_id WHERE u.email=$1;";
+  const queryParams = [email];
+  return db
+    .query(queryString, queryParams)
+    .then(data => data.rows)
+    .catch(error => console.error(`Error fetching all trips of user `, error));
+};
+
+
 // ***********CREATE***********
 const createNewTrip = (trip) => {
   const queryString = `INSERT INTO trips(trip_url, trip_name, start_date, end_date, trip_location, is_editable) VALUES ($1, $2, $3, $4, $5, $6) RETURNING * ;`;
@@ -46,5 +57,6 @@ module.exports = {
   getTrips,
   getTripDetailsbyTripID,
   getRecentTrip,
+  getAllTripsByEmail,
   createNewTrip,
 };

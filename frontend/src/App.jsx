@@ -61,6 +61,7 @@ function App() {
         />} />
         <Route path='/choose_trips' element={<ChooseTrips
           email={email}
+          setEmail={setEmail}
         />} />
         <Route path='/:id/details' element={<TripDetails
           email={email}
