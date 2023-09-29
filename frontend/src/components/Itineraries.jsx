@@ -110,7 +110,6 @@ export default function Itineraries({ itineraries, itineraryItems, setItineraryI
     if (destination.droppableId === source.droppableId &&
       destination.index === source.index
     ) { return; }
-    console.log(result);
     const newItineraryItems = _.cloneDeep(itineraryItems);
 
     // drag and drop within the same itinerary
