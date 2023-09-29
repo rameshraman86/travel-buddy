@@ -9,7 +9,8 @@ export default function Homepage({ email, handleSetEmail, isExistingUser, setIsE
 
   async function handleSubmit(event) {
     event.preventDefault();
-    const userObject = await axios.get(`http://localhost:8080/api/users/get-user-details/${email}`);
+    // const userObject = await axios.get(`http://localhost:8080/api/users/get-user-details/${email}`);
+    const userObject = await axios.get(`https://travelbuddy-api.onrender.com/api/users/get-user-details/${email}`);
     // if (userObject.data.length === 1) { //if user exists in the db, associated to 1 trip, take user to their tripurl
     //   const response = await fetch(`http://localhost:8080/api/trips/get-trip-url/${userObject.data[0].email}`); //will return full tripurl
     //   const tripURLObject = await response.json();
