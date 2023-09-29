@@ -18,7 +18,7 @@ app.use(cors());
 const io = new Server(server,
   {
     cors: {
-      origin: ['http://localhost:5173', 'https://travel-buddy-x9ue.onrender.com']
+      origin: ['http://localhost:5173', 'https://travel-buddy-x9ue.onrender.com', 'https://travel-buddy-sepia-tau.vercel.app']
     }
   }
 );
