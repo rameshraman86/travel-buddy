@@ -30,7 +30,7 @@ export default function NewTripPage(props) {
     //LOGIC TO GENERATE A NEW TRIP URL
     const response_recent_trip = await fetch(`${api_url}/api/trips/recent`);
     const recentTrip = await response_recent_trip.json();
-    const new_url_id = recentTrip[0].id + 1;
+    const new_url_id = recentTrip.length > 0 ? recentTrip[0].id + 1 : 1;
     const new_trip_url = `${app_url}/${new_url_id}`;
 
     //Hash the combination of (email + create trip timestamp + startDate, endDate, tripName) and create a 8 or 12 length code
