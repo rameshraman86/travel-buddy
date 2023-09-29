@@ -4,6 +4,8 @@ import '../styles/NewtripPage.css';
 import apiConfig from '../../config';
 
 const api_url = process.env.NODE_ENV === 'production' ? apiConfig.production : apiConfig.development;
+const app_url = process.env.NODE_ENV === 'production' ? apiConfig.app_production : apiConfig.app_development;
+
 
 export default function NewTripPage(props) {
   const {
@@ -29,13 +31,12 @@ export default function NewTripPage(props) {
     const response_recent_trip = await fetch(`${api_url}/api/trips/recent`);
     const recentTrip = await response_recent_trip.json();
     const new_url_id = recentTrip[0].id + 1;
-    const new_trip_url = `${apiConfig.app}/${new_url_id}`;
-
+    const new_trip_url = `${app_url}/${new_url_id}`;
 
     //Hash the combination of (email + create trip timestamp + startDate, endDate, tripName) and create a 8 or 12 length code
     // try {
     //   const trip_url_string = state + startDate + endDate + tripName + Date.now();
-    //   const url = await axios.get(`${api_url}/api/trips/generate-sha1/${trip_url_string}`);
+    //   const url = await axios.get(`${ api_url; } /api/trips / generate - sha1 / ${ trip_url_string; } `);
     //   new_url_id = url.data;
     //   new_trip_url = `http://localhost:5173/${new_url_id}`;
     // } catch (error) {
