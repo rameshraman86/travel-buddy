@@ -6,7 +6,9 @@ import Messages from "./Messages";
 import Map from "./Map";
 import AIAssistant from "./AIAssistant";
 import Chat from "./Chat";
+import apiConfig from '../../config';
 
+const api_url = process.env.NODE_ENV === 'production' ? apiConfig.production : apiConfig.development;
 
 
 export default function TripDetails({ email, setEmail, tripLocation, startDate, endDate }) {
@@ -55,16 +57,16 @@ export default function TripDetails({ email, setEmail, tripLocation, startDate, 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const tripDetails = await axios.get(`http://localhost:8080/api/trips/get-trip-details/${id}`);
+        const tripDetails = await axios.get(`${api_url}/api/trips/get-trip-details/${id}`);
 
         setLocation(tripDetails.data[0].trip_location);
         setTripName(tripDetails.data[0].trip_name);
         setTripDates({ start: parseDate(tripDetails.data[0].start_date), end: parseDate(tripDetails.data[0].end_date) });
 
-        const itinResponse = await axios.get(`http://localhost:8080/api/trips/itinerary-names/${id}`);
+        const itinResponse = await axios.get(`${api_url}/api/trips/itinerary-names/${id}`);
         setItineraries(itinResponse.data);
 
-        const itinItemsResponse = await axios.get(`http://localhost:8080/api/trips/itinerary-items/${id}`);
+        const itinItemsResponse = await axios.get(`${api_url}/api/trips/itinerary-items/${id}`);
 
         const formattedItineraryItems = itinItemsResponse.data.map(item => {
           return {
@@ -80,7 +82,7 @@ export default function TripDetails({ email, setEmail, tripLocation, startDate, 
 
 
         //to render/update messages component
-        const messagesResponse = await axios.get(`http://localhost:8080/api/messages/get-trip-messages/${id}`);
+        const messagesResponse = await axios.get(`${api_url}/api/messages/get-trip-messages/${id}`);
         setMessages(messagesResponse.data);
 
       } catch (error) {
@@ -110,7 +112,7 @@ export default function TripDetails({ email, setEmail, tripLocation, startDate, 
 
   const addToWishlistDB = async (newPlaceBody) => {
     try {
-      await axios.post(`http://localhost:8080/api/trips/itinerary-items/${id}`, newPlaceBody);
+      await axios.post(`${api_url}/api/trips/itinerary-items/${id}`, newPlaceBody);
     } catch (error) {
       console.log(`Error adding to Wishlist: `, error);
     }

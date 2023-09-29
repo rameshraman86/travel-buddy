@@ -2,7 +2,9 @@ import { useState } from 'react';
 // import { Autocomplete } from "@react-google-maps/api";
 import axios from 'axios';
 import "../styles/FuzzySearchForm.css";
+import apiConfig from '../../config';
 
+const api_url = process.env.NODE_ENV === 'production' ? apiConfig.production : apiConfig.development;
 
 // BUG: autocomplete doesn't update state of input
 
@@ -19,11 +21,11 @@ function FuzzySearchForm({ position, setSuggestedPlaces }) {
   const getSearchResult = async (input) => {
     setIsLoading(true);
     try {
-      const result = await axios.get(`http://localhost:8080/api/google/places`, { params: { input, position } });
+      const result = await axios.get(`${api_url}/api/google/places`, { params: { input, position } });
       const resultsArr = result.data.results;
       const placeDetailsArr = await Promise.all(resultsArr.map(async (result) => {
         try {
-          const details = await axios.get(`http://localhost:8080/api/google/place-details`, { params: { placeId: result.place_id } });
+          const details = await axios.get(`${api_url}/api/google/place-details`, { params: { placeId: result.place_id } });
           return details.data.result;
         } catch (error) {
           console.log(`error fetching photo:`, error);

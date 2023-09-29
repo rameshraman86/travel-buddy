@@ -3,9 +3,10 @@ import { useEffect } from 'react';
 import { io } from 'socket.io-client';
 import '../styles/chatbox.scss';
 import axios from 'axios';
+import apiConfig from '../../config';
 
-const URL = process.env.NODE_ENV === 'production' ? undefined : 'http://localhost:8080';
-const socket = io(URL);
+const api_url = process.env.NODE_ENV === 'production' ? apiConfig.production : apiConfig.development;
+const socket = io(api_url);
 
 export default function Chat({ email, tripID, handleSetMessages }) {
   useEffect(() => {
@@ -47,7 +48,7 @@ export default function Chat({ email, tripID, handleSetMessages }) {
 
     try {
       //adds the new message in the db
-      const response = await axios.post("http://localhost:8080/api/messages/create-new-message", messageData);
+      const response = await axios.post(`${api_url}/api/messages/create-new-message`, messageData);
     } catch (error) {
       console.error(`error creating message : `, error);
     }

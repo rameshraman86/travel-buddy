@@ -14,6 +14,10 @@ import { useState } from "react";
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import NotFound from "./NotFound";
+import apiConfig from '../../config';
+
+const api_url = process.env.NODE_ENV === 'production' ? apiConfig.production : apiConfig.development;
+
 
 export default function AuthenticateReturningUser({ email, handleSetEmail }) {
   const [tripIDisValid, setTripIDisValid] = useState(true);
@@ -25,7 +29,7 @@ export default function AuthenticateReturningUser({ email, handleSetEmail }) {
   useEffect(() => {
     const fetchData = async (id) => {
       try {
-        const response = await axios.get(`http://localhost:8080/api/trips/get-trip-details/${id}`);
+        const response = await axios.get(`${api_url}/api/trips/get-trip-details/${id}`);
         if (response.data.length === 0) {
           setTripIDisValid(false);
         } else {
@@ -40,13 +44,13 @@ export default function AuthenticateReturningUser({ email, handleSetEmail }) {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    const userObject = await axios.get(`http://localhost:8080/api/users/get-user-details/${email}`);
+    const userObject = await axios.get(`${api_url}/api/users/get-user-details/${email}`);
     if (userObject.data.length > 0) { //if user exists in the db, take them to url details
       sessionStorage.setItem('email', email);
       navigate(`details`, { email });
     } else { //if user is new, create user record and take them to tripURL details
       try {
-        axios.post(`http://localhost:8080/api/users/create-new-user/`, {
+        axios.post(`${api_url}/api/users/create-new-user/`, {
           email: email,
           trip_id: id,
         }).then(() => {

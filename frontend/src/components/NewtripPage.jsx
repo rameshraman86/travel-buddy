@@ -1,6 +1,9 @@
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import '../styles/NewtripPage.css';
+import apiConfig from '../../config';
+
+const api_url = process.env.NODE_ENV === 'production' ? apiConfig.production : apiConfig.development;
 
 export default function NewTripPage(props) {
   const {
@@ -23,7 +26,7 @@ export default function NewTripPage(props) {
   async function handleSubmit(event) {
     event.preventDefault();
     //LOGIC TO GENERATE A NEW TRIP URL
-    const response_recent_trip = await fetch(`http://localhost:8080/api/trips/recent`);
+    const response_recent_trip = await fetch(`${api_url}/api/trips/recent`);
     const recentTrip = await response_recent_trip.json();
     const new_url_id = recentTrip[0].id + 1;
     const new_trip_url = `http://localhost:5173/${new_url_id}`;
@@ -32,7 +35,7 @@ export default function NewTripPage(props) {
     //Hash the combination of (email + create trip timestamp + startDate, endDate, tripName) and create a 8 or 12 length code
     // try {
     //   const trip_url_string = state + startDate + endDate + tripName + Date.now();
-    //   const url = await axios.get(`http://localhost:8080/api/trips/generate-sha1/${trip_url_string}`);
+    //   const url = await axios.get(`${api_url}/api/trips/generate-sha1/${trip_url_string}`);
     //   new_url_id = url.data;
     //   new_trip_url = `http://localhost:5173/${new_url_id}`;
     // } catch (error) {
@@ -49,14 +52,14 @@ export default function NewTripPage(props) {
     };
     try {
       //create a new trip, new user record and a default 'wishlist' itinerary for the trip
-      axios.post(`http://localhost:8080/api/trips/new-trip`, newTripBody)
+      axios.post(`${api_url}/api/trips/new-trip`, newTripBody)
         .then(res => {
-          axios.post(`http://localhost:8080/api/users/create-new-user`, {
+          axios.post(`${api_url}/api/users/create-new-user`, {
             // email: state,
             email: sessionStorage.getItem('email'),
             trip_id: res.data.id,
           });
-          axios.post(`http://localhost:8080/api/itinerary/create-wishlist-itinerary`, {
+          axios.post(`${api_url}/api/itinerary/create-wishlist-itinerary`, {
             trip_id: res.data.id,
           });
         })

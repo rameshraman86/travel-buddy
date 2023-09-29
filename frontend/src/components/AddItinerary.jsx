@@ -1,4 +1,7 @@
 import axios from 'axios';
+import apiConfig from '../../config';
+
+const api_url = process.env.NODE_ENV === 'production' ? apiConfig.production : apiConfig.development;
 
 export default function AddItinerary(props) {
   const {
@@ -20,7 +23,7 @@ export default function AddItinerary(props) {
         return;
       } else {
         handlesetShowErrorMessage(false);
-        const response = await axios.post(`http://localhost:8080/api/itinerary/create-new-itinerary`, {
+        const response = await axios.post(`${api_url}/api/itinerary/create-new-itinerary`, {
           type: itineraryType,
           trip_id: tripID
         });

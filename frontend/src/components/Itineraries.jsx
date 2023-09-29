@@ -6,7 +6,9 @@ import AddItinerary from './AddItinerary';
 import { Dialog, Transition } from "@headlessui/react";
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import _ from 'lodash';
+import apiConfig from '../../config';
 
+const api_url = process.env.NODE_ENV === 'production' ? apiConfig.production : apiConfig.development;
 
 export default function Itineraries({ itineraries, itineraryItems, setItineraryItems, handleMarkerClick, tripID, handleSetItineraries, handleUpdateItineraries }) {
 
@@ -16,7 +18,7 @@ export default function Itineraries({ itineraries, itineraryItems, setItineraryI
 
   const handleDeleteItineraryItem = async (url) => {
     try {
-      await axios.delete(`http://localhost:8080/api/trips/delete-itinerary-item/${tripID}`, { data: { url } });
+      await axios.delete(`${api_url}/api/trips/delete-itinerary-item/${tripID}`, { data: { url } });
       const deletedItem = itineraryItems.find(item => item.url === url);
       const newItems = itineraryItems && itineraryItems.filter(item => item.url !== deletedItem.url);
       setItineraryItems(newItems);
@@ -29,7 +31,7 @@ export default function Itineraries({ itineraries, itineraryItems, setItineraryI
     try {
       deletedItems.map(async item => {
         const url = item.url;
-        await axios.delete(`http://localhost:8080/api/trips/delete-itinerary-item/${tripID}`, { data: { url } });
+        await axios.delete(`${api_url}/api/trips/delete-itinerary-item/${tripID}`, { data: { url } });
       });
       setItineraryItems(remainingItems);
     } catch (error) {
@@ -39,7 +41,7 @@ export default function Itineraries({ itineraries, itineraryItems, setItineraryI
 
   const handleMoveItineraryItem = async (itinerary_id, url) => {
     try {
-      await axios.put(`http://localhost:8080/api/trips/move-itinerary-item/${tripID}`, { data: { url, itinerary_id } });
+      await axios.put(`${api_url}/api/trips/move-itinerary-item/${tripID}`, { data: { url, itinerary_id } });
 
       const item = itineraryItems.find(item => item.url === url);
       item.itinerary_id = itinerary_id;
@@ -73,7 +75,7 @@ export default function Itineraries({ itineraries, itineraryItems, setItineraryI
     closeModal();
     //delete the itinerary from db
     try {
-      const response = await axios.delete(`http://localhost:8080/api/itinerary/delete-itinerary/${itinerary_deleted.id}`);
+      const response = await axios.delete(`${api_url}/api/itinerary/delete-itinerary/${itinerary_deleted.id}`);
       console.log(`response from delete itinerary:`, response);
 
     } catch (error) {
@@ -130,7 +132,7 @@ export default function Itineraries({ itineraries, itineraryItems, setItineraryI
 
   const dndMoveItineraryItem = async (itinerary_id, url) => {
     try {
-      await axios.put(`http://localhost:8080/api/trips/move-itinerary-item/${tripID}`, { data: { url, itinerary_id } });
+      await axios.put(`${api_url}/api/trips/move-itinerary-item/${tripID}`, { data: { url, itinerary_id } });
     } catch (error) {
       console.log(`Error deleting itinerary item: `, error);
     }

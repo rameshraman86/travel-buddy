@@ -2,6 +2,9 @@ import axios from 'axios';
 import { useState, Fragment } from "react";
 import AIAssistantResponse from "./AIAssistantResponse.jsx";
 import { Listbox, Transition, Dialog } from "@headlessui/react";
+import apiConfig from '../../config';
+
+const api_url = process.env.NODE_ENV === 'production' ? apiConfig.production : apiConfig.development;
 
 
 export default function AIAssistant({ id, tripLocation, startDate, endDate }) {
@@ -21,7 +24,7 @@ export default function AIAssistant({ id, tripLocation, startDate, endDate }) {
     const prompt = `Give me a suggestion for a ${formData.tripType} type trip to ${formData.tripLocation} for ${formData.tripDuration} days for ${formData.totalTravellers} people with a budget of ${formData.tripBudget ? formData.tripBudget : "unlimited"} USD with ${formData.accommodationType} accommodation with kids ${formData.withKids} with pets ${formData.withPets}. Respond in bulletpoints, where each bulletpoint doesn't exceed 15 words. Highlight points of interest in your response. Group your suggestion by number of days.
     Give me your full response only in <html> format. Include only the contents inside <body></body> but do not include the tag <body></body>.  Keep all headings at <h4>. Do not have any heading higher than <h4>. Wrap the entire response inside <div>. Each day should be an <h4>, followed by  a  <ul> with the class "list-disc", and each <li>  inside the <ul> should have the the class "ml-4".`;
     console.log(prompt);
-    axios.post("http://localhost:8080/api/ai/chat", { prompt })
+    axios.post(`${api_url}/api/ai/chat`, { prompt })
       .then(res => {
         handleSetResponse(res.data.message.content);
         setIsLoading(false);

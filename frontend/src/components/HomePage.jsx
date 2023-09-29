@@ -2,9 +2,9 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useEffect } from "react";
 import ChooseTrip from "./ChooseTrip";
+import apiConfig from '../../config';
 
-
-const api_url = process.env.NODE_ENV === 'production'? 'https://travelbuddy-api.onrender.com' : 'http://localhost:8080';
+const api_url = process.env.NODE_ENV === 'production' ? apiConfig.production : apiConfig.development;
 
 
 export default function Homepage({ email, handleSetEmail, isExistingUser, setIsExistingUser, setEmail }) {
@@ -12,10 +12,9 @@ export default function Homepage({ email, handleSetEmail, isExistingUser, setIsE
 
   async function handleSubmit(event) {
     event.preventDefault();
-    // const userObject = await axios.get(`http://localhost:8080/api/users/get-user-details/${email}`);
     const userObject = await axios.get(`${api_url}/api/users/get-user-details/${email}`);
     // if (userObject.data.length === 1) { //if user exists in the db, associated to 1 trip, take user to their tripurl
-    //   const response = await fetch(`http://localhost:8080/api/trips/get-trip-url/${userObject.data[0].email}`); //will return full tripurl
+    //   const response = await fetch(`${api_url}/api/trips/get-trip-url/${userObject.data[0].email}`); //will return full tripurl
     //   const tripURLObject = await response.json();
     //   const tripDetailsRoute = tripURLObject[0].trip_url.split('/').pop() + "/details"; //strip the trip id from url and append /details route
     //   sessionStorage.setItem('email', email);
@@ -74,11 +73,11 @@ export default function Homepage({ email, handleSetEmail, isExistingUser, setIsE
             </form>
 
           </div>}
-      {isExistingUser && <ChooseTrip
-        email={email}
-        setEmail={setEmail}
-        setIsExistingUser={setIsExistingUser}
-      />}
+        {isExistingUser && <ChooseTrip
+          email={email}
+          setEmail={setEmail}
+          setIsExistingUser={setIsExistingUser}
+        />}
       </div >
     </>
   );

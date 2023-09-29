@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import axios from "axios";
+import apiConfig from '../../config';
+
+const api_url = process.env.NODE_ENV === 'production' ? apiConfig.production : apiConfig.development;
 
 export default function ChooseTrip({ email, setEmail, setIsExistingUser }) {
 
@@ -9,7 +12,7 @@ export default function ChooseTrip({ email, setEmail, setIsExistingUser }) {
     setEmail(sessionStorage.getItem('email'));
 
     async function fetchData() {
-      const allTrips = await axios.get(`http://localhost:8080/api/trips/get-all-trips-of-user/${email}`);
+      const allTrips = await axios.get(`${api_url}/api/trips/get-all-trips-of-user/${email}`);
       setTrips(allTrips.data);
     }
     fetchData();
