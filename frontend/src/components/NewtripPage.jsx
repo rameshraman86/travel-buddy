@@ -4,7 +4,7 @@ import '../styles/NewtripPage.css';
 import apiConfig from '../../config';
 
 const api_url = process.env.NODE_ENV === 'production' ? apiConfig.production : apiConfig.development;
-const app_url = process.env.NODE_ENV === 'production' ? apiConfig.app_production_render : apiConfig.app_development;
+const app_url = process.env.NODE_ENV === 'production' ? apiConfig.app_production_vercel : apiConfig.app_development;
 
 
 export default function NewTripPage(props) {
