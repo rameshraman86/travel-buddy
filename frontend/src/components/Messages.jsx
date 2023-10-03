@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import MessageItem from "./MessageItem";
-import "../styles/chatbox.scss";
+import "../styles/Chatbox.css";
 
 
 export default function Messages({ messages, name }) {

@@ -1,6 +1,6 @@
-import './App.css';
+import './styles/App.css';
 import { useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useResolvedPath } from 'react-router-dom';
 
 import Homepage from './components/HomePage';
 import NewTripPage from './components/NewtripPage';
@@ -8,6 +8,8 @@ import TripDetails from './components/TripDetails';
 import AuthenticateReturningUser from './components/AuthenticateReturningUser';
 import NotFound from './components/NotFound';
 import ChooseTrip from './components/ChooseTrip';
+import Login from './components/Login';
+import Signup from './components/Signup';
 
 function App() {
 
@@ -17,7 +19,7 @@ function App() {
   const [endDate, setEndDate] = useState('');
   const [email, setEmail] = useState('');
   const [isExistingUser, setIsExistingUser] = useState(false);
-
+  const [password, setPassword] = useState('');
 
   const handleTripLocationChange = (event) => {
     setTripLocation(event.target.value);
@@ -40,6 +42,9 @@ function App() {
     setIsExistingUser(false); //this clears chooseTrip content if user changes email
   };
 
+  const handleSetPassword = (event) => {
+    setPassword(event.target.value);
+  };
 
   return (
     <>
@@ -51,6 +56,27 @@ function App() {
           setIsExistingUser={setIsExistingUser}
           setEmail={setEmail}
         />} />
+
+        <Route path='/login' element={<Login
+          email={email}
+          handleSetEmail={handleSetEmail}
+          isExistingUser={isExistingUser}
+          setIsExistingUser={setIsExistingUser}
+          setEmail={setEmail}
+          password={password}
+          handleSetPassword={handleSetPassword}
+        />} />
+
+        <Route path='/signup' element={<Signup
+          email={email}
+          handleSetEmail={handleSetEmail}
+          isExistingUser={isExistingUser}
+          setIsExistingUser={setIsExistingUser}
+          setEmail={setEmail}
+          password={password}
+          handleSetPassword={handleSetPassword}
+        />} />
+
         <Route path='/new' element={<NewTripPage
           tripLocation={tripLocation}
           handleTripLocationChange={handleTripLocationChange}
