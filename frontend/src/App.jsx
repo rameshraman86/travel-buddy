@@ -18,9 +18,14 @@ function App() {
   const [tripName, setTripName] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
-  const [email, setEmail] = useState('');
   const [isExistingUser, setIsExistingUser] = useState(false);
+
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [password2, setPassword2] = useState('');
+
 
   const handleTripLocationChange = (event) => {
     setTripLocation(event.target.value);
@@ -47,6 +52,19 @@ function App() {
     setPassword(event.target.value);
   };
 
+
+  const handleFirstNameChange = (event) => {
+    setFirstName(event.target.value);
+  };
+  const handleLastNameChange = (event) => {
+    setLastName(event.target.value);
+  };
+  const handlePassword2Change = (event) => {
+    setPassword2(event.target.value);
+  };
+
+
+
   return (
     <>
       <Routes>
@@ -59,23 +77,29 @@ function App() {
         />} />
 
         <Route path='/login' element={<Login
-          email={email}
-          handleSetEmail={handleSetEmail}
           isExistingUser={isExistingUser}
           setIsExistingUser={setIsExistingUser}
+          email={email}
+          handleSetEmail={handleSetEmail}
           setEmail={setEmail}
           password={password}
           handleSetPassword={handleSetPassword}
         />} />
 
         <Route path='/signup' element={<Signup
-          email={email}
-          handleSetEmail={handleSetEmail}
           isExistingUser={isExistingUser}
           setIsExistingUser={setIsExistingUser}
-          setEmail={setEmail}
+          firstName={firstName}
+          handleFirstNameChange={handleFirstNameChange}
+          lastName={lastName}
+          handleLastNameChange={handleLastNameChange}
+          email={email}
+          handleSetEmail={handleSetEmail}
           password={password}
+          setPassword={setPassword}
           handleSetPassword={handleSetPassword}
+          password2={password2}
+          handlePassword2Change={handlePassword2Change}
         />} />
 
         <Route path='/resetpassword' element={<ResetPassword

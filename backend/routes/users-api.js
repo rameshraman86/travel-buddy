@@ -8,11 +8,13 @@
 const express = require('express');
 const router = express.Router();
 const userQueries = require('../db/queries/users');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+
 
 router.get('/', (req, res) => {
   userQueries.getUsers()
     .then(users => {
-      // res.json({ users });
       res.send(users);
     })
     .catch(err => {
@@ -28,7 +30,6 @@ router.get('/get-user-details/:email', (req, res) => {
   const email = req.params.email;
   userQueries.getUserByEmail(email)
     .then(user => {
-      // res.json({ user });
       res.send(user);
     })
     .catch(err => {
@@ -40,17 +41,34 @@ router.get('/get-user-details/:email', (req, res) => {
 
 
 //***************CREATE ***************/
-router.post('/create-new-user', (req, res) => {
-  const user = req.body;
-  userQueries.createNewUser(user)
-    .then((user) => {
-      res.send(user);
-    })
-    .catch(error => {
-      res.status(500).json({ error_create_user: error.message });
-    });
+// router.post('/create-new-user', (req, res) => {
+//   const user = req.body;
+//   userQueries.createNewUser(user)
+//     .then((user) => {
+//       res.send(user);
+//     })
+//     .catch(error => {
+//       res.status(500).json({ error_create_user: error.message });
+//     });
 
+// });
+
+
+router.post('/register-new-user', (req, res) => {
+  const user = req.body;
+  bcrypt.hash(user.password, saltRounds).then(function(hashedPassword) {
+    user.password = hashedPassword;
+    
+    userQueries.createNewUser(user)
+      .then((user) => {
+        res.send(user);
+      })
+      .catch(error => {
+        res.status(500).json({ error_create_user: error.message });
+      });
+  });
 });
+
 
 
 module.exports = router;
