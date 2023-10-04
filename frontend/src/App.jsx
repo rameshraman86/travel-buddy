@@ -10,6 +10,7 @@ import NotFound from './components/NotFound';
 import ChooseTrip from './components/ChooseTrip';
 import Login from './components/Login';
 import Signup from './components/Signup';
+import ResetPassword from './components/ResetPassword';
 
 function App() {
 
@@ -77,6 +78,16 @@ function App() {
           handleSetPassword={handleSetPassword}
         />} />
 
+        <Route path='/resetpassword' element={<ResetPassword
+          email={email}
+          handleSetEmail={handleSetEmail}
+          isExistingUser={isExistingUser}
+          setIsExistingUser={setIsExistingUser}
+          setEmail={setEmail}
+          password={password}
+          handleSetPassword={handleSetPassword}
+        />} />
+
         <Route path='/new' element={<NewTripPage
           tripLocation={tripLocation}
           handleTripLocationChange={handleTripLocationChange}
@@ -87,6 +98,8 @@ function App() {
           endDate={endDate}
           handleEndDateChange={handleEndDateChange}
         />} />
+
+
         <Route path='/:id' element={<AuthenticateReturningUser
           email={email}
           handleSetEmail={handleSetEmail}
