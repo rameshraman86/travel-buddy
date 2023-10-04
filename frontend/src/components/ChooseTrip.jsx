@@ -10,7 +10,6 @@ export default function ChooseTrip({ email, setEmail, setIsExistingUser }) {
   const [trips, setTrips] = useState([]);
   useEffect(() => {
     setEmail(sessionStorage.getItem('email'));
-
     async function fetchData() {
       const allTrips = await axios.get(`${api_url}/api/trips/get-all-trips-of-user/${email}`);
       setTrips(allTrips.data);
@@ -23,13 +22,6 @@ export default function ChooseTrip({ email, setEmail, setIsExistingUser }) {
     return date.toLocaleDateString('en-CA', { year: 'numeric', month: '2-digit', day: '2-digit' });
   }
 
-
-  const handleBackButton = (event) => {
-    event.preventDefault();
-    setIsExistingUser(false);
-    setEmail('');
-  };
-
   return (
     <>
       <div className="w-1/2 flex flex-col justify-center border-solid">
@@ -38,16 +30,7 @@ export default function ChooseTrip({ email, setEmail, setIsExistingUser }) {
             Your Trips
           </div>
           <div className="action buttons">
-            <form onSubmit={handleBackButton}>
-              <button
-                type="submit"
-                className="inline-flex justify-center px-4 py-2 text-sm font-semibold text-white bg-gray-600 border border-transparent rounded-xl hover:bg-gray-700 duration-300 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110">
-                Back
-              </button>
-              <h1>
-                <Link className="rounded-xl border border-transparent bg-amber-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-amber-700 focus:outline-none" to="/new"> + New Trip</Link>
-              </h1>
-            </form>
+            <Link className="rounded-xl border border-transparent bg-amber-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-amber-700 focus:outline-none" to="/new"> + New Trip</Link>
           </div>
         </div>
         <div className="border-t-4 border-gray-300 my-4"></div>
@@ -83,7 +66,6 @@ export default function ChooseTrip({ email, setEmail, setIsExistingUser }) {
           </tbody>
         </table>
       </div>
-
     </>
   );
 }

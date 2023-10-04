@@ -63,17 +63,29 @@ function App() {
     setPassword2(event.target.value);
   };
 
+  const resetEmailPasswordFields = () => {
+    setPassword('');
+    setEmail('');
+    setPassword2('');
+    setFirstName('');
+    setLastName('');
+  };
+
 
 
   return (
     <>
       <Routes>
-        <Route path='/' element={<Homepage
-          email={email}
-          handleSetEmail={handleSetEmail}
+        <Route path='/' element={<Login
           isExistingUser={isExistingUser}
           setIsExistingUser={setIsExistingUser}
+          email={email}
+          handleSetEmail={handleSetEmail}
           setEmail={setEmail}
+          password={password}
+          handleSetPassword={handleSetPassword}
+          setPassword={setPassword}
+          resetEmailPasswordFields={resetEmailPasswordFields}
         />} />
 
         <Route path='/login' element={<Login
@@ -84,6 +96,8 @@ function App() {
           setEmail={setEmail}
           password={password}
           handleSetPassword={handleSetPassword}
+          setPassword={setPassword}
+          resetEmailPasswordFields={resetEmailPasswordFields}
         />} />
 
         <Route path='/signup' element={<Signup
@@ -100,6 +114,7 @@ function App() {
           handleSetPassword={handleSetPassword}
           password2={password2}
           handlePassword2Change={handlePassword2Change}
+          resetEmailPasswordFields={resetEmailPasswordFields}
         />} />
 
         <Route path='/resetpassword' element={<ResetPassword

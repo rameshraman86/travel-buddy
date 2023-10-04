@@ -49,7 +49,7 @@ export default function NewTripPage(props) {
       trip_name: tripName,
       start_date: startDate,
       end_date: endDate,
-      trip_location: tripLocation
+      trip_location: tripLocation,
     };
     try {
       //create a new trip, new user record and a default 'wishlist' itinerary for the trip
