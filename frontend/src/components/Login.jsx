@@ -15,6 +15,23 @@ export default function Login(props) {
 
   const navigate = useNavigate();
 
+
+  const handleLogin = async (event) => {
+    event.preventDefault();
+    try {
+      await axios.post(`${api_url}/api/users/login/`, {
+        email: email,
+        password: password
+      }).then(res => {
+        console.log(res.data);
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+
+
   return (
     <>
       <div className="flex mt-64 min-h-full flex-1 flex-col justify-center items-center px-6 pb-12 gap-12">
@@ -34,7 +51,7 @@ export default function Login(props) {
               {email} is already registered. Please log in to continue.
             </div>}
 
-          <form className="flex flex-col">
+          <form className="flex flex-col" onSubmit={handleLogin}>
             <input
               type="email"
               name="email"
