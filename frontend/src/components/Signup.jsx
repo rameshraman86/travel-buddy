@@ -29,6 +29,18 @@ export default function Signup(props) {
 
   const handleRegisterNewUser = async (e) => {
     e.preventDefault();
+    const firstName = e.target.firstName.value;
+    const lastName = e.target.lastName.value;
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    const password2 = e.target.password2.value;
+
+
+    if (password !== password2) {
+      alert("passwords do not match");
+      return;
+    }
+
     //check if user already exists in db
     const userObject = await axios.get(`${api_url}/api/users/get-user-details/${email}`);
     //User exists in the db
@@ -38,16 +50,6 @@ export default function Signup(props) {
     }
     if (userObject.data.length === 0) { //if user is new, then continue registering user
       setIsExistingUser(false);
-      const firstName = e.target.firstName.value;
-      const lastName = e.target.lastName.value;
-      const email = e.target.email.value;
-      const password = e.target.password.value;
-      const password2 = e.target.password2.value;
-
-      // if (password !== password2) {
-      //   alert("Passwords do not match");
-      //   return;
-      // }
 
       await axios.post(`${api_url}/api/users/register-new-user`, {
         firstName,
@@ -79,7 +81,6 @@ export default function Signup(props) {
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498l4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 00-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0z" />
             </svg>
           </div >
-
 
           {isExistingUser &&
             <div onClick={handleRedirectToLoginForExistingUser}>
