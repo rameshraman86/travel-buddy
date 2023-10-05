@@ -11,7 +11,7 @@ import apiConfig from '../../config';
 const api_url = process.env.NODE_ENV === 'production' ? apiConfig.production : apiConfig.development;
 
 
-export default function TripDetails({ email, setEmail, tripLocation, startDate, endDate }) {
+export default function TripDetails({ email, setEmail, tripLocation, startDate, endDate, setIsExistingUser, setPassword }) {
 
   const { id } = useParams();
 
@@ -52,7 +52,8 @@ export default function TripDetails({ email, setEmail, tripLocation, startDate, 
     event.preventDefault();
     navigate(`/login`);
     sessionStorage.removeItem('email');
-    setEmail('');
+    setIsExistingUser(false);
+    setPassword('');
   };
 
 

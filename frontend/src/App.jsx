@@ -2,7 +2,6 @@ import './styles/App.css';
 import { useState } from 'react';
 import { Route, Routes, useResolvedPath } from 'react-router-dom';
 
-import Homepage from './components/HomePage';
 import NewTripPage from './components/NewtripPage';
 import TripDetails from './components/TripDetails';
 import AuthenticateReturningUser from './components/AuthenticateReturningUser';
@@ -150,6 +149,8 @@ function App() {
           tripLocation={tripLocation}
           startDate={startDate}
           endDate={endDate}
+          setIsExistingUser={setIsExistingUser}
+          setPassword={setPassword}
         />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
