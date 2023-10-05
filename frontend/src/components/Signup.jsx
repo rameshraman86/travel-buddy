@@ -58,10 +58,10 @@ export default function Signup(props) {
       })
         .then((res) => {
           sessionStorage.setItem('email', email);
-          navigate("/new", { state: email });
+          navigate("/verify");
         })
-        .catch((err) => {
-          console.log(err);
+        .catch((error) => {
+          console.log(error);
           return;
         });
     }
