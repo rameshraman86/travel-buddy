@@ -18,14 +18,14 @@ const getUserByEmail = (email) => {
 
 //***************CREATE ***************/
 const createNewUser = (user) => {
-  const queryString = `INSERT INTO users(first_name, last_name, email, password) VALUES ($1,$2, $3, $4) RETURNING * ;`;
-  const queryParams = [user.firstName, user.lastName, user.email, user.password];
+  const queryString = `INSERT INTO users(first_name, last_name, email, password, verification_code, expire_at) VALUES ($1,$2, $3, $4, $5,  NOW()+ INTERVAL '10 minutes') RETURNING * ;`;
+  const queryParams = [user.firstName, user.lastName, user.email, user.password, user.verification_code];
   return db
     .query(queryString, queryParams)
     .then((result) => {
       return result.rows[0];
     })
-    .catch((error) => console.log(`error adding a new user: `, error));
+    .catch((error) => console.error(`error adding a new user: `, error));
 
 };
 
@@ -38,7 +38,7 @@ const associateUserTrips = (user) => {
     .then((result) => {
       return result.rows[0];
     })
-    .catch(error => console.log(`error adding trip and users association. `, error));
+    .catch(error => console.error(`error adding trip and users association. `, error));
 };
 
 

@@ -1,6 +1,5 @@
 DROP TABLE IF EXISTS trips CASCADE;
 
--- check syntax unique
 CREATE TABLE trips  (
   id SERIAL PRIMARY KEY NOT NULL,
   trip_url VARCHAR(255) UNIQUE NOT NULL,

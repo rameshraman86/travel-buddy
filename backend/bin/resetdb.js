@@ -17,22 +17,31 @@ const runSchemaFiles = async () => {
   const schemaFilenames = fs.readdirSync('./db/schema');
 
   for (const fn of schemaFilenames) {
-    const sql = fs.readFileSync(`./db/schema/${fn}`, 'utf8');
-    console.log(`\t-> Running ${chalk.green(fn)}`);
-    await db.query(sql);
+    try {
+      const sql = fs.readFileSync(`./db/schema/${fn}`, 'utf8');
+      console.log(`\t-> Running ${chalk.green(fn)}`);
+      await db.query(sql);
+    } catch (err) {
+      console.error(`\t-> Error running ${chalk.red(fn)}: ${err.message}`);
+    }
   }
 };
 
 const runSeedFiles = async () => {
   console.log(chalk.cyan(`-> Loading Seeds ...`));
-  const schemaFilenames = fs.readdirSync('./db/seeds');
+  const seedFilenames = fs.readdirSync('./db/seeds');
 
-  for (const fn of schemaFilenames) {
-    const sql = fs.readFileSync(`./db/seeds/${fn}`, 'utf8');
-    console.log(`\t-> Running ${chalk.green(fn)}`);
-    await db.query(sql);
+  for (const fn of seedFilenames) {
+    try {
+      const sql = fs.readFileSync(`./db/seeds/${fn}`, 'utf8');
+      console.log(`\t-> Running ${chalk.green(fn)}`);
+      await db.query(sql);
+    } catch (err) {
+      console.error(`\t-> Error running ${chalk.red(fn)}: ${err.message}`);
+    }
   }
 };
+
 
 const runResetDB = async () => {
   try {
