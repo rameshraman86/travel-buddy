@@ -31,7 +31,7 @@ const getRecentTrip = () => {
 
 //get all Trips of a user by email
 const getAllTripsByEmail = (email) => {
-  const queryString = "SELECT trip_url, trip_name, start_date, end_date, trip_location FROM trips AS t JOIN users AS u ON t.id=u.trip_id WHERE u.email=$1;";
+  const queryString = "SELECT trip_url, trip_name, start_date, end_date, trip_location FROM trips AS t JOIN UserTripsAssociation AS ua ON t.id = ua.trip_id WHERE ua.user_email=$1;";
   const queryParams = [email];
   return db
     .query(queryString, queryParams)

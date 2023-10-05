@@ -107,5 +107,16 @@ router.post('/register-new-user', (req, res) => {
   });
 });
 
+router.post(`/associate-users-trips`, (req, res) => {
+  const user = req.body;
+  userQueries.associateUserTrips(user)
+    .then(associatedUserTrip => {
+      res.send(associatedUserTrip);
+    })
+    .catch(error => {
+      res.status(500).json({ error_associating_user_trip: error.message });
+    });
+});
+
 
 module.exports = router;
