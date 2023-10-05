@@ -50,7 +50,9 @@ export default function TripDetails({ email, setEmail, tripLocation, startDate, 
   const onMouseLeave = () => setIsHovered(false);
   const handleLogoutButton = (event) => {
     event.preventDefault();
-    navigate(`/`);
+    navigate(`/login`);
+    sessionStorage.removeItem('email');
+    setEmail('');
   };
 
 
