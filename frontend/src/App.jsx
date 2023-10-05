@@ -10,6 +10,7 @@ import ChooseTrip from './components/ChooseTrip';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import ResetPassword from './components/ResetPassword';
+import Verifyemail from './components/VerifyEmail';
 
 function App() {
 
@@ -100,6 +101,23 @@ function App() {
         />} />
 
         <Route path='/signup' element={<Signup
+          isExistingUser={isExistingUser}
+          setIsExistingUser={setIsExistingUser}
+          firstName={firstName}
+          handleFirstNameChange={handleFirstNameChange}
+          lastName={lastName}
+          handleLastNameChange={handleLastNameChange}
+          email={email}
+          handleSetEmail={handleSetEmail}
+          password={password}
+          setPassword={setPassword}
+          handleSetPassword={handleSetPassword}
+          password2={password2}
+          handlePassword2Change={handlePassword2Change}
+          resetEmailPasswordFields={resetEmailPasswordFields}
+        />} />
+
+        <Route path='/verify' element={<Verifyemail
           isExistingUser={isExistingUser}
           setIsExistingUser={setIsExistingUser}
           firstName={firstName}

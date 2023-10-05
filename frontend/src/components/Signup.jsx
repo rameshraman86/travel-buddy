@@ -50,7 +50,6 @@ export default function Signup(props) {
     }
     if (userObject.data.length === 0) { //if user is new, then continue registering user
       setIsExistingUser(false);
-
       await axios.post(`${api_url}/api/users/register-new-user`, {
         firstName,
         lastName,

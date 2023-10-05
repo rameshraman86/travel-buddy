@@ -17,7 +17,6 @@ export default function Login(props) {
   } = props;
 
 
-
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
@@ -40,12 +39,8 @@ export default function Login(props) {
     }
   };
 
-
   return (
     <>
-
-
-
       {!isExistingUser &&
         <div className="flex mt-64 min-h-full flex-1 flex-col justify-center items-center px-6 pb-12 gap-12">
           <div className="flex justify-center items-end gap-1.5">
