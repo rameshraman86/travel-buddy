@@ -39,6 +39,16 @@ export default function Verifyemail(props) {
     return false;
   };
 
+
+  //set registered flag of user to true
+  const setRegisteredFlagTrue = async (email) => {
+    await axios.put(`${api_url}/api/users/update-registered-flag/${email}`)
+      .catch(error => {
+        console.error(`error updating registered flag: `, error);
+      });
+  };
+
+
   const validateVerificationCode = async (event) => {
     event.preventDefault();
     const userObject = await axios.get(`${api_url}/api/users/get-user-details/${sessionStorage.getItem('email')}`);
@@ -47,10 +57,10 @@ export default function Verifyemail(props) {
 
     if (verificationCode === correctVerificationCode && !isExpired(expirationDate)) {
       setVerificationCodeExpired(false);
+      setVerificationCodeIncorrect(false);
       setVerificationSuccessful(true);
       setVerificationComplete(true);
-      setVerificationCodeIncorrect(false);
-      return;
+      setRegisteredFlagTrue(sessionStorage.getItem('email'));
     }
     if (verificationCode !== correctVerificationCode) {
       setVerificationCodeIncorrect(true);
@@ -65,6 +75,7 @@ export default function Verifyemail(props) {
 
   const resendVerificationCode = (event) => {
     event.preventDefault();
+    //
   };
 
 

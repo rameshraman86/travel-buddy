@@ -25,6 +25,8 @@ router.get('/', (req, res) => {
 });
 
 
+
+
 //get user details by user email
 router.get('/get-user-details/:email', (req, res) => {
   const email = req.params.email;
@@ -118,5 +120,17 @@ router.post(`/associate-users-trips`, (req, res) => {
     });
 });
 
+
+//*******************UPDATE*******************
+router.put(`/update-registered-flag/:email`, (req, res) => {
+  const email = req.params.email;
+  userQueries.setRegisteredTrue(email)
+    .then(updatedUser => {
+      res.send(updatedUser);
+    })
+    .catch((error) => {
+      res.status(500).json({ error_updating_registered_flag: error.message });
+    });
+});
 
 module.exports = router;

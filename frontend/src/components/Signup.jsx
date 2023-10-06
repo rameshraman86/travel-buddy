@@ -27,6 +27,7 @@ export default function Signup(props) {
   };
 
 
+  //GENERATE VERIFICATION CODE
   const generateVerificationCode = (length) => {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let verificationCode = '';

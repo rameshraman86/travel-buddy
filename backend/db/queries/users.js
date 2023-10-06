@@ -42,9 +42,20 @@ const associateUserTrips = (user) => {
 };
 
 
+//*******************UPDATE*******************
+const setRegisteredTrue = (email) => {
+  const queryString = 'UPDATE users SET registered=true WHERE email=$1 RETURNING *;';
+  const queryParams = [email];
+  return db
+    .query(queryString, queryParams)
+    .then(data => data.rows[0])
+    .catch(error => console.error(`Error updating registered flag for ${email}`, error));
+};
+
 module.exports = {
   getUsers,
   getUserByEmail,
   createNewUser,
-  associateUserTrips
+  associateUserTrips,
+  setRegisteredTrue
 };
