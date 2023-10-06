@@ -24,14 +24,21 @@ export default function Login(props) {
         email: email,
         password: password
       }).then(res => {
-        if (res.data.status) {
-          //login successfull
+        if (res.data.status === 'email_not_found') {
+          setIsExistingUser(false);
+          setLoginSuccessful(false);
+        }
+        if (res.data.status === 'user_unregistered') {
+          setLoginSuccessful(false);
+        }
+        if (res.data.status === 'login_failed') {
+          setIsExistingUser(false);
+          setLoginSuccessful(false);
+        }
+        if (res.data.status === 'login_success') {
           sessionStorage.setItem('email', email);
           setIsExistingUser(true);
           setLoginSuccessful(true);
-        } else {
-          setIsExistingUser(false);
-          setLoginSuccessful(false);
         }
       });
     } catch (error) {

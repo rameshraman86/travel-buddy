@@ -47,29 +47,24 @@ router.post('/login', (req, res) => {
   const { email, password } = req.body;
   userQueries.getUserByEmail(email)
     .then(user => {
+      if (user.length === 0) {
+        res.json({ status: 'email_not_found' });//email not found in the database
+        return;
+      }
+      if (!user[0].registered) {
+        res.json({ status: 'user_unregistered' }); //user not registered yet
+        return;
+      }
       if (user.length > 0) {
-        //email found in the database. Checking if password is correct
         bcrypt.compare(password, user[0].password).then(function(result) {
-          if (result) {
-            res.json({
-              status: true,
-              message: 'login success',
-            });
-          } else {
-            res.json({
-              status: false,
-              message: 'login failed',
-            });
+          if (result) { //passwords match
+            res.json({ status: 'login_success' });
+            return;
+          } else { //passwords dont' match
+            res.json({ status: 'login_failed' });
+            return;
           }
         });
-      } else {
-        //email not found in the database
-        res.json(
-          {
-            status: false,
-            message: 'email not found',
-          }
-        );
       }
     })
     .catch(error => {
