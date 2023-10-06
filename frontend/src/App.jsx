@@ -1,6 +1,6 @@
 import './styles/App.css';
 import { useState } from 'react';
-import { Route, Routes, useResolvedPath } from 'react-router-dom';
+import { Navigate, Route, Routes, useResolvedPath } from 'react-router-dom';
 
 import NewTripPage from './components/NewtripPage';
 import TripDetails from './components/TripDetails';
@@ -52,7 +52,6 @@ function App() {
     setPassword(event.target.value);
   };
 
-
   const handleFirstNameChange = (event) => {
     setFirstName(event.target.value);
   };
@@ -72,6 +71,24 @@ function App() {
   };
 
 
+  const checkEmailExists = (email) => {
+    if (email !== '') {
+      return true;
+    }
+    return false;
+  };
+
+  //GENERATE VERIFICATION CODE
+  const generateVerificationCode = () => {
+    const length = 6;
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let verificationCode = '';
+    for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      verificationCode += characters.charAt(randomIndex);
+    }
+    return verificationCode;
+  };
 
   return (
     <>
@@ -115,24 +132,20 @@ function App() {
           password2={password2}
           handlePassword2Change={handlePassword2Change}
           resetEmailPasswordFields={resetEmailPasswordFields}
+          generateVerificationCode={generateVerificationCode}
         />} />
 
-        <Route path='/verify' element={<Verifyemail
-          isExistingUser={isExistingUser}
-          setIsExistingUser={setIsExistingUser}
-          firstName={firstName}
-          handleFirstNameChange={handleFirstNameChange}
-          lastName={lastName}
-          handleLastNameChange={handleLastNameChange}
-          email={email}
-          handleSetEmail={handleSetEmail}
-          password={password}
-          setPassword={setPassword}
-          handleSetPassword={handleSetPassword}
-          password2={password2}
-          handlePassword2Change={handlePassword2Change}
-          resetEmailPasswordFields={resetEmailPasswordFields}
-        />} />
+        <Route
+          path='/verify'
+          element={
+            checkEmailExists(email) ? (
+              <Verifyemail generateVerificationCode={generateVerificationCode} />
+            ) : (
+              <Navigate to='/not-found' />
+            )
+          }
+        />
+
 
         <Route path='/resetpassword' element={<ResetPassword
           email={email}

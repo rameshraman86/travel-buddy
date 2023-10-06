@@ -128,4 +128,19 @@ router.put(`/update-registered-flag/:email`, (req, res) => {
     });
 });
 
+
+
+router.post(`/update-verificationcode`, (req, res) => {
+  const userData = req.body;
+  userQueries.updateVerificationCode(userData)
+    .then(result => {
+      res.send(result);
+    })
+    .catch((error) => {
+      res.status(500).json({ error_updating_verification_code: error.message });
+    });
+});
+
+
+
 module.exports = router;

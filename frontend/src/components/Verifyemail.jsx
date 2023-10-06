@@ -3,27 +3,24 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import apiConfig from '../../config';
+import { isNull } from "lodash";
 
 const api_url = process.env.NODE_ENV === 'production' ? apiConfig.production : apiConfig.development;
 
 export default function Verifyemail(props) {
   const {
-    isExistingUser, setIsExistingUser,
-    firstName, handleFirstNameChange,
-    lastName, handleLastNameChange,
-    email, handleSetEmail,
-    password, handleSetPassword, setPassword,
-    password2, handlePassword2Change,
-    resetEmailPasswordFields,
+    generateVerificationCode
   } = props;
 
-  const navigate = useNavigate();
 
   const [verificationCode, setVerificationCode] = useState('');
   const [verificationComplete, setVerificationComplete] = useState(false);
   const [verificationSuccessful, setVerificationSuccessful] = useState(false);
   const [verificationCodeIncorrect, setVerificationCodeIncorrect] = useState(false);
   const [verificationCodeExpired, setVerificationCodeExpired] = useState('');
+  const [verificationCodeResent, setVerificationCodeResent] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleVerificationCodeChange = (event) => {
     setVerificationCode(event.target.value);
@@ -71,12 +68,25 @@ export default function Verifyemail(props) {
       setVerificationCodeIncorrect(false);
       return;
     }
+
   };
 
-  const resendVerificationCode = (event) => {
+  //resend verification code
+  const resendVerificationCode = async (event) => {
     event.preventDefault();
-    //
+    const newVerificationCode = generateVerificationCode();
+    await axios.post(`${api_url}/api/users/update-verificationcode`, {
+      verification_code: newVerificationCode,
+      email: sessionStorage.getItem('email'),
+    })
+      .then((result) => {
+        setVerificationCodeResent(true);
+      })
+      .catch(error => {
+        console.error(error);
+      });
   };
+
 
 
   return (
@@ -92,7 +102,7 @@ export default function Verifyemail(props) {
 
 
           {verificationCodeIncorrect && <div> Verification code is incorrect. Please try again.</div>}
-
+          {verificationCodeResent && !verificationComplete && <div>Verification Code Resent.</div>}
 
           {!verificationComplete &&
             <div>

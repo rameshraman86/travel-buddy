@@ -52,10 +52,21 @@ const setRegisteredTrue = (email) => {
     .catch(error => console.error(`Error updating registered flag for ${email}`, error));
 };
 
+const updateVerificationCode = (userData) => {
+  const queryString = 'UPDATE users SET verification_code=$1, created_at=NOW(), expire_at=NOW()+ INTERVAL \'10 minutes\' where email=$2 RETURNING *;';
+  const queryParams = [userData.verification_code, userData.email];
+  return db
+    .query(queryString, queryParams)
+    .then(data => data.rows[0])
+    .catch(error => console.error(`Error updating verification code for ${email}`, error));
+};
+
+
 module.exports = {
   getUsers,
   getUserByEmail,
   createNewUser,
   associateUserTrips,
-  setRegisteredTrue
+  setRegisteredTrue,
+  updateVerificationCode
 };

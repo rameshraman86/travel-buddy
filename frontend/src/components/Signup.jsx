@@ -16,6 +16,7 @@ export default function Signup(props) {
     password, handleSetPassword, setPassword,
     password2, handlePassword2Change,
     resetEmailPasswordFields,
+    generateVerificationCode
   } = props;
 
   const navigate = useNavigate();
@@ -27,16 +28,16 @@ export default function Signup(props) {
   };
 
 
-  //GENERATE VERIFICATION CODE
-  const generateVerificationCode = (length) => {
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let verificationCode = '';
-    for (let i = 0; i < length; i++) {
-      const randomIndex = Math.floor(Math.random() * characters.length);
-      verificationCode += characters.charAt(randomIndex);
-    }
-    return verificationCode;
-  };
+  // //GENERATE VERIFICATION CODE
+  // const generateVerificationCode = (length) => {
+  //   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  //   let verificationCode = '';
+  //   for (let i = 0; i < length; i++) {
+  //     const randomIndex = Math.floor(Math.random() * characters.length);
+  //     verificationCode += characters.charAt(randomIndex);
+  //   }
+  //   return verificationCode;
+  // };
 
 
   const handleRegisterNewUser = async (e) => {
@@ -46,7 +47,7 @@ export default function Signup(props) {
     const email = e.target.email.value;
     const password = e.target.password.value;
     const password2 = e.target.password2.value;
-    const verification_code = generateVerificationCode(6);
+    const verification_code = generateVerificationCode();
 
     if (password !== password2) {
       alert("passwords do not match");
