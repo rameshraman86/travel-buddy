@@ -104,6 +104,24 @@ router.post('/register-new-user', (req, res) => {
   });
 });
 
+
+//update password
+router.post('/update-password', (req, res) => {
+  const user = req.body; //password, email
+  bcrypt.hash(user.password, saltRounds).then(function(hashedNewPassword) {
+    user.password = hashedNewPassword;
+
+    userQueries.updatePassword(user)
+      .then((user) => {
+        res.send(user);
+      })
+      .catch(error => {
+        res.status(500).json({ error_updating_password: error.message });
+      });
+  });
+
+});
+
 router.post(`/associate-users-trips`, (req, res) => {
   const user = req.body;
   userQueries.associateUserTrips(user)

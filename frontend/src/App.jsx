@@ -25,6 +25,14 @@ function App() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
+  const [verificationCodeResent, setVerificationCodeResent] = useState(false);
+  const [fromResetPasswordVerification, setFromResetPasswordVerification] = useState(false);
+
+  const [verificationCode, setVerificationCode] = useState('');
+  const [verificationComplete, setVerificationComplete] = useState(false);
+  const [verificationSuccessful, setVerificationSuccessful] = useState(false);
+  const [verificationCodeIncorrect, setVerificationCodeIncorrect] = useState(false);
+  const [verificationCodeExpired, setVerificationCodeExpired] = useState('');
 
 
   const handleTripLocationChange = (event) => {
@@ -139,13 +147,23 @@ function App() {
           path='/verify'
           element={
             checkEmailExists(email) ? (
-              <Verifyemail generateVerificationCode={generateVerificationCode} />
+              <Verifyemail
+                generateVerificationCode={generateVerificationCode}
+                verificationCodeResent={verificationCodeResent}
+                setVerificationCodeResent={setVerificationCodeResent}
+                fromResetPasswordVerification={fromResetPasswordVerification}
+                setFromResetPasswordVerification={setFromResetPasswordVerification}
+                verificationCode={verificationCode} setVerificationCode={setVerificationCode}
+                verificationComplete={verificationComplete} setVerificationComplete={setVerificationComplete}
+                verificationSuccessful={verificationSuccessful} setVerificationSuccessful={setVerificationSuccessful}
+                verificationCodeIncorrect={verificationCodeIncorrect} setVerificationCodeIncorrect={setVerificationCodeIncorrect}
+                verificationCodeExpired={verificationCodeExpired} setVerificationCodeExpired={setVerificationCodeExpired}
+              />
             ) : (
               <Navigate to='/not-found' />
             )
           }
         />
-
 
         <Route path='/resetpassword' element={<ResetPassword
           email={email}
@@ -155,6 +173,11 @@ function App() {
           setEmail={setEmail}
           password={password}
           handleSetPassword={handleSetPassword}
+          generateVerificationCode={generateVerificationCode}
+          setVerificationCodeResent={setVerificationCodeResent}
+          fromResetPasswordVerification={fromResetPasswordVerification}
+          setFromResetPasswordVerification={setFromResetPasswordVerification}
+          verificationSuccessful={verificationSuccessful}
         />} />
 
         <Route path='/new' element={<NewTripPage
@@ -168,11 +191,11 @@ function App() {
           handleEndDateChange={handleEndDateChange}
         />} />
 
-
         <Route path='/:id' element={<AuthenticateReturningUser
           email={email}
           handleSetEmail={handleSetEmail}
         />} />
+
         <Route path='/choose_trip' element={<ChooseTrip />} />
         <Route path='/:id/details' element={<TripDetails
           email={email}

@@ -90,7 +90,7 @@ export default function Login(props) {
             </form>
 
             <div>
-              <Link className="text-amber-600" to='/resetPassword'> Forgot your password? </Link>
+              <Link className="text-amber-600" to='/resetpassword'> Forgot your password? </Link>
             </div>
 
             <div onClick={resetEmailPasswordFields}>

@@ -9,16 +9,22 @@ const api_url = process.env.NODE_ENV === 'production' ? apiConfig.production : a
 
 export default function Verifyemail(props) {
   const {
-    generateVerificationCode
+    generateVerificationCode,
+    verificationCodeResent, setVerificationCodeResent,
+    fromResetPasswordVerification, setFromResetPasswordVerification,
+    verificationCode, setVerificationCode,
+    verificationComplete, setVerificationComplete,
+    verificationSuccessful, setVerificationSuccessful,
+    verificationCodeIncorrect, setVerificationCodeIncorrect,
+    verificationCodeExpired, setVerificationCodeExpired,
   } = props;
 
 
-  const [verificationCode, setVerificationCode] = useState('');
-  const [verificationComplete, setVerificationComplete] = useState(false);
-  const [verificationSuccessful, setVerificationSuccessful] = useState(false);
-  const [verificationCodeIncorrect, setVerificationCodeIncorrect] = useState(false);
-  const [verificationCodeExpired, setVerificationCodeExpired] = useState('');
-  const [verificationCodeResent, setVerificationCodeResent] = useState(false);
+  // const [verificationCode, setVerificationCode] = useState('');
+  // const [verificationComplete, setVerificationComplete] = useState(false);
+  // const [verificationSuccessful, setVerificationSuccessful] = useState(false);
+  // const [verificationCodeIncorrect, setVerificationCodeIncorrect] = useState(false);
+  // const [verificationCodeExpired, setVerificationCodeExpired] = useState('');
 
   const navigate = useNavigate();
 
@@ -58,6 +64,10 @@ export default function Verifyemail(props) {
       setVerificationSuccessful(true);
       setVerificationComplete(true);
       setRegisteredFlagTrue(sessionStorage.getItem('email'));
+      if (fromResetPasswordVerification) {
+        setFromResetPasswordVerification(false);
+        navigate('/resetpassword');
+      }
     }
     if (verificationCode !== correctVerificationCode) {
       setVerificationCodeIncorrect(true);
@@ -68,7 +78,6 @@ export default function Verifyemail(props) {
       setVerificationCodeIncorrect(false);
       return;
     }
-
   };
 
   //resend verification code
@@ -89,6 +98,7 @@ export default function Verifyemail(props) {
 
 
 
+
   return (
     <>
       <div className="flex flex-col min-h-screen">
@@ -103,13 +113,12 @@ export default function Verifyemail(props) {
 
           {verificationCodeIncorrect && <div> Verification code is incorrect. Please try again.</div>}
           {verificationCodeResent && !verificationComplete && <div>Verification Code Resent.</div>}
-
           {!verificationComplete &&
             <div>
               {verificationCodeExpired && !verificationCodeIncorrect && <div> Your verification code has expired. Resend verification code and try again.</div>}
               {!verificationCodeExpired &&
                 <>
-                  <p>To complete registration, please enter the code sent to {sessionStorage.getItem('email')}. The code will expire in 10 minutes.</p>
+                  <p>Enter the code sent to {sessionStorage.getItem('email')}. The code will expire in 10 minutes.</p>
                   <form className="flex" onSubmit={validateVerificationCode}>
                     <input
                       type="text"

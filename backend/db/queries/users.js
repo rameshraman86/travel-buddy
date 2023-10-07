@@ -62,11 +62,21 @@ const updateVerificationCode = (userData) => {
 };
 
 
+const updatePassword = (user) => {
+  const queryString = 'UPDATE users SET password=$1 WHERE email=$2 RETURNING *;';
+  const queryParams = [user.password, user.email];
+  return db
+    .query(queryString, queryParams)
+    .then(data => data.rows[0])
+    .catch(error => console.error(`Error updating password for ${email}`, error));
+};
+
 module.exports = {
   getUsers,
   getUserByEmail,
   createNewUser,
   associateUserTrips,
   setRegisteredTrue,
-  updateVerificationCode
+  updateVerificationCode,
+  updatePassword
 };
