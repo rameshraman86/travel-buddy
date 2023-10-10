@@ -10,6 +10,29 @@ const router = express.Router();
 const userQueries = require('../db/queries/users');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+const nodemailer = require('nodemailer');
+
+//*******************EMAIL SERVER*******************
+const transporter = nodemailer.createTransport({
+  host: "smtp.gmail.com",
+  port: 465,
+  secure: true,
+  auth: {
+    user: process.env.email_username,
+    pass: process.env.email_pass,
+  }
+});
+
+async function sendEmail(receiver, plainTextBody, htmlBody) {
+  // send mail with defined transport object
+  const info = await transporter.sendMail({
+    from: '"Travel Buddy Support" <travelbuddysupport@gmail.com>', // sender address
+    to: receiver,
+    subject: "Your Verification Code",
+    text: plainTextBody,
+    html: htmlBody,
+  });
+}
 
 
 
@@ -96,6 +119,9 @@ router.post('/register-new-user', (req, res) => {
 
     userQueries.createNewUser(user)
       .then((user) => {
+        const plainTextBody = `Your verification code is ${user.verification_code}. This code will expire in 10 minutes.`;
+        const htmlBody = `<p>Your verification code is <strong>${user.verification_code}</strong>. This code will expire in 10 minutes. </p>`;
+        sendEmail(user.email, plainTextBody, htmlBody);
         res.send(user);
       })
       .catch(error => {
@@ -119,7 +145,6 @@ router.post('/update-password', (req, res) => {
         res.status(500).json({ error_updating_password: error.message });
       });
   });
-
 });
 
 router.post(`/associate-users-trips`, (req, res) => {
@@ -152,6 +177,10 @@ router.post(`/update-verificationcode`, (req, res) => {
   const userData = req.body;
   userQueries.updateVerificationCode(userData)
     .then(result => {
+      const receiver = result.email;
+      const plainTextBody = `Your verification code is ${result.verification_code}. This code will expire in 10 minutes.`;
+      const htmlBody = `<p>Your verification code is <strong>${result.verification_code}</strong>. This code will expire in 10 minutes. </p>`;
+      sendEmail(receiver, plainTextBody, htmlBody);
       res.send(result);
     })
     .catch((error) => {
