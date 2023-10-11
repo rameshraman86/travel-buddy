@@ -1,5 +1,7 @@
 # Travel Buddy
 
+Live site : https://www.travelbuddie.org
+
 Travel Buddy is a versatile full-stack web application designed to simplify group trip planning. With AI-driven suggestions and collaborative features, it's the ideal tool for coordinating your next adventure with friends and family.
 
 ## Features
