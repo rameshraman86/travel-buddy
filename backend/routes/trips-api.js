@@ -22,9 +22,11 @@ router.get("/", (req, res) => {
 //get a trip by trip id
 router.get("/get-trip-details/:trip_id", (req, res) => {
   const trip_id = req.params.trip_id;
-  trips.getTripDetailsbyTripID(trip_id)
-    .then(trip => res.send(trip))
-    .catch(error => res.status(500).json({ error_all_trip: error.message }));
+  if (trip_id !== 'not-found') {
+    trips.getTripDetailsbyTripID(trip_id)
+      .then(trip => res.send(trip))
+      .catch(error => res.status(500).json({ error_all_trip: error.message }));
+  }
 });
 
 //get the most recent trip from db

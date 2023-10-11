@@ -75,9 +75,7 @@ export default function Itineraries({ itineraries, itineraryItems, setItineraryI
     closeModal();
     //delete the itinerary from db
     try {
-      const response = await axios.delete(`${api_url}/api/itinerary/delete-itinerary/${itinerary_deleted.id}`);
-      console.log(`response from delete itinerary:`, response);
-
+      await axios.delete(`${api_url}/api/itinerary/delete-itinerary/${itinerary_deleted.id}`);
     } catch (error) {
       console.log(`error deleting itinerary:`, error);
     }

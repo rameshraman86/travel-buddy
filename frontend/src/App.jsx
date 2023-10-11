@@ -12,7 +12,7 @@ import ChooseTrip from './components/ChooseTrip';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import ResetPassword from './components/ResetPassword';
-import Verifyemail from './components/VerifyEmail';
+import Verifyemail from './components/Verifyemail';
 
 const api_url = process.env.NODE_ENV === 'production' ? apiConfig.production : apiConfig.development;
 
@@ -86,7 +86,7 @@ function App() {
 
 
   const checkEmailExists = (email) => {
-    if (email !== '') {
+    if (email !== '' || (sessionStorage.getItem('email') !== null)) {
       return true;
     }
     return false;
@@ -226,17 +226,28 @@ function App() {
           resetEmailPasswordFields={resetEmailPasswordFields}
         />} />
 
-        <Route path='/choose_trip' element={<ChooseTrip />} />
-        <Route path='/:id/details' element={<TripDetails
+        <Route path='/choose_trip' element={<ChooseTrip
           email={email}
-          setEmail={setEmail}
-          tripLocation={tripLocation}
-          startDate={startDate}
-          endDate={endDate}
-          setIsExistingUser={setIsExistingUser}
-          setPassword={setPassword}
         />} />
+
+        <Route path='/:id/details' element={
+          !checkEmailExists(email) ? (
+            <Navigate to='/not-found' />
+          ) : (
+            <TripDetails
+              email={email}
+              setEmail={setEmail}
+              tripLocation={tripLocation}
+              startDate={startDate}
+              endDate={endDate}
+              setIsExistingUser={setIsExistingUser}
+              setPassword={setPassword}
+            />
+          )
+        } />
+
         <Route path='*' element={<NotFound />} />
+        <Route path='/not-found' element={<NotFound />} />
       </Routes>
     </>
   );

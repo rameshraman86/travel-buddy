@@ -1,5 +1,4 @@
 //queries where multiple tables need to be joined
-
 const db = require('../connection');
 
 const getTripURLByEmail = (email) => {

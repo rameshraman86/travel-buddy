@@ -89,9 +89,6 @@ const deleteItinerary = (itinerary_id) => {
 const deleteItineraryItem = (trip_id, url) => {
   const queryString = `DELETE FROM itinerary_items WHERE trip_id = $1 AND url = $2  RETURNING *;`;
   const queryParams = [trip_id, url];
-  console.log(queryParams);
-
-
   return db
     .query(queryString, queryParams)
     .then(data => data.rows[0])
@@ -102,16 +99,11 @@ const deleteItineraryItem = (trip_id, url) => {
 const updateItineraryItem = (itinerary_id, trip_id, url) => {
   const queryString = `UPDATE itinerary_items SET itinerary_id = $1 WHERE trip_id = $2 AND url = $3 RETURNING *;`;
   const queryParams = [itinerary_id, trip_id, url];
-
   return db
     .query(queryString, queryParams)
     .then(data => data.rows[0])
     .catch(error => console.error(`Error updating itinerary item for trip id ${trip_id}`, error));
 };
-
-// UPDATE itinerary_items SET itinerary_id = 8 WHERE trip_id = 2 AND url = 'https://maps.google.com/?cid=5260737761912252347' RETURNING *;
-
-
 
 module.exports = {
   getItineraries,

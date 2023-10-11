@@ -7,13 +7,12 @@ const api_url = process.env.NODE_ENV === 'production' ? apiConfig.production : a
 
 export default function ChooseTrip(props) {
   const {
-    email, setEmail,
-    setIsExistingUser,
+    email, setEmail
   } = props;
 
 
   const [trips, setTrips] = useState([]);
-  
+
   useEffect(() => {
     setEmail(sessionStorage.getItem('email'));
     async function fetchData() {
@@ -71,7 +70,7 @@ export default function ChooseTrip(props) {
             ))}
           </tbody>
         </table>
-      </div>
+      </div >
     </>
   );
 }

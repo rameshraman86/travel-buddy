@@ -1,5 +1,5 @@
 import "../styles/ItineraryItem.css";
-import { useState, Fragment, useEffect } from "react";
+import { Fragment } from "react";
 import { Menu, Transition } from '@headlessui/react';
 import Itineraries from "./Itineraries";
 import { Draggable } from "react-beautiful-dnd";
@@ -7,13 +7,11 @@ import { Draggable } from "react-beautiful-dnd";
 
 function ItineraryItem({ index, itineraries, itinerary, handleMove, handleDelete, handleMarkerClick, item }) {
   const { name, url, icon, id } = item;
-
   const otherItineraries = itineraries.filter(itin => itin.type !== itinerary.type);
 
   const handleMoveItem = (itin) => {
     handleMove(itin.id, url);
   };
-
 
   const handleDeleteItem = () => {
     handleDelete(url);

@@ -111,20 +111,6 @@ router.get('/get-users-trips/:email', (req, res) => {
 });
 
 
-//***************CREATE ***************/
-// router.post('/create-new-user', (req, res) => {
-//   const user = req.body;
-//   userQueries.createNewUser(user)
-//     .then((user) => {
-//       res.send(user);
-//     })
-//     .catch(error => {
-//       res.status(500).json({ error_create_user: error.message });
-//     });
-
-// });
-
-
 //*******************CREATE*******************
 router.post('/register-new-user', (req, res) => {
   const user = req.body;

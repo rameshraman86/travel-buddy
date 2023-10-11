@@ -11,7 +11,12 @@ import apiConfig from '../../config';
 const api_url = process.env.NODE_ENV === 'production' ? apiConfig.production : apiConfig.development;
 
 
-export default function TripDetails({ email, setEmail, tripLocation, startDate, endDate, setIsExistingUser, setPassword }) {
+export default function TripDetails(props) {
+
+  const {
+    email, setEmail,
+    tripLocation, startDate, endDate, setIsExistingUser, setPassword,
+  } = props;
 
   const { id } = useParams();
 
@@ -61,7 +66,6 @@ export default function TripDetails({ email, setEmail, tripLocation, startDate, 
     const fetchData = async () => {
       try {
         const tripDetails = await axios.get(`${api_url}/api/trips/get-trip-details/${id}`);
-
         setLocation(tripDetails.data[0].trip_location);
         setTripName(tripDetails.data[0].trip_name);
         setTripDates({ start: parseDate(tripDetails.data[0].start_date), end: parseDate(tripDetails.data[0].end_date) });

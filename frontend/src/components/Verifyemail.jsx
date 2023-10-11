@@ -1,9 +1,7 @@
 import React from "react";
-import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import apiConfig from '../../config';
-import { isNull } from "lodash";
 
 const api_url = process.env.NODE_ENV === 'production' ? apiConfig.production : apiConfig.development;
 
@@ -18,13 +16,6 @@ export default function Verifyemail(props) {
     verificationCodeIncorrect, setVerificationCodeIncorrect,
     verificationCodeExpired, setVerificationCodeExpired,
   } = props;
-
-
-  // const [verificationCode, setVerificationCode] = useState('');
-  // const [verificationComplete, setVerificationComplete] = useState(false);
-  // const [verificationSuccessful, setVerificationSuccessful] = useState(false);
-  // const [verificationCodeIncorrect, setVerificationCodeIncorrect] = useState(false);
-  // const [verificationCodeExpired, setVerificationCodeExpired] = useState('');
 
   const navigate = useNavigate();
 
@@ -95,8 +86,6 @@ export default function Verifyemail(props) {
         console.error(error);
       });
   };
-
-
 
 
   return (

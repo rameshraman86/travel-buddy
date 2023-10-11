@@ -1,8 +1,8 @@
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import apiConfig from '../../config';
 import ChooseTrip from "./ChooseTrip";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const api_url = process.env.NODE_ENV === 'production' ? apiConfig.production : apiConfig.development;
 
@@ -60,8 +60,6 @@ export default function Login(props) {
             </svg>
           </div >
 
-
-
           {!loginSuccessful &&
             <div>
               Invalid Username or Password
@@ -118,8 +116,6 @@ export default function Login(props) {
           />
         </div>
       }
-
-
     </>
   );
 };

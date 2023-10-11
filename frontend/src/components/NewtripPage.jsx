@@ -55,12 +55,6 @@ export default function NewTripPage(props) {
       //create a new trip, new user record and a default 'wishlist' itinerary for the trip
       axios.post(`${api_url}/api/trips/new-trip`, newTripBody)
         .then(res => {
-          // axios.post(`${api_url}/api/users/create-new-user`, {
-          //   // email: state,
-          //   email: sessionStorage.getItem('email'),
-          //   trip_id: res.data.id,
-          // });
-
           //instead of creating new user, associate the email to the new tripID in users table
           axios.post(`${api_url}/api/users/associate-users-trips`, {
             email: sessionStorage.getItem('email'),

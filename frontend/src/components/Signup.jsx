@@ -2,7 +2,6 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import apiConfig from '../../config';
 import '../styles/signup.css';
-import { first } from "lodash";
 
 const api_url = process.env.NODE_ENV === 'production' ? apiConfig.production : apiConfig.development;
 
@@ -26,19 +25,6 @@ export default function Signup(props) {
     setIsExistingUser(false);
     resetEmailPasswordFields();
   };
-
-
-  // //GENERATE VERIFICATION CODE
-  // const generateVerificationCode = (length) => {
-  //   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  //   let verificationCode = '';
-  //   for (let i = 0; i < length; i++) {
-  //     const randomIndex = Math.floor(Math.random() * characters.length);
-  //     verificationCode += characters.charAt(randomIndex);
-  //   }
-  //   return verificationCode;
-  // };
-
 
   const handleRegisterNewUser = async (e) => {
     e.preventDefault();
@@ -147,8 +133,6 @@ export default function Signup(props) {
 
           </form>
         </div>
-
-
       </div>
     </>
   );
