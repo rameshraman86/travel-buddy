@@ -15,6 +15,15 @@ const getUserByEmail = (email) => {
     });
 };
 
+//get all trips of a user by their email
+const getUserTripsByEmail = (email) => {
+  return db.query(`SELECT * FROM usertripsassociation WHERE user_email=$1;`, [email])
+    .then(data => {
+      return data.rows;
+    }).catch(error => {
+      console.error(`error fetching user trips`, error);
+    });
+};
 
 //***************CREATE ***************/
 const createNewUser = (user) => {
@@ -78,5 +87,6 @@ module.exports = {
   associateUserTrips,
   setRegisteredTrue,
   updateVerificationCode,
-  updatePassword
+  updatePassword,
+  getUserTripsByEmail
 };

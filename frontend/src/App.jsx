@@ -1,6 +1,8 @@
 import './styles/App.css';
 import { useState } from 'react';
 import { Navigate, Route, Routes, useResolvedPath } from 'react-router-dom';
+import apiConfig from '../config';
+import axios from 'axios';
 
 import NewTripPage from './components/NewtripPage';
 import TripDetails from './components/TripDetails';
@@ -11,6 +13,9 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import ResetPassword from './components/ResetPassword';
 import Verifyemail from './components/VerifyEmail';
+
+const api_url = process.env.NODE_ENV === 'production' ? apiConfig.production : apiConfig.development;
+
 
 function App() {
 
@@ -33,6 +38,7 @@ function App() {
   const [verificationSuccessful, setVerificationSuccessful] = useState(false);
   const [verificationCodeIncorrect, setVerificationCodeIncorrect] = useState(false);
   const [verificationCodeExpired, setVerificationCodeExpired] = useState('');
+  const [tripIDisValid, setTripIDisValid] = useState(true);
 
 
   const handleTripLocationChange = (event) => {
@@ -97,6 +103,21 @@ function App() {
     }
     return verificationCode;
   };
+
+  //check if trip is valid or not
+  const isValidTripIDCheck = async (id) => {
+    try {
+      const response = await axios.get(`${api_url}/api/trips/get-trip-details/${id}`);
+      if (response.data.length === 0) {
+        setTripIDisValid(false);
+      } else {
+        setTripIDisValid(true);
+      }
+    } catch (error) {
+      console.log(`error fetching trip for the id:`, error);
+    }
+  };
+
 
   return (
     <>
@@ -191,9 +212,18 @@ function App() {
           handleEndDateChange={handleEndDateChange}
         />} />
 
-        <Route path='/:id' element={<AuthenticateReturningUser
+        <Route path='/:trip_id' element={<AuthenticateReturningUser
           email={email}
           handleSetEmail={handleSetEmail}
+          tripIDisValid={tripIDisValid}
+          isValidTripIDCheck={isValidTripIDCheck}
+          isExistingUser={isExistingUser}
+          setIsExistingUser={setIsExistingUser}
+          setEmail={setEmail}
+          password={password}
+          handleSetPassword={handleSetPassword}
+          setPassword={setPassword}
+          resetEmailPasswordFields={resetEmailPasswordFields}
         />} />
 
         <Route path='/choose_trip' element={<ChooseTrip />} />

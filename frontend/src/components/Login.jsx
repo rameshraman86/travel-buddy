@@ -1,8 +1,8 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import apiConfig from '../../config';
 import ChooseTrip from "./ChooseTrip";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const api_url = process.env.NODE_ENV === 'production' ? apiConfig.production : apiConfig.development;
 

@@ -96,6 +96,20 @@ router.post('/login', (req, res) => {
 });
 
 
+//get all trips of the user
+router.get('/get-users-trips/:email', (req, res) => {
+  const email = req.params.email;
+  userQueries.getUserTripsByEmail(email)
+    .then(trips => {
+      res.send(trips);
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json({ error: err.message });
+    });
+});
+
 
 //***************CREATE ***************/
 // router.post('/create-new-user', (req, res) => {

@@ -5,9 +5,15 @@ import apiConfig from '../../config';
 
 const api_url = process.env.NODE_ENV === 'production' ? apiConfig.production : apiConfig.development;
 
-export default function ChooseTrip({ email, setEmail, setIsExistingUser }) {
+export default function ChooseTrip(props) {
+  const {
+    email, setEmail,
+    setIsExistingUser,
+  } = props;
+
 
   const [trips, setTrips] = useState([]);
+  
   useEffect(() => {
     setEmail(sessionStorage.getItem('email'));
     async function fetchData() {
