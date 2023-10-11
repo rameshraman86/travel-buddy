@@ -1,6 +1,5 @@
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
-import '../styles/NewtripPage.css';
 import apiConfig from '../../config';
 
 const api_url = process.env.NODE_ENV === 'production' ? apiConfig.production : apiConfig.development;
@@ -17,13 +16,6 @@ export default function NewTripPage(props) {
 
   const navigate = useNavigate();
   const { state } = useLocation(); //captures user email
-
-  // function sha1(data) {
-  //   var generator = crypto.createHash('sha1');
-  //   generator.update(data);
-  //   return generator.digest('hex');
-  // }
-
 
   async function handleSubmit(event) {
     event.preventDefault();

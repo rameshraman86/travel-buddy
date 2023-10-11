@@ -1,7 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import apiConfig from '../../config';
-import '../styles/signup.css';
 
 const api_url = process.env.NODE_ENV === 'production' ? apiConfig.production : apiConfig.development;
 
