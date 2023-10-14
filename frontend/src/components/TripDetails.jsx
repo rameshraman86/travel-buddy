@@ -9,7 +9,7 @@ import Chat from "./Chat";
 import apiConfig from '../../config';
 
 const api_url = process.env.NODE_ENV === 'production' ? apiConfig.production : apiConfig.development;
-
+const app_url = process.env.NODE_ENV === 'production' ? apiConfig.app_production_render : apiConfig.app_development;
 
 export default function TripDetails(props) {
 
@@ -136,6 +136,12 @@ export default function TripDetails(props) {
   };
 
 
+  const handleShareTripButtonClick = (event) => {
+    event.preventDefault();
+    console.log(`Share trip: ${app_url}/${id}`);
+  };
+
+
 
   return (
     <div className="flex m-0 p-0 w-screen h-screen">
@@ -156,7 +162,12 @@ export default function TripDetails(props) {
         </div >
 
         <div className="my-6">
-          <h1 className="text-2xl font-bold text-gray-800">{tripName}</h1>
+          <form onSubmit={handleShareTripButtonClick}>
+            <h1 className="text-2xl font-bold text-gray-800 gap-14">{tripName}</h1>
+            <button className=" bg-gray-200 hover:bg-gray-400 text-gray-800 font-bold py-1 px-2.5 rounded-md inline-flex items-center text-start">
+              Invite others
+            </button>
+          </form>
           <div className="flex items-center">
             <span className="text-lg text-gray-600 font-extrabold mx-0.5">{location}</span>
             <span className="w-1.5 h-1.5 mx-1.5 bg-gray-600 rounded-full dark:bg-gray-400"></span>
