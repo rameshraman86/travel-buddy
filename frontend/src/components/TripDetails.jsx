@@ -178,14 +178,15 @@ export default function TripDetails(props) {
           <form onSubmit={handleShareTripButtonClick}>
             <h1 className="text-2xl font-bold text-gray-800 gap-14">{tripName}</h1>
             <button className=" bg-gray-200 hover:bg-gray-400 text-gray-800 font-bold py-1 px-2.5 rounded-md inline-flex items-center text-start">
-              +Invite Friends
+              <svg fill="#d97706" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" width="20" height="20">
+                <path d="M0 25.472q0 2.368 1.664 4.032t4.032 1.664h18.944q2.336 0 4-1.664t1.664-4.032v-8.192l-3.776 3.168v5.024q0 0.8-0.544 1.344t-1.344 0.576h-18.944q-0.8 0-1.344-0.576t-0.544-1.344v-18.944q0-0.768 0.544-1.344t-1.344-0.544h9.472v-3.776h-9.472q-2.368 0-4.032 1.664t-1.664 4v18.944zM5.696 19.808q0 2.752 1.088 5.28 0.512-2.944 2.24-5.344t4.288-3.872 5.632-1.664v5.6l11.36-9.472-11.36-9.472v5.664q-2.688 0-5.152 1.056t-4.224 2.848-2.848 4.224-1.024 5.152zM32 22.080v0 0 0z"></path>
+              </svg>
+              Invite Friends
             </button>
           </form>
           {modalIsOpen &&
 
-            //     <svg fill="#d97706" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" width="20" height="20">
-            //       <path d="M0 25.472q0 2.368 1.664 4.032t4.032 1.664h18.944q2.336 0 4-1.664t1.664-4.032v-8.192l-3.776 3.168v5.024q0 0.8-0.544 1.344t-1.344 0.576h-18.944q-0.8 0-1.344-0.576t-0.544-1.344v-18.944q0-0.768 0.544-1.344t-1.344-0.544h9.472v-3.776h-9.472q-2.368 0-4.032 1.664t-1.664 4v18.944zM5.696 19.808q0 2.752 1.088 5.28 0.512-2.944 2.24-5.344t4.288-3.872 5.632-1.664v5.6l11.36-9.472-11.36-9.472v5.664q-2.688 0-5.152 1.056t-4.224 2.848-2.848 4.224-1.024 5.152zM32 22.080v0 0 0z"></path>
-            //     </svg>
+
             <div className="">
               <div className="font-medium leading-10 text-gray-900 flex items-center gap-5">Invite your friends to collaborate on this trip by sharing this unique link.</div>
               <div className="flex items-center gap-2 mb-4">
