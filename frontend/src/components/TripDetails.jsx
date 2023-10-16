@@ -7,6 +7,7 @@ import Map from "./Map";
 import AIAssistant from "./AIAssistant";
 import Chat from "./Chat";
 import apiConfig from '../../config';
+import '../styles/tripDetails.css';
 
 const api_url = process.env.NODE_ENV === 'production' ? apiConfig.production : apiConfig.development;
 const app_url = process.env.NODE_ENV === 'production' ? apiConfig.app_production_render : apiConfig.app_development;
@@ -146,6 +147,7 @@ export default function TripDetails(props) {
     try {
       const tripURLTextBox = document.getElementById('tripLink');
       await navigator.clipboard.writeText(tripURLTextBox.placeholder);
+      setModalIsOpen(false);
     } catch (err) {
       console.error('Failed to copy: ', err);
     }
@@ -159,7 +161,6 @@ export default function TripDetails(props) {
   return (
     <div className="flex m-0 p-0 w-screen h-screen">
       <div className="py-4 px-4 w-full overflow-y-auto">
-
         <div className="flex justify-between items-end gap-1.5">
           <div className="flex flex-row">
             <h1 className="text-center text-4xl font-extrabold leading-9 tracking-tight text-gray-800">Travel Buddy</h1>
@@ -184,20 +185,27 @@ export default function TripDetails(props) {
               Invite Friends
             </button>
           </form>
+
           {modalIsOpen &&
-
-
-            <div className="">
-              <div className="font-medium leading-10 text-gray-900 flex items-center gap-5">Invite your friends to collaborate on this trip by sharing this unique link.</div>
-              <div className="flex items-center gap-2 mb-4">
-                <input
-                  type="text"
-                  placeholder={`${app_url}/${id}`}
-                  readOnly
-                  id="tripLink"
-                />
-                <button onClick={copyToClipboard} className='rounded-xl border border-transparent bg-amber-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-amber-700 focus:outline-none'>Copy</button>
-                <button onClick={closeModal} className="inline-flex justify-center px-4 py-2 text-sm font-semibold  text-white bg-gray-600 border border-transparent rounded-xl hover:bg-gray-700 duration-300" >Close</button>
+            <div className="shareTripModal">
+              <div className="flex gap-2 mb-4" id="modalContent">
+                <div className="text-lg font-medium leading-6 text-gray-900 flex gap-1 modalTitle">
+                  <svg fill="#d97706" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" width="20" height="20">
+                    <path d="M0 25.472q0 2.368 1.664 4.032t4.032 1.664h18.944q2.336 0 4-1.664t1.664-4.032v-8.192l-3.776 3.168v5.024q0 0.8-0.544 1.344t-1.344 0.576h-18.944q-0.8 0-1.344-0.576t-0.544-1.344v-18.944q0-0.768 0.544-1.344t-1.344-0.544h9.472v-3.776h-9.472q-2.368 0-4.032 1.664t-1.664 4v18.944zM5.696 19.808q0 2.752 1.088 5.28 0.512-2.944 2.24-5.344t4.288-3.872 5.632-1.664v5.6l11.36-9.472-11.36-9.472v5.664q-2.688 0-5.152 1.056t-4.224 2.848-2.848 4.224-1.024 5.152zM32 22.080v0 0 0z"></path>
+                  </svg>
+                  Invite Friends
+                </div>
+                <div className="font-medium ">Copy the link below to invite friends and collaborate on planning this trip</div>
+                <div className="modalButtons">
+                  <input
+                    type="text"
+                    placeholder={`${app_url}/${id}`}
+                    readOnly
+                    id="tripLink"
+                  />
+                  <button onClick={copyToClipboard} className='rounded-xl border border-transparent bg-amber-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-amber-700 focus:outline-none'>Copy</button>
+                  <button onClick={closeModal} className="inline-flex justify-center px-4 py-2 text-sm font-semibold text-white bg-gray-600 border border-transparent rounded-xl hover:bg-gray-700 duration-300" >Close</button>
+                </div>
               </div>
             </div>
           }
